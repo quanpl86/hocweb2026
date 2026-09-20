@@ -404,6 +404,11 @@
     </ol>
 
     <h3>1. Sơ đồ Wireframe Home (EduShop Desktop)</h3>
+    <div style="text-align:center; margin: 16px 0 22px;">
+      <img src="../portal/wireframes/home-reference.png" alt="Bản vẽ Wireframe thiết kế chuẩn trang chủ EduShop" style="width:100%; max-width:980px; border-radius:10px; border:1px solid #c8ddd4; box-shadow:0 8px 24px rgba(0,0,0,.08);">
+      <p style="font-size:13px; color:#52706a; margin-top:8px;"><em>Hình 1: Bản vẽ thiết kế Wireframe mẫu EduShop Home (8 khu vực A–H, chiều rộng nội dung 1100px)</em></p>
+    </div>
+
     <div class="wireframe-spec">
       <div style="font-size:11px; color:#68d9a9; margin-bottom:12px;">WIREFRAME 01 · HOME DESKTOP (Chiều rộng nội dung: 1100px)</div>
       
@@ -461,6 +466,11 @@
     </div>
 
     <h3>2. Sơ đồ Wireframe Login</h3>
+    <div style="text-align:center; margin: 16px 0 22px;">
+      <img src="../portal/wireframes/login-reference.png" alt="Bản vẽ Wireframe thiết kế chuẩn trang đăng nhập EduShop" style="width:100%; max-width:680px; border-radius:10px; border:1px solid #c8ddd4; box-shadow:0 8px 24px rgba(0,0,0,.08);">
+      <p style="font-size:13px; color:#52706a; margin-top:8px;"><em>Hình 2: Bản vẽ thiết kế Wireframe mẫu EduShop Login (Khung layout căn giữa viewport)</em></p>
+    </div>
+
     <div class="wireframe-spec" style="max-width:540px; margin-inline:auto;">
       <div style="font-size:11px; color:#fcd34d; margin-bottom:12px; text-align:center;">WIREFRAME 02 · LOGIN PAGE (Căn giữa viewport)</div>
       <div class="wf-block" style="text-align:center; display:block;">
@@ -635,7 +645,52 @@
 &lt;link rel="stylesheet" href="css/login.css"&gt; &lt;!-- Riêng: Login layout, card, form, login-button --&gt;</div>
   </section>
 
-  <!-- PHẦN G: PHIẾU KIỂM TRA ĐÁNH GIÁ -->
+  <!-- PHẦN G: CÂU HỎI ĐÀO SÂU TƯ DUY THIẾT KẾ -->
+  <section>
+    <h2><span class="section-tag">TƯ DUY</span> Câu hỏi đào sâu bản chất cấu trúc &amp; CSS</h2>
+    <p>Một học viên giỏi không chỉ gõ lại mã nguồn theo mẫu mà phải giải thích được <strong>lý do kỹ thuật đằng sau mỗi quyết định thiết kế</strong>:</p>
+
+    <div style="display:grid; gap:16px; margin: 20px 0;">
+      <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:16px 20px;">
+        <h4 style="color:#166534; margin:0 0 6px; font-size:16px;">1. Vì sao Hero banner cần thẻ <code>&lt;section&gt;</code> ở ngoài và <code>&lt;div class="container"&gt;</code> ở trong?</h4>
+        <p style="margin:0; font-size:14px; color:#1e3a2f;">
+          <strong>Giải thích:</strong> Phần tử <code>&lt;section class="hero"&gt;</code> dùng để đổ màu nền hoặc hình nền trải rộng toàn màn hình (100% viewport width). Còn <code>&lt;div class="container"&gt;</code> bên trong có nhiệm vụ giới hạn bề rộng nội dung chính ở mức cố định (1100px) và tự động căn giữa bằng <code>margin: 0 auto</code>. Nếu gộp chung vào 1 thẻ thì màu nền sẽ bị co cụm lại trong 1100px, không tạo được cảm giác banner tràn viền hiện đại.
+        </p>
+      </div>
+
+      <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:16px 20px;">
+        <h4 style="color:#166534; margin:0 0 6px; font-size:16px;">2. Vì sao trang Login phải dùng thẻ <code>&lt;form&gt;</code> mà không dùng <code>&lt;div&gt;</code>?</h4>
+        <p style="margin:0; font-size:14px; color:#1e3a2f;">
+          <strong>Giải thích:</strong> Thẻ <code>&lt;form&gt;</code> mang ngữ nghĩa biểu mẫu thu thập dữ liệu người dùng. Về mặt trải nghiệm, <code>&lt;form&gt;</code> cho phép người dùng nhấn phím <strong>Enter</strong> trên bàn phím để gửi biểu mẫu ngay mà không cần click chuột. Ngoài ra, trình duyệt và các công nghệ trợ năng (Accessibility/Screen Readers) nhận biết được đây là form để tự động điền (Autofill) tài khoản và mật khẩu đã lưu.
+        </p>
+      </div>
+
+      <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:16px 20px;">
+        <h4 style="color:#166534; margin:0 0 6px; font-size:16px;">3. Vì sao thuộc tính <code>display: grid</code> đặt ở <code>.product-grid</code> chứ không đặt ở <code>.product-card</code>?</h4>
+        <p style="margin:0; font-size:14px; color:#1e3a2f;">
+          <strong>Giải thích:</strong> Cả CSS Grid và Flexbox đều tuân theo nguyên lý <em>Container (Phần tử cha) điều khiển Items (Phần tử con)</em>. <code>.product-grid</code> là container cha bao bọc toàn bộ danh sách, nó quyết định có bao nhiêu cột (ví dụ <code>grid-template-columns: repeat(3, 1fr)</code>) và khoảng cách giữa các card (<code>gap: 22px</code>). Từng <code>.product-card</code> chỉ là item con nằm vào các ô lưới do cha quy định.
+        </p>
+      </div>
+
+      <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:16px 20px;">
+        <h4 style="color:#166534; margin:0 0 6px; font-size:16px;">4. Vì sao bắt buộc phải chạy thử trang và chụp ảnh baseline trước khi Refactor CSS?</h4>
+        <p style="margin:0; font-size:14px; color:#1e3a2f;">
+          <strong>Giải thích:</strong> Trong kỹ nghệ phần mềm, tái cấu trúc (Refactoring) là hành động tối ưu cấu trúc mã nguồn bên trong mà <em>không được làm thay đổi hành vi/kết quả bên ngoài</em>. Ảnh baseline lúc 2 trang đang chạy độc lập là mốc chuẩn để đối chiếu sau khi chuyển code vào <code>style.css</code> (Kiểm thử hồi quy - Regression testing). Nếu sau khi refactor mà giao diện khác đi nghĩa là bạn đã làm vỡ quy tắc CSS (do sai thứ tự nạp file hoặc độ ưu tiên specificity).
+        </p>
+      </div>
+    </div>
+
+    <!-- CTA BANNER TO PRACTICE -->
+    <div style="background: linear-gradient(135deg, #0f3d32 0%, #1e5a4a 100%); color:white; border-radius:12px; padding:24px 28px; margin: 30px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <div>
+        <h3 style="color:#6ee7b7; margin:0 0 6px; font-size:20px;">🚀 Bắt đầu thực hành phác thảo Wireframe ngay</h3>
+        <p style="margin:0; color:#d1fae5; font-size:14px;">Mở Wireframe Studio trên trang Thực hành để tự tay xếp khối, kiểm tra vùng bắt buộc, xuất ảnh PNG và file JSON nộp bài.</p>
+      </div>
+      <a href="../practice.html" style="background:#249775; color:white; text-decoration:none; padding:12px 22px; border-radius:8px; font-weight:700; font-size:15px; box-shadow:0 4px 12px rgba(0,0,0,.2); display:inline-block;">Mở Wireframe Studio →</a>
+    </div>
+  </section>
+
+  <!-- PHẦN H: PHIẾU KIỂM TRA ĐÁNH GIÁ -->
   <section>
     <h2><span class="section-tag">CHECKLIST</span> Phiếu kiểm tra thiết kế trước khi code</h2>
     <div class="table-wrap">

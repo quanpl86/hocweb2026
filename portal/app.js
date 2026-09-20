@@ -510,26 +510,110 @@
       ]
     };
 
+    const REQUIRED = {
+      home: [
+        { id: 'header', label: '[A] Header (Flexbox)', tag: 'header' },
+        { id: 'hero', label: '[B] Hero (2 cột)', tag: 'section' },
+        { id: 'search', label: '[C] Tìm kiếm', tag: 'section' },
+        { id: 'category', label: '[D] Danh mục (Grid 3)', tag: 'section' },
+        { id: 'courses', label: '[E] Khóa học (Grid 3)', tag: 'section' },
+        { id: 'about', label: '[F] Giới thiệu (Flexbox)', tag: 'section' },
+        { id: 'notice', label: '[G] Thông báo', tag: 'section' },
+        { id: 'footer', label: '[H] Footer (Flexbox)', tag: 'footer' }
+      ],
+      login: [
+        { id: 'login-layout', label: '[I-J] Main căn giữa (100vh)', tag: 'main' },
+        { id: 'login-card', label: '[K] Login Card (440px)', tag: 'div' },
+        { id: 'login-form', label: '[L] Form đăng nhập', tag: 'form' }
+      ]
+    };
+
+    const TAG_INSIGHTS = {
+      header: 'Thẻ <header> đại diện cho phần đầu trang, chứa Logo thương hiệu và thanh điều hướng chính.',
+      nav: 'Thẻ <nav> gom nhóm các liên kết điều hướng quan trọng của website.',
+      main: 'Thẻ <main> chứa nội dung chính duy nhất của trang, không lặp lại giữa các trang.',
+      section: 'Thẻ <section> biểu thị một khu vực nội dung có chủ đề độc lập, luôn nên có tiêu đề (h2-h6).',
+      article: 'Thẻ <article> dùng cho một thành phần nội dung tự hoàn chỉnh, độc lập (ví dụ khóa học, thẻ bài viết).',
+      div: 'Thẻ <div> là khối gom nhóm vô nghĩa thuần túy để căn chỉnh bố cục (Flex/Grid) khi không có thẻ ngữ nghĩa phù hợp. Tránh lạm dụng.',
+      form: 'Thẻ <form> là biểu mẫu thu thập dữ liệu thật, hỗ trợ phím Enter, nhóm các input và hỗ trợ trình trợ năng tự động điền.',
+      footer: 'Thẻ <footer> nằm ở cuối trang, chứa thông tin bản quyền, điều khoản và liên hệ.',
+      aside: 'Thẻ <aside> dành cho nội dung phụ hoặc thanh bên (sidebar).'
+    };
+
     const DEFAULT_PRESETS = {
-      home: ['header', 'hero', 'search', 'category', 'courses', 'about', 'notice', 'footer'],
-      login: ['login-layout', 'login-card']
+      home: [
+        { id: 'header', title: 'Site Header', tag: 'header', className: 'site-header', css: 'display: flex; justify-content: space-between;' },
+        { id: 'hero', title: 'Hero / Banner', tag: 'section', className: 'hero', css: 'display: flex; gap: 30px;' },
+        { id: 'search', title: 'Search Section', tag: 'section', className: 'container search-section', css: 'display: flex; justify-content: center;' },
+        { id: 'category', title: 'Category Grid (3 Cột)', tag: 'section', className: 'container content-section', css: 'display: grid; grid-template-columns: repeat(3, 1fr);' },
+        { id: 'courses', title: 'Course Cards (Grid 3 Cột)', tag: 'section', className: 'container content-section', css: 'display: grid; grid-template-columns: repeat(3, 1fr);' },
+        { id: 'about', title: 'About Section', tag: 'section', className: 'about-section', css: 'display: flex; align-items: center;' },
+        { id: 'notice', title: 'Notice / Promotion', tag: 'section', className: 'container notice-section', css: 'display: flex; justify-content: space-between;' },
+        { id: 'footer', title: 'Site Footer', tag: 'footer', className: 'site-footer', css: 'display: flex; justify-content: space-between;' }
+      ],
+      login: [
+        { id: 'login-layout', title: 'Login Layout (Full viewport)', tag: 'main', className: 'login-layout', css: 'min-height: 100vh; display: flex; align-items: center; justify-content: center;' },
+        { id: 'login-card', title: 'Login Card & Form (440px)', tag: 'div', className: 'login-card', css: 'width: 440px; display: flex; flex-direction: column;' }
+      ]
+    };
+
+    const normalizeBlocks = (items, page) => {
+      if (!Array.isArray(items)) return [...DEFAULT_PRESETS[page]];
+      return items.map(item => {
+        if (typeof item === 'string') {
+          const found = DEFAULT_PRESETS[page].find(p => p.id === item);
+          const compFound = (CATALOG[page] || []).find(c => c.id === item);
+          return found ? { ...found } : {
+            id: item,
+            title: compFound ? compFound.title : item,
+            tag: compFound ? compFound.tag : 'div',
+            className: item,
+            css: compFound ? compFound.css : ''
+          };
+        }
+        return { ...item };
+      });
     };
 
     let userBlocks = {
-      home: [...DEFAULT_PRESETS.home],
-      login: [...DEFAULT_PRESETS.login]
+      home: normalizeBlocks(DEFAULT_PRESETS.home, 'home'),
+      login: normalizeBlocks(DEFAULT_PRESETS.login, 'login')
     };
 
     try {
-      const saved = JSON.parse(localStorage.getItem('hocweb2026.wireframe.v1') || '{}');
-      if (Array.isArray(saved.home) && saved.home.length) userBlocks.home = saved.home;
-      if (Array.isArray(saved.login) && saved.login.length) userBlocks.login = saved.login;
+      const saved = JSON.parse(localStorage.getItem('hocweb2026.wireframe.v2') || '{}');
+      if (Array.isArray(saved.home) && saved.home.length) userBlocks.home = normalizeBlocks(saved.home, 'home');
+      if (Array.isArray(saved.login) && saved.login.length) userBlocks.login = normalizeBlocks(saved.login, 'login');
     } catch (_) {}
 
     const saveState = () => {
       try {
-        localStorage.setItem('hocweb2026.wireframe.v1', JSON.stringify(userBlocks));
+        localStorage.setItem('hocweb2026.wireframe.v2', JSON.stringify(userBlocks));
       } catch (_) {}
+    };
+
+    const renderRequirements = () => {
+      const summaryEl = $('#wf-req-summary', studio);
+      const badgesEl = $('#wf-req-badges', studio);
+      if (!summaryEl || !badgesEl) return;
+
+      const reqs = REQUIRED[activePage] || [];
+      const currentBlocks = userBlocks[activePage] || [];
+      let okCount = 0;
+
+      badgesEl.innerHTML = '';
+      reqs.forEach(req => {
+        const isOk = currentBlocks.some(b => b.id === req.id || (b.tag && b.tag.toLowerCase() === req.tag.toLowerCase()));
+        if (isOk) okCount++;
+
+        const badge = document.createElement('span');
+        badge.className = `req-badge ${isOk ? 'ok' : 'missing'}`;
+        badge.innerHTML = `${isOk ? '✓' : '○'} ${req.label}`;
+        badgesEl.appendChild(badge);
+      });
+
+      summaryEl.textContent = `${okCount}/${reqs.length} đạt chuẩn`;
+      summaryEl.style.background = okCount === reqs.length ? '#15803d' : '#249775';
     };
 
     const renderPalette = () => {
@@ -537,7 +621,7 @@
       const titleEl = $('#palette-page-title', studio);
       if (!listEl) return;
 
-      titleEl.textContent = activePage === 'home' ? 'Linh kiện Trang Home' : 'Linh kiện Trang Login';
+      titleEl.textContent = activePage === 'home' ? 'Thư viện linh kiện Trang Home' : 'Thư viện linh kiện Trang Login';
       listEl.innerHTML = '';
 
       const comps = CATALOG[activePage] || [];
@@ -548,13 +632,108 @@
         btn.innerHTML = `<strong>+ ${comp.title}</strong><span>${comp.tag}</span>`;
         btn.title = comp.desc;
         btn.addEventListener('click', () => {
-          userBlocks[activePage].push(comp.id);
+          userBlocks[activePage].push({
+            id: comp.id,
+            title: comp.title,
+            tag: comp.tag,
+            className: comp.id,
+            css: comp.css
+          });
           saveState();
           renderCanvas();
         });
         listEl.appendChild(btn);
       });
     };
+
+    let editingIndex = null;
+    const inspectorModal = $('#wf-inspector-modal', studio);
+    const inspectorForm = $('#wf-inspector-form', studio);
+    const inspTitle = $('#insp-block-title', studio);
+    const inspTag = $('#insp-block-tag', studio);
+    const inspClass = $('#insp-block-class', studio);
+    const inspCss = $('#insp-block-css', studio);
+    const inspInsight = $('#insp-block-insight', studio);
+    const inspDuplicateBtn = $('#insp-duplicate-btn', studio);
+    const inspDeleteBtn = $('#insp-delete-btn', studio);
+    const inspectorClose = $('#wf-inspector-close', studio);
+
+    const openInspector = (index) => {
+      const block = (userBlocks[activePage] || [])[index];
+      if (!block || !inspectorModal) return;
+      editingIndex = index;
+
+      if (inspTitle) inspTitle.value = block.title || '';
+      if (inspTag) inspTag.value = (block.tag || 'div').toLowerCase();
+      if (inspClass) inspClass.value = block.className || '';
+      if (inspCss) inspCss.value = block.css || '';
+      updateInsightText();
+
+      inspectorModal.hidden = false;
+    };
+
+    const updateInsightText = () => {
+      if (!inspTag || !inspInsight) return;
+      const tag = inspTag.value;
+      inspInsight.textContent = TAG_INSIGHTS[tag] || `Thẻ <${tag}>: Lựa chọn thẻ này theo đúng ngữ nghĩa vai trò của phần tử trong giao diện.`;
+    };
+
+    if (inspTag) {
+      inspTag.addEventListener('change', updateInsightText);
+    }
+
+    if (inspectorClose && inspectorModal) {
+      inspectorClose.addEventListener('click', () => {
+        inspectorModal.hidden = true;
+      });
+    }
+
+    if (inspectorForm) {
+      inspectorForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (editingIndex === null) return;
+        const currentBlocks = userBlocks[activePage] || [];
+        if (currentBlocks[editingIndex]) {
+          currentBlocks[editingIndex].title = inspTitle.value;
+          currentBlocks[editingIndex].tag = inspTag.value;
+          currentBlocks[editingIndex].className = inspClass.value;
+          currentBlocks[editingIndex].css = inspCss.value;
+          saveState();
+          renderCanvas();
+        }
+        inspectorModal.hidden = true;
+      });
+    }
+
+    if (inspDuplicateBtn) {
+      inspDuplicateBtn.addEventListener('click', () => {
+        if (editingIndex === null) return;
+        const currentBlocks = userBlocks[activePage] || [];
+        const base = currentBlocks[editingIndex];
+        if (base) {
+          currentBlocks.splice(editingIndex + 1, 0, {
+            ...base,
+            title: `${base.title} (bản sao)`
+          });
+          saveState();
+          renderCanvas();
+        }
+        inspectorModal.hidden = true;
+      });
+    }
+
+    if (inspDeleteBtn) {
+      inspDeleteBtn.addEventListener('click', () => {
+        if (editingIndex === null) return;
+        const currentBlocks = userBlocks[activePage] || [];
+        if (confirm('Bạn có chắc muốn xóa khối này khỏi bản vẽ?')) {
+          currentBlocks.splice(editingIndex, 1);
+          saveState();
+          renderCanvas();
+          inspectorModal.hidden = true;
+        }
+      });
+    }
 
     const renderCanvas = () => {
       const blocksContainer = $('#wf-layout-blocks', studio);
@@ -565,10 +744,10 @@
         ? 'EduShop · Desktop Home Wireframe (1100px Container)'
         : 'EduShop · Desktop Login Wireframe (440px Card Modal)';
 
-      const currentIds = userBlocks[activePage] || [];
+      const currentBlocks = userBlocks[activePage] || [];
       const comps = CATALOG[activePage] || [];
 
-      if (currentIds.length === 0) {
+      if (currentBlocks.length === 0) {
         blocksContainer.innerHTML = `
           <div class="wf-empty-hint">
             <h4>Bàn vẽ hiện đang trống</h4>
@@ -578,19 +757,19 @@
         const loadBtn = $('#empty-load-preset', blocksContainer);
         if (loadBtn) {
           loadBtn.addEventListener('click', () => {
-            userBlocks[activePage] = [...DEFAULT_PRESETS[activePage]];
+            userBlocks[activePage] = normalizeBlocks(DEFAULT_PRESETS[activePage], activePage);
             saveState();
             renderCanvas();
           });
         }
+        renderRequirements();
         return;
       }
 
       blocksContainer.innerHTML = '';
 
-      currentIds.forEach((blockId, index) => {
-        const comp = comps.find(c => c.id === blockId);
-        if (!comp) return;
+      currentBlocks.forEach((block, index) => {
+        const comp = comps.find(c => c.id === block.id) || comps[0];
 
         const node = document.createElement('div');
         node.className = 'wf-node';
@@ -599,28 +778,36 @@
         node.innerHTML = `
           <div class="wf-node-top">
             <div class="wf-node-tag">
-              <span style="color:#1d7e64;">[${index + 1}]</span> ${comp.tag}
+              <span style="color:#1d7e64; font-weight:bold;">[${index + 1}]</span> 
+              <strong>${block.title || comp.title}</strong> 
+              <span style="font-size:12px; color:#51756e;">(&lt;${block.tag || comp.tag}&gt;)</span>
             </div>
             <div class="wf-node-specs">
-              <span class="wf-css-pill">${comp.css}</span>
+              <span class="wf-css-pill">${block.css || comp.css}</span>
               <div class="wf-node-tools">
+                <button type="button" class="wf-node-tool-btn edit" title="Mở Inspector chỉnh sửa khối">✎</button>
                 <button type="button" class="wf-node-tool-btn up" title="Di chuyển lên" ${index === 0 ? 'disabled' : ''}>▲</button>
-                <button type="button" class="wf-node-tool-btn down" title="Di chuyển xuống" ${index === currentIds.length - 1 ? 'disabled' : ''}>▼</button>
+                <button type="button" class="wf-node-tool-btn down" title="Di chuyển xuống" ${index === currentBlocks.length - 1 ? 'disabled' : ''}>▼</button>
                 <button type="button" class="wf-node-tool-btn del" title="Xóa khối này">✕</button>
               </div>
             </div>
           </div>
           <div class="wf-node-content">
-            ${comp.render()}
+            ${comp ? comp.render() : `<div style="padding:15px; text-align:center;">${block.title}</div>`}
           </div>`;
+
+        const editBtn = $('.wf-node-tool-btn.edit', node);
+        if (editBtn) {
+          editBtn.addEventListener('click', () => openInspector(index));
+        }
 
         const upBtn = $('.wf-node-tool-btn.up', node);
         if (upBtn) {
           upBtn.addEventListener('click', () => {
             if (index > 0) {
-              const temp = currentIds[index];
-              currentIds[index] = currentIds[index - 1];
-              currentIds[index - 1] = temp;
+              const temp = currentBlocks[index];
+              currentBlocks[index] = currentBlocks[index - 1];
+              currentBlocks[index - 1] = temp;
               saveState();
               renderCanvas();
             }
@@ -630,10 +817,10 @@
         const downBtn = $('.wf-node-tool-btn.down', node);
         if (downBtn) {
           downBtn.addEventListener('click', () => {
-            if (index < currentIds.length - 1) {
-              const temp = currentIds[index];
-              currentIds[index] = currentIds[index + 1];
-              currentIds[index + 1] = temp;
+            if (index < currentBlocks.length - 1) {
+              const temp = currentBlocks[index];
+              currentBlocks[index] = currentBlocks[index + 1];
+              currentBlocks[index + 1] = temp;
               saveState();
               renderCanvas();
             }
@@ -643,7 +830,7 @@
         const delBtn = $('.wf-node-tool-btn.del', node);
         if (delBtn) {
           delBtn.addEventListener('click', () => {
-            currentIds.splice(index, 1);
+            currentBlocks.splice(index, 1);
             saveState();
             renderCanvas();
           });
@@ -651,6 +838,8 @@
 
         blocksContainer.appendChild(node);
       });
+
+      renderRequirements();
     };
 
     $$('.wf-tab-btn', studio).forEach(tab => {
@@ -669,9 +858,145 @@
     const loadPresetBtn = $('#wf-load-preset-btn', studio);
     if (loadPresetBtn) {
       loadPresetBtn.addEventListener('click', () => {
-        userBlocks[activePage] = [...DEFAULT_PRESETS[activePage]];
+        userBlocks[activePage] = normalizeBlocks(DEFAULT_PRESETS[activePage], activePage);
         saveState();
         renderCanvas();
+      });
+    }
+
+    // Reference Modal Logic
+    const viewRefBtn = $('#wf-view-reference-btn', studio);
+    const refModal = $('#wf-reference-modal', studio);
+    const refModalClose = $('#wf-ref-modal-close', studio);
+    const refImage = $('#wf-ref-image', studio);
+    const refTitle = $('#wf-ref-modal-title', studio);
+    const refDesc = $('#wf-ref-modal-desc', studio);
+
+    if (viewRefBtn && refModal) {
+      viewRefBtn.addEventListener('click', () => {
+        if (activePage === 'home') {
+          if (refTitle) refTitle.textContent = '🖼️ Bản vẽ Wireframe chuẩn EduShop Home (8 khu vực A–H)';
+          if (refDesc) refDesc.textContent = 'Quan sát bố cục 8 khu vực A–H của trang Home: Header, Hero banner 2 cột, Lưới danh mục & sản phẩm 3 cột, Giới thiệu, Thông báo và Footer.';
+          if (refImage) refImage.src = 'portal/wireframes/home-reference.png';
+        } else {
+          if (refTitle) refTitle.textContent = '🖼️ Bản vẽ Wireframe chuẩn EduShop Login (Khung căn giữa)';
+          if (refDesc) refDesc.textContent = 'Quan sát cấu trúc Login Card 440px căn giữa toàn màn hình (100vh): Logo, tiêu đề, các trường nhập liệu, hàng tùy chọn và nút đăng nhập 100% width.';
+          if (refImage) refImage.src = 'portal/wireframes/login-reference.png';
+        }
+        refModal.hidden = false;
+      });
+
+      if (refModalClose) {
+        refModalClose.addEventListener('click', () => {
+          refModal.hidden = true;
+        });
+      }
+    }
+
+    // Export & Import JSON (compatible with ilp-wireframes-v1)
+    const exportJsonBtn = $('#wf-export-json-btn', studio);
+    if (exportJsonBtn) {
+      exportJsonBtn.addEventListener('click', () => {
+        const payload = {
+          format: 'ilp-wireframes-v1',
+          version: '1.0.0',
+          exportedAt: new Date().toISOString(),
+          scenes: {
+            home: userBlocks.home,
+            login: userBlocks.login
+          }
+        };
+        const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(payload, null, 2));
+        const a = document.createElement('a');
+        a.setAttribute('href', dataStr);
+        a.setAttribute('download', `wireframes-edushop-${activePage}.json`);
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      });
+    }
+
+    const importJsonBtn = $('#wf-import-json-btn', studio);
+    const jsonFileInput = $('#wf-json-file-input', studio);
+
+    if (importJsonBtn && jsonFileInput) {
+      importJsonBtn.addEventListener('click', () => {
+        jsonFileInput.click();
+      });
+
+      jsonFileInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const data = JSON.parse(event.target.result);
+            if (data.format !== 'ilp-wireframes-v1') {
+              alert('Cảnh báo: Định dạng file không phải chuẩn ilp-wireframes-v1. Đang thử nạp dữ liệu...');
+            }
+            if (data.scenes) {
+              if (Array.isArray(data.scenes.home)) userBlocks.home = normalizeBlocks(data.scenes.home, 'home');
+              if (Array.isArray(data.scenes.login)) userBlocks.login = normalizeBlocks(data.scenes.login, 'login');
+            } else if (data.home || data.login) {
+              if (Array.isArray(data.home)) userBlocks.home = normalizeBlocks(data.home, 'home');
+              if (Array.isArray(data.login)) userBlocks.login = normalizeBlocks(data.login, 'login');
+            }
+            saveState();
+            renderCanvas();
+            alert('✓ Đã nhập dữ liệu wireframe thành công!');
+          } catch (err) {
+            alert('Không thể đọc file JSON: ' + err.message);
+          }
+          jsonFileInput.value = '';
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    // Export SVG (Scalable Vector Graphics)
+    const exportSvgBtn = $('#wf-export-svg-btn', studio);
+    if (exportSvgBtn) {
+      exportSvgBtn.addEventListener('click', () => {
+        const currentBlocks = userBlocks[activePage] || [];
+        const w = 1100;
+        const h = Math.max(800, 100 + currentBlocks.length * 160);
+
+        let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">\n`;
+        svg += `  <rect width="${w}" height="${h}" fill="#f4f8f5"/>\n`;
+        svg += `  <text x="30" y="45" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#114a3c">EDUSHOP · WIREFRAME ${activePage.toUpperCase()} (HOC-WEB2026)</text>\n`;
+
+        let curY = 70;
+        currentBlocks.forEach((b, idx) => {
+          const isFull = b.id === 'header' || b.id === 'hero' || b.id === 'footer' || b.id === 'about';
+          const blockW = isFull ? w - 60 : 1000;
+          const blockX = (w - blockW) / 2;
+          const blockH = (b.id === 'hero' || b.id === 'login-card') ? 170 : (b.id === 'category' || b.id === 'courses' ? 140 : 80);
+
+          svg += `  <g id="block-${idx}">\n`;
+          svg += `    <rect x="${blockX}" y="${curY}" width="${blockW}" height="${blockH}" fill="#ffffff" stroke="#249775" stroke-width="1.5" stroke-dasharray="6,4" rx="6"/>\n`;
+          svg += `    <text x="${blockX + 16}" y="${curY + 26}" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#114a3c">[${idx + 1}] ${b.title || b.id} &lt;${b.tag || 'div'}&gt;</text>\n`;
+          if (b.className) {
+            svg += `    <text x="${blockX + 16}" y="${curY + 46}" font-family="monospace" font-size="12" fill="#527870">class: .${b.className}</text>\n`;
+          }
+          if (b.css) {
+            svg += `    <text x="${blockX + 16}" y="${curY + 64}" font-family="monospace" font-size="11" fill="#71948d">css: ${b.css}</text>\n`;
+          }
+          svg += `  </g>\n`;
+
+          curY += blockH + 16;
+        });
+
+        svg += `</svg>`;
+
+        const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `wireframe-edushop-${activePage}.svg`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
       });
     }
 
@@ -693,26 +1018,28 @@
     const modalCopyBtn = $('#modal-copy-code-btn', studio);
 
     const generateHTML = () => {
-      const currentIds = userBlocks[activePage] || [];
+      const currentBlocks = userBlocks[activePage] || [];
       const comps = CATALOG[activePage] || [];
       let code = `<!doctype html>\n<html lang="vi">\n<head>\n  <meta charset="UTF-8">\n  <title>EduShop - ${activePage === 'home' ? 'Trang chủ' : 'Đăng nhập'}</title>\n  <link rel="stylesheet" href="css/style.css">\n  <link rel="stylesheet" href="css/${activePage}.css">\n</head>\n<body class="${activePage === 'login' ? 'login-page' : 'page-home'}">\n`;
 
       if (activePage === 'home') {
+        const headerBlock = currentBlocks.find(b => b.id === 'header');
         const headerComp = comps.find(c => c.id === 'header');
-        if (currentIds.includes('header') && headerComp) {
+        if (headerBlock && headerComp) {
           code += '  ' + headerComp.htmlSnippet.split('\n').join('\n  ') + '\n\n  <main>\n';
         } else {
           code += '  <main>\n';
         }
-        currentIds.filter(id => id !== 'header' && id !== 'footer').forEach(id => {
-          const c = comps.find(item => item.id === id);
+        currentBlocks.filter(b => b.id !== 'header' && b.id !== 'footer').forEach(b => {
+          const c = comps.find(item => item.id === b.id);
           if (c) {
             code += '    ' + c.htmlSnippet.split('\n').join('\n    ') + '\n\n';
           }
         });
         code += '  </main>\n\n';
+        const footerBlock = currentBlocks.find(b => b.id === 'footer');
         const footerComp = comps.find(c => c.id === 'footer');
-        if (currentIds.includes('footer') && footerComp) {
+        if (footerBlock && footerComp) {
           code += '  ' + footerComp.htmlSnippet.split('\n').join('\n  ') + '\n';
         }
       } else {
@@ -755,8 +1082,8 @@
         if (!blocksContainer) return;
 
         const w = 1140;
-        const currentIds = userBlocks[activePage] || [];
-        const h = Math.max(700, 120 + currentIds.length * 150);
+        const currentBlocks = userBlocks[activePage] || [];
+        const h = Math.max(700, 120 + currentBlocks.length * 150);
         const canvas = document.createElement('canvas');
         canvas.width = w;
         canvas.height = h;
@@ -776,11 +1103,9 @@
         let curY = 80;
         const comps = CATALOG[activePage] || [];
 
-        currentIds.forEach((id, idx) => {
-          const comp = comps.find(c => c.id === id);
-          if (!comp) return;
-
-          const blockH = (id === 'hero' || id === 'login-card') ? 160 : (id === 'category' || id === 'courses' ? 120 : 75);
+        currentBlocks.forEach((b, idx) => {
+          const comp = comps.find(c => c.id === b.id) || comps[0];
+          const blockH = (b.id === 'hero' || b.id === 'login-card') ? 160 : (b.id === 'category' || b.id === 'courses' ? 120 : 75);
 
           ctx.fillStyle = '#ffffff';
           ctx.fillRect(40, curY, w - 80, blockH);
@@ -792,11 +1117,11 @@
 
           ctx.fillStyle = '#114a3c';
           ctx.font = 'bold 15px Arial, sans-serif';
-          ctx.fillText(`[${idx + 1}] ${comp.title} (${comp.tag})`, 55, curY + 28);
+          ctx.fillText(`[${idx + 1}] ${b.title || comp.title} (<${b.tag || comp.tag}>)`, 55, curY + 28);
 
           ctx.fillStyle = '#658a82';
           ctx.font = 'italic 12px monospace';
-          ctx.fillText(`CSS: ${comp.css}`, 55, curY + 48);
+          ctx.fillText(`CSS: ${b.css || comp.css}`, 55, curY + 48);
 
           curY += blockH + 16;
         });

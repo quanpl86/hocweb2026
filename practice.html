@@ -33,6 +33,9 @@
         <button type="button" id="wf-load-preset-btn" class="wf-tool-btn primary" title="Tải mẫu bố cục chuẩn theo đề bài EduShop">
           <span>🌟</span> Nạp mẫu chuẩn
         </button>
+        <button type="button" id="wf-view-reference-btn" class="wf-tool-btn" title="Xem bản vẽ wireframe thiết kế chuẩn của EduShop">
+          <span>🖼️</span> Xem ảnh mẫu
+        </button>
         <button type="button" id="wf-toggle-sketch-btn" class="wf-tool-btn" title="Bật/tắt chế độ vẽ phác thảo tay lên canvas">
           <span>✏️</span> Bút vẽ tay
         </button>
@@ -40,11 +43,33 @@
           <span>🧹</span> Xóa làm mới
         </button>
         <button type="button" id="wf-export-png-btn" class="wf-tool-btn" title="Xuất ảnh PNG để chèn vào bài nộp">
-          <span>📸</span> Tải ảnh PNG
+          <span>📸</span> Tải PNG
         </button>
+        <button type="button" id="wf-export-svg-btn" class="wf-tool-btn" title="Xuất file vector SVG sắc nét">
+          <span>📐</span> Xuất SVG
+        </button>
+        <button type="button" id="wf-export-json-btn" class="wf-tool-btn" title="Tải file dữ liệu JSON (.json) về máy để nộp cho giáo viên">
+          <span>💾</span> Xuất JSON
+        </button>
+        <button type="button" id="wf-import-json-btn" class="wf-tool-btn" title="Nạp file JSON bài làm từ máy tính">
+          <span>📥</span> Nhập JSON
+        </button>
+        <input type="file" id="wf-json-file-input" accept=".json,application/json" hidden aria-label="Nhập file JSON wireframe">
         <button type="button" id="wf-view-code-btn" class="wf-tool-btn" title="Xem cây HTML và mã khung sinh từ wireframe">
-          <span>💻</span> Xuất mã HTML
+          <span>💻</span> Xuất HTML
         </button>
+      </div>
+    </div>
+
+    <!-- Live Requirements Checklist Tracker Bar -->
+    <div class="wf-requirements-bar" id="wf-requirements-bar">
+      <div class="req-title-wrap">
+        <span class="req-icon">🎯</span>
+        <strong>Đối chiếu vùng bắt buộc:</strong>
+        <span id="wf-req-summary" class="req-counter">0/8 đạt chuẩn</span>
+      </div>
+      <div id="wf-req-badges" class="req-badges">
+        <!-- Dynamically rendered badges with ✓ or ○ -->
       </div>
     </div>
 
@@ -75,14 +100,14 @@
       <!-- Component Palette (Left Sidebar) -->
       <aside class="wf-palette">
         <div class="palette-heading">
-          <span id="palette-page-title">Linh kiện Trang Home</span>
+          <span id="palette-page-title">Thư viện linh kiện</span>
           <small>Nhấp để thêm khối vào bàn vẽ</small>
         </div>
         <div id="wf-component-list" class="component-list">
           <!-- Injected via JS based on active page -->
         </div>
         <div class="palette-hint">
-          💡 Mỗi khối sẽ hiển thị thẻ ngữ nghĩa HTML5 &amp; thuộc tính CSS tương ứng. Nhấp [▲], [▼] để đổi vị trí, [✕] để xóa.
+          💡 Nhấp vào biểu tượng <strong>[✎]</strong> trên mỗi khối để mở bảng <em>Inspector</em> tùy chỉnh thẻ HTML, class và nhận gợi ý sư phạm. Nhấp [▲], [▼] để đổi thứ tự, [✕] để xóa.
         </div>
       </aside>
 
@@ -109,7 +134,7 @@
       </div>
     </div>
 
-    <!-- Generated HTML/Tree Drawer / Modal -->
+    <!-- Modal 1: Generated HTML/Tree Drawer -->
     <div id="wf-html-modal" class="wf-modal" hidden>
       <div class="wf-modal-dialog">
         <div class="wf-modal-header">
@@ -122,6 +147,77 @@
             <button type="button" id="modal-copy-code-btn" class="code-action-btn">📋 Sao chép mã</button>
             <pre><code id="wf-generated-code" class="modal-code-block"></code></pre>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 2: EduShop Reference Wireframe Image Modal -->
+    <div id="wf-reference-modal" class="wf-modal" hidden>
+      <div class="wf-modal-dialog wf-modal-large">
+        <div class="wf-modal-header">
+          <h3 id="wf-ref-modal-title">🖼️ Bản vẽ Wireframe chuẩn EduShop</h3>
+          <button type="button" id="wf-ref-modal-close" class="modal-close-btn" aria-label="Đóng">✕</button>
+        </div>
+        <div class="wf-modal-body">
+          <p class="modal-desc" id="wf-ref-modal-desc">Bản vẽ thiết kế mẫu chuẩn EduShop. Bạn hãy quan sát vị trí các vùng chức năng, các cột và quan hệ cha–con để dựng lại vào bàn vẽ.</p>
+          <div class="ref-image-wrapper">
+            <img id="wf-ref-image" src="portal/wireframes/home-reference.png" alt="Bản vẽ Wireframe chuẩn EduShop">
+          </div>
+          <div class="modal-footer-tip">
+            💡 <strong>Mẹo sư phạm:</strong> Hãy để ý thẻ ngữ nghĩa <code>&lt;header&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;form&gt;</code>, <code>&lt;footer&gt;</code> được chú thích rõ trong bản vẽ.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 3: Block Inspector Modal -->
+    <div id="wf-inspector-modal" class="wf-modal" hidden>
+      <div class="wf-modal-dialog">
+        <div class="wf-modal-header">
+          <h3>🔍 Bảng điều khiển khối (Block Inspector)</h3>
+          <button type="button" id="wf-inspector-close" class="modal-close-btn" aria-label="Đóng">✕</button>
+        </div>
+        <div class="wf-modal-body">
+          <form id="wf-inspector-form" class="inspector-form">
+            <input type="hidden" id="insp-block-index" value="">
+            <label class="insp-field">
+              <span>Tên hiển thị (Label):</span>
+              <input type="text" id="insp-block-title" required>
+            </label>
+            <div class="insp-row">
+              <label class="insp-field">
+                <span>Thẻ HTML ngữ nghĩa:</span>
+                <select id="insp-block-tag">
+                  <option value="header">&lt;header&gt; (Đầu trang)</option>
+                  <option value="nav">&lt;nav&gt; (Điều hướng/Menu)</option>
+                  <option value="main">&lt;main&gt; (Nội dung chính)</option>
+                  <option value="section">&lt;section&gt; (Khu vực có chủ đề)</option>
+                  <option value="article">&lt;article&gt; (Thẻ/Card độc lập)</option>
+                  <option value="div">&lt;div&gt; (Khối gom bố cục)</option>
+                  <option value="form">&lt;form&gt; (Biểu mẫu dữ liệu)</option>
+                  <option value="footer">&lt;footer&gt; (Chân trang)</option>
+                  <option value="aside">&lt;aside&gt; (Nội dung phụ)</option>
+                </select>
+              </label>
+              <label class="insp-field">
+                <span>Class CSS:</span>
+                <input type="text" id="insp-block-class" placeholder="ví dụ: container hero-content">
+              </label>
+            </div>
+            <label class="insp-field">
+              <span>Chỉ dẫn CSS / Bố cục:</span>
+              <input type="text" id="insp-block-css" placeholder="ví dụ: display: flex; justify-content: space-between;">
+            </label>
+            <div class="insp-insight-box">
+              <div class="insight-label">💡 Lời khuyên sư phạm:</div>
+              <p id="insp-block-insight" class="insight-text"></p>
+            </div>
+            <div class="insp-actions">
+              <button type="button" id="insp-duplicate-btn" class="btn secondary">⎘ Nhân bản khối</button>
+              <button type="button" id="insp-delete-btn" class="btn danger">🗑 Xóa khối</button>
+              <button type="submit" class="btn primary">💾 Lưu thay đổi</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
