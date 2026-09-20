@@ -153,5 +153,198 @@
     $('#mark-practice').textContent = complete().includes('practice') ? '✓ Đã học · bỏ đánh dấu' : '✓ Đánh dấu đã học';
     update();
   };
-  initHome(); initLesson(); initPractice();
+  const initStarterCodeViewer = () => {
+    const viewer = $('#starter-code-viewer');
+    if (!viewer) return;
+
+    const files = {
+      home: {
+        name: 'index.html',
+        path: '03-thuc-hanh/chuong-02/bai-01-home-login/starter/index.html',
+        lang: 'html',
+        label: 'index.html (Home)',
+        defaultCode: `<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bài tập Home — TODO</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- TODO 1: Header, logo và menu -->
+  <main>
+    <!-- TODO 2: Banner/Hero -->
+    <!-- TODO 3: Thanh tìm kiếm (chỉ giao diện) -->
+    <!-- TODO 4: Danh mục bằng CSS Grid -->
+    <!-- TODO 5: Sản phẩm/dịch vụ nổi bật -->
+    <!-- TODO 6: Giới thiệu -->
+    <!-- TODO 7: Khuyến mãi/thông báo -->
+  </main>
+  <!-- TODO 8: Footer -->
+</body>
+</html>`
+      },
+      login: {
+        name: 'login.html',
+        path: '03-thuc-hanh/chuong-02/bai-01-home-login/starter/login.html',
+        lang: 'html',
+        label: 'login.html (Login)',
+        defaultCode: `<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bài tập Login — TODO</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <!-- TODO: form có label và input username/email, password, checkbox,
+         liên kết quên mật khẩu và nút Login. Chỉ thiết kế giao diện. -->
+  </main>
+</body>
+</html>`
+      },
+      css: {
+        name: 'style.css',
+        path: '03-thuc-hanh/chuong-02/bai-01-home-login/starter/style.css',
+        lang: 'css',
+        label: 'style.css (CSS)',
+        defaultCode: `/* Bài tập: tự viết CSS cho Home và Login.
+   Gợi ý: bắt đầu từ box-sizing, font, .header dùng flex,
+   danh mục/sản phẩm dùng grid, thẻ card dùng padding/border/margin. */`
+      }
+    };
+
+    let activeKey = 'home';
+    const codeCache = {};
+
+    const escapeHTML = str => str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+
+    const highlight = (code, lang) => {
+      let escaped = escapeHTML(code);
+      if (lang === 'html') {
+        escaped = escaped.replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="tok-comment">$1</span>');
+        escaped = escaped.replace(/(&lt;!doctype\s+html&gt;)/gi, '<span class="tok-doctype">$1</span>');
+        escaped = escaped.replace(/(&lt;\/?[a-zA-Z0-9\-]+)(?=[\s&>])/g, '<span class="tok-tag">$1</span>');
+        escaped = escaped.replace(/(\/?&gt;)/g, '<span class="tok-tag">$1</span>');
+        escaped = escaped.replace(/\s([a-zA-Z\-]+)=(&quot;.*?&quot;)/g, ' <span class="tok-attr">$1</span>=<span class="tok-val">$2</span>');
+      } else if (lang === 'css') {
+        escaped = escaped.replace(/(\/\*[\s\S]*?\*\/)/g, '<span class="tok-comment">$1</span>');
+        escaped = escaped.replace(/([a-zA-Z\-]+)\s*:/g, '<span class="tok-attr">$1</span>:');
+      }
+      return escaped;
+    };
+
+    const display = async (key) => {
+      activeKey = key;
+      const f = files[key];
+      if (!f) return;
+
+      $$('.code-tab-btn', viewer).forEach(btn => {
+        const isActive = btn.dataset.file === key;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', String(isActive));
+      });
+
+      const filepathEl = $('#viewer-filepath', viewer);
+      if (filepathEl) filepathEl.textContent = f.path;
+
+      const downloadBtn = $('#viewer-download-btn', viewer);
+      if (downloadBtn) {
+        downloadBtn.href = f.path;
+        downloadBtn.setAttribute('download', f.name);
+      }
+
+      const rawLink = $('#viewer-raw-link', viewer);
+      if (rawLink) {
+        rawLink.href = f.path;
+      }
+
+      let code = codeCache[key];
+      if (!code) {
+        try {
+          const res = await fetch(f.path);
+          if (res.ok) {
+            code = (await res.text()).trim();
+            codeCache[key] = code;
+          } else {
+            code = f.defaultCode;
+          }
+        } catch (_) {
+          code = f.defaultCode;
+        }
+      }
+
+      const lines = code.split('\n');
+      const lineNumsEl = $('#viewer-line-numbers', viewer);
+      if (lineNumsEl) {
+        lineNumsEl.innerHTML = Array.from({length: lines.length}, (_, i) => i + 1).join('<br>');
+      }
+
+      const codeBlock = $('#viewer-code-content', viewer);
+      if (codeBlock) {
+        codeBlock.innerHTML = highlight(code, f.lang);
+        codeBlock.dataset.rawCode = code;
+      }
+    };
+
+    const copyBtn = $('#viewer-copy-btn', viewer);
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        const codeBlock = $('#viewer-code-content', viewer);
+        const text = codeBlock ? (codeBlock.dataset.rawCode || codeBlock.textContent) : '';
+        const setCopied = () => {
+          copyBtn.classList.add('copied');
+          copyBtn.innerHTML = '<span>✓</span> Đã chép!';
+          setTimeout(() => {
+            copyBtn.classList.remove('copied');
+            copyBtn.innerHTML = '<span>📋</span> Sao chép mã';
+          }, 2000);
+        };
+        try {
+          await navigator.clipboard.writeText(text);
+          setCopied();
+        } catch (_) {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          setCopied();
+        }
+      });
+    }
+
+    $$('.code-tab-btn', viewer).forEach(btn => {
+      btn.addEventListener('click', () => {
+        display(btn.dataset.file);
+      });
+    });
+
+    const btnHome = $('#btn-view-home');
+    if (btnHome) {
+      btnHome.addEventListener('click', (e) => {
+        e.preventDefault();
+        display('home');
+        viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    const btnLogin = $('#btn-view-login');
+    if (btnLogin) {
+      btnLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        display('login');
+        viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    display('home');
+  };
+  initHome(); initLesson(); initPractice(); initStarterCodeViewer();
 })();
