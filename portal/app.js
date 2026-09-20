@@ -96,6 +96,32 @@
     const refresh = () => { const done = complete().includes(course.id); btn.textContent = done ? '✓ Đã hoàn thành · bỏ đánh dấu' : '✓ Đánh dấu đã học'; btn.setAttribute('aria-pressed', String(done)); };
     btn.addEventListener('click', () => { const ids = complete(); store(ids.includes(course.id) ? ids.filter(x => x !== course.id) : [...ids, course.id]); refresh(); });
     refresh();
+    const focusBtn = $('#toggle-focus-mode');
+    if (focusBtn) {
+      const expandSvg = '<svg class="focus-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
+      const collapseSvg = '<svg class="focus-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"/></svg>';
+      const setFocus = (active) => {
+        document.body.classList.toggle('focus-mode', active);
+        focusBtn.setAttribute('aria-pressed', String(active));
+        focusBtn.classList.toggle('active', active);
+        focusBtn.innerHTML = active
+          ? `${collapseSvg}<span class="focus-text">Thu nhỏ (Esc)</span>`
+          : `${expandSvg}<span class="focus-text">Chế độ tập trung</span>`;
+        focusBtn.title = active ? 'Thu nhỏ lại về giao diện chuẩn (Phím tắt: Esc)' : 'Chế độ tập trung: Mở rộng tối đa màn hình (Phím tắt: Esc)';
+        try { sessionStorage.setItem('hocweb2026.focus_mode', active ? '1' : '0'); } catch (_) {}
+      };
+      focusBtn.addEventListener('click', () => {
+        setFocus(!document.body.classList.contains('focus-mode'));
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
+          setFocus(false);
+        }
+      });
+      try {
+        if (sessionStorage.getItem('hocweb2026.focus_mode') === '1') setFocus(true);
+      } catch (_) {}
+    }
     const nav = $('#lesson-list');
     courses.forEach(c => { const a = document.createElement('a'); a.href = destination(c); a.className = `lesson-nav-item ${c.id === course.id ? 'current' : ''}`; a.textContent = `${c.chapter} · ${c.title}`; if (c.id === course.id) a.setAttribute('aria-current', 'page'); nav.append(a); });
     let loadTimer = setTimeout(() => { $('#frame-loading').textContent = 'Nội dung đang tải. Nếu không hiển thị, chọn “Mở trang gốc”.'; }, 5000);
