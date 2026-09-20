@@ -2,6 +2,8 @@
 
 Học liệu tiếng Việt cho người bắt đầu học HTML, CSS và dựng giao diện website. **Phạm vi Chương 2: HTML + CSS; không responsive theo yêu cầu hiện tại; không JavaScript, backend hay database trong sản phẩm bài tập.**
 
+**Triển khai lần đầu lên GitHub:** xem [DEPLOY_GITHUB.md](DEPLOY_GITHUB.md) (chỉ thực hiện khi repository đích còn trống).
+
 ## Bắt đầu ở đâu?
 
 - [Chuẩn bị công cụ và cách học](00-huong-dan-bat-dau/README.md)

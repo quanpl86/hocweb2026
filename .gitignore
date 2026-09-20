@@ -1,6 +1,12 @@
+# Không lưu môi trường, file tạm hoặc thông tin bí mật
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
+.env
+.env.*
+!.env.example
 node_modules/
 dist/
-.env
-.env.local
+*.log
+*.zip
