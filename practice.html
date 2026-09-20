@@ -1,7 +1,251 @@
 <!DOCTYPE html>
 <html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#112d34"><title>Bài thực hành Home & Login | HOC-WEB2026</title><link rel="stylesheet" href="portal/style.css"><script defer src="portal/catalog.js"></script><script defer src="portal/app.js"></script></head>
 <body class="page-practice"><a class="skip-link" href="#main">Bỏ qua điều hướng</a><header class="site-header"><div class="container topbar"><a class="brand" href="index.html"><span class="brand-logo">&lt;/&gt;</span><span class="brand-copy"><strong>HOC<span>WEB</span></strong><small>GIÁO TRÌNH 2026</small></span></a><nav class="topnav"><a href="index.html">Trang chủ</a><a href="index.html#thu-vien">Thư viện</a><a href="practice.html" class="nav-active" aria-current="page">Bài thực hành</a></nav><a class="header-action" href="index.html">← Về giáo trình</a></div></header>
-<main id="main" class="practice-main"><div class="container"><div class="practice-hero"><span class="eyebrow">/ CHƯƠNG 02 · BÀI TẬP THỰC HÀNH</span><h1>Tự tay thiết kế<br><em>Home & Login.</em></h1><p>Hãy đọc yêu cầu, lấy mã khởi động, tự thực hiện trước khi xem đáp án tham khảo. Chỉ dùng HTML và CSS, không cần chức năng đăng nhập hay tìm kiếm thật.</p><div class="practice-links"><a class="btn primary" href="#starter-code-viewer" id="btn-view-home">Xem mã khởi động Home ↓</a><a class="btn outline" href="#starter-code-viewer" id="btn-view-login">Xem mã khởi động Login ↓</a></div><p class="hint">Để chỉnh sửa mã, tải repository về máy và mở thư mục <code>03-thuc-hanh/.../starter/</code> bằng VS Code. Mở file từ website chỉ dùng để xem, không thể lưu sửa đổi vào GitHub.</p></div>
-<section id="starter-code-viewer" class="code-viewer-wrapper" aria-label="Trình xem mã khởi động"><div class="code-viewer-header"><div class="code-viewer-left"><div class="code-viewer-dots" aria-hidden="true"><i></i><i></i><i></i></div><div class="code-viewer-title"><span>MÃ KHỞI ĐỘNG (STARTER)</span></div><div class="code-viewer-tabs" role="tablist"><button type="button" class="code-tab-btn active" data-file="home" role="tab" aria-selected="true">📄 index.html (Home)</button><button type="button" class="code-tab-btn" data-file="login" role="tab" aria-selected="false">📄 login.html (Login)</button><button type="button" class="code-tab-btn" data-file="css" role="tab" aria-selected="false">🎨 style.css (CSS)</button></div></div><div class="code-viewer-actions"><button type="button" id="viewer-copy-btn" class="code-action-btn" title="Sao chép toàn bộ mã vào clipboard"><span>📋</span> Sao chép mã</button><a id="viewer-download-btn" class="code-action-btn" href="03-thuc-hanh/chuong-02/bai-01-home-login/starter/index.html" download="index.html" title="Tải file về máy"><span>⬇</span> Tải file</a><a id="viewer-raw-link" class="code-action-btn" href="03-thuc-hanh/chuong-02/bai-01-home-login/starter/index.html" target="_blank" rel="noopener" title="Mở file trực tiếp trong tab mới"><span>↗</span> Mở file</a></div></div><div class="code-viewer-meta"><div class="code-viewer-filepath-wrap"><span class="meta-label">Đường dẫn:</span> <span id="viewer-filepath" class="code-viewer-filepath">03-thuc-hanh/chuong-02/bai-01-home-login/starter/index.html</span></div><div class="code-viewer-tip">💡 Khung code chứa các ghi chú TODO hướng dẫn làm bài — Sao chép vào VS Code để bắt đầu</div></div><div class="code-viewer-container"><div id="viewer-line-numbers" class="code-line-numbers" aria-hidden="true"></div><pre class="code-content-pre"><code id="viewer-code-content" class="code-content-block"></code></pre></div></section>
-<div class="practice-columns"><div class="practice-body"><section class="practice-panel"><span class="eyebrow">01 / TRANG CHỦ</span><h2>Thiết kế Home</h2><p>Tạo giao diện phù hợp với đề tài nhóm, có thể điều chỉnh thành phần dựa theo chủ đề.</p><div class="requirement-tags"><span>Header / Logo</span><span>Navigation</span><span>Hero</span><span>Thanh tìm kiếm</span><span>Danh mục</span><span>Sản phẩm nổi bật</span><span>Giới thiệu</span><span>Thông báo</span><span>Footer</span></div><img class="practice-image" src="02-bai-hoc/chuong-02-layout/bai-01-home-login/images/05-so-do-home.png" alt="Sơ đồ thành phần bố cục trang Home" loading="lazy"></section><section class="practice-panel"><span class="eyebrow">02 / ĐĂNG NHẬP</span><h2>Thiết kế Login</h2><p>Chỉ thiết kế form: không cần kiểm tra tài khoản, đăng nhập thật hoặc backend.</p><div class="requirement-tags"><span>Email / Username</span><span>Password</span><span>Remember me</span><span>Forgot password</span><span>Login</span></div><img class="practice-image" src="02-bai-hoc/chuong-02-layout/bai-01-home-login/images/06-so-do-login.png" alt="Sơ đồ thành phần form đăng nhập" loading="lazy"></section><section class="practice-panel"><span class="eyebrow">03 / CÁCH LÀM</span><h2>Gợi ý triển khai</h2><ol class="steps-list"><li>Tạo thư mục dự án, hai file <code>index.html</code> và <code>login.html</code> cùng file CSS.</li><li>Dùng thẻ <code>div</code> để gom các khu vực nội dung có liên quan.</li><li>Áp dụng Box Model để tạo khoảng cách giữa nội dung, viền và các khối.</li><li>Dùng Flexbox cho header/navigation và CSS Grid cho danh mục, sản phẩm.</li><li>Viết HTML form và dùng CSS định dạng trang đăng nhập.</li><li>Mở hai trang trong trình duyệt, đối chiếu với checklist trước khi nộp.</li></ol></section><section class="practice-panel answer-panel"><span class="eyebrow">04 / ĐỐI CHIẾU SAU KHI LÀM</span><h2>Cần xem gợi ý?</h2><p>Hoàn thành bài trước khi mở code mẫu. Mẫu chỉ để tham khảo, không bắt buộc thiết kế giống hệt.</p><details><summary>Xem liên kết code mẫu khi đã sẵn sàng ↓</summary><div class="answer-links"><a href="lesson.html?id=demo-home">Xem demo Home ↗</a><a href="lesson.html?id=demo-login">Xem demo Login ↗</a><a href="lesson.html?id=guide">Mở hướng dẫn 16 bước ↗</a><a href="https://github.com/quanpl86/hocweb2026/tree/main/04-code-mau/chuong-02/home-login" target="_blank" rel="noopener">Đọc mã nguồn trên GitHub ↗</a></div></details></section></div>
-<aside class="practice-aside"><div class="checklist-panel"><span class="eyebrow">/ THEO DÕI BÀI TẬP</span><h2>Checklist</h2><p>Đánh dấu từng yêu cầu khi đã thực hiện.</p><div class="progress-count" id="task-count" aria-live="polite">0/9 tiêu chí</div><div class="progress-track"><div class="progress-fill" id="task-progress"></div></div><form id="practice-checklist"><label><input type="checkbox"> Có đầy đủ 9 khu vực Home</label><label><input type="checkbox"> Có đủ 5 thành phần Login</label><label><input type="checkbox"> CSS liên kết đúng với HTML</label><label><input type="checkbox"> Có sử dụng DIV và class phù hợp</label><label><input type="checkbox"> Có khoảng cách bằng Box Model</label><label><input type="checkbox"> Có Flexbox cho bố cục một chiều</label><label><input type="checkbox"> Có Grid cho danh mục/sản phẩm</label><label><input type="checkbox"> Mở hai file được trên trình duyệt</label><label><input type="checkbox"> Có bảng phân công thành viên</label></form><p id="task-completed" class="task-done" hidden>✓ Bạn đã đánh dấu đủ các tiêu chí. Hãy rà soát lại sản phẩm trước khi nộp.</p><button id="mark-practice" class="btn primary practice-complete" type="button">✓ Đánh dấu đã học</button><p class="storage-note">Checklist và tiến độ chỉ lưu trên trình duyệt hiện tại. Việc tích vào ô không đồng nghĩa giáo viên đã chấm đạt.</p></div></aside></div></div></main><footer class="simple-footer"><div class="container"><a href="index.html">← Trở về giáo trình</a><span>HOC-WEB2026 · Chỉ HTML & CSS trong sản phẩm bài tập</span></div></footer></body></html>
+<main id="main" class="practice-main"><div class="container">
+  <div class="practice-hero">
+    <span class="eyebrow">/ CHƯƠNG 02 · BÀI TẬP THỰC HÀNH TỪ SỐ 0</span>
+    <h1>Tự tay thiết kế<br><em>Home &amp; Login.</em></h1>
+    <p>Quy trình chuẩn kỹ sư Front-end: Phân tích đề bài → Phác thảo Wireframe trên bàn vẽ → Xác định thẻ ngữ nghĩa &amp; cây cha-con → Viết CSS độc lập và Tái cấu trúc (Refactoring) <code>style.css</code> dùng chung.</p>
+    <div class="practice-links">
+      <a class="btn primary" href="#wireframe-studio-section" id="btn-goto-wireframe">📐 Bàn vẽ Wireframe Layout ↓</a>
+      <a class="btn outline" href="#starter-code-viewer" id="btn-view-home">📄 Mã khởi động Home ↓</a>
+      <a class="btn outline" href="#starter-code-viewer" id="btn-view-login">📄 Mã khởi động Login ↓</a>
+      <a class="btn outline" href="lesson.html?id=start" target="_blank">📖 Đọc lý thuyết quy trình ↗</a>
+    </div>
+    <p class="hint">Để làm bài trên máy, hãy tải repository về và mở thư mục <code>03-thuc-hanh/.../starter/</code> bằng VS Code. Bàn vẽ Wireframe bên dưới hỗ trợ xuất ảnh PNG để bạn nộp bài.</p>
+  </div>
+
+  <!-- 1. WIREFRAME STUDIO COMPONENT -->
+  <section id="wireframe-studio-section" class="wireframe-studio-wrapper" aria-label="Bàn vẽ Wireframe tương tác">
+    <div class="wf-header">
+      <div class="wf-header-info">
+        <div class="code-viewer-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="wf-title-group">
+          <span class="wf-badge">BÀN VẼ BỐ CỤC (WIREFRAME STUDIO)</span>
+          <h2 class="wf-title">Phác thảo Wireframe Layout</h2>
+        </div>
+        <div class="wf-page-tabs" role="tablist">
+          <button type="button" class="wf-tab-btn active" data-page="home" role="tab" aria-selected="true">🏠 Wireframe Home (EduShop)</button>
+          <button type="button" class="wf-tab-btn" data-page="login" role="tab" aria-selected="false">🔑 Wireframe Login (EduShop)</button>
+        </div>
+      </div>
+      <div class="wf-header-actions">
+        <button type="button" id="wf-load-preset-btn" class="wf-tool-btn primary" title="Tải mẫu bố cục chuẩn theo đề bài EduShop">
+          <span>🌟</span> Nạp mẫu chuẩn
+        </button>
+        <button type="button" id="wf-toggle-sketch-btn" class="wf-tool-btn" title="Bật/tắt chế độ vẽ phác thảo tay lên canvas">
+          <span>✏️</span> Bút vẽ tay
+        </button>
+        <button type="button" id="wf-clear-btn" class="wf-tool-btn" title="Xóa bàn vẽ để tự xếp từ đầu">
+          <span>🧹</span> Xóa làm mới
+        </button>
+        <button type="button" id="wf-export-png-btn" class="wf-tool-btn" title="Xuất ảnh PNG để chèn vào bài nộp">
+          <span>📸</span> Tải ảnh PNG
+        </button>
+        <button type="button" id="wf-view-code-btn" class="wf-tool-btn" title="Xem cây HTML và mã khung sinh từ wireframe">
+          <span>💻</span> Xuất mã HTML
+        </button>
+      </div>
+    </div>
+
+    <!-- Drawing toolbar (shown when sketch mode is active) -->
+    <div id="wf-sketch-toolbar" class="wf-sketch-toolbar" hidden>
+      <div class="sketch-tools-left">
+        <span class="tool-label">✏️ Chế độ vẽ tự do:</span>
+        <label class="sketch-color-picker"><input type="color" id="sketch-color" value="#249775"> Màu nét</label>
+        <label class="sketch-size-picker">
+          Cỡ nét:
+          <select id="sketch-size">
+            <option value="2">Mảnh (2px)</option>
+            <option value="4" selected>Vừa (4px)</option>
+            <option value="8">Đậm (8px)</option>
+          </select>
+        </label>
+        <button type="button" id="sketch-mode-pen" class="sketch-btn active">Bút vẽ</button>
+        <button type="button" id="sketch-mode-eraser" class="sketch-btn">Tẩy xóa</button>
+        <button type="button" id="sketch-clear-canvas" class="sketch-btn">Xóa nét vẽ</button>
+      </div>
+      <div class="sketch-tools-right">
+        <span class="sketch-tip">💡 Dùng chuột hoặc bút cảm ứng vẽ ghi chú, khoanh vùng trực tiếp lên khung wireframe</span>
+      </div>
+    </div>
+
+    <!-- Main Studio Workspace -->
+    <div class="wf-workspace">
+      <!-- Component Palette (Left Sidebar) -->
+      <aside class="wf-palette">
+        <div class="palette-heading">
+          <span id="palette-page-title">Linh kiện Trang Home</span>
+          <small>Nhấp để thêm khối vào bàn vẽ</small>
+        </div>
+        <div id="wf-component-list" class="component-list">
+          <!-- Injected via JS based on active page -->
+        </div>
+        <div class="palette-hint">
+          💡 Mỗi khối sẽ hiển thị thẻ ngữ nghĩa HTML5 &amp; thuộc tính CSS tương ứng. Nhấp [▲], [▼] để đổi vị trí, [✕] để xóa.
+        </div>
+      </aside>
+
+      <!-- Canvas Preview Board (Center/Right) -->
+      <div class="wf-canvas-area">
+        <div class="wf-board-meta">
+          <div class="wf-board-title" id="wf-board-subtitle">EduShop · Desktop Wireframe Preview (1100px Container)</div>
+          <div class="wf-board-tags">
+            <span class="tag-badge">Desktop 1100px</span>
+            <span class="tag-badge">HTML5 Semantic</span>
+            <span class="tag-badge">CSS Flex &amp; Grid</span>
+          </div>
+        </div>
+
+        <!-- Canvas container with elements -->
+        <div class="wf-canvas-container" id="wf-canvas-container">
+          <!-- Relative drawing canvas layer for annotations -->
+          <canvas id="wf-sketch-canvas" class="wf-sketch-canvas"></canvas>
+          <!-- The actual layout blocks container -->
+          <div id="wf-layout-blocks" class="wf-layout-blocks">
+            <!-- Dynamically populated wireframe blocks -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generated HTML/Tree Drawer / Modal -->
+    <div id="wf-html-modal" class="wf-modal" hidden>
+      <div class="wf-modal-dialog">
+        <div class="wf-modal-header">
+          <h3>🌳 Cây cấu trúc &amp; Khung mã HTML sinh từ Wireframe</h3>
+          <button type="button" id="wf-modal-close" class="modal-close-btn" aria-label="Đóng">✕</button>
+        </div>
+        <div class="wf-modal-body">
+          <p class="modal-desc">Đoạn mã dưới đây tương ứng với các khối wireframe bạn vừa xếp. Bạn có thể sao chép để dán vào file HTML trong VS Code:</p>
+          <div class="modal-code-wrap">
+            <button type="button" id="modal-copy-code-btn" class="code-action-btn">📋 Sao chép mã</button>
+            <pre><code id="wf-generated-code" class="modal-code-block"></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. STARTER CODE VIEWER COMPONENT -->
+  <section id="starter-code-viewer" class="code-viewer-wrapper" aria-label="Trình xem mã khởi động">
+    <div class="code-viewer-header">
+      <div class="code-viewer-left">
+        <div class="code-viewer-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="code-viewer-title"><span>MÃ KHỞI ĐỘNG (STARTER)</span></div>
+        <div class="code-viewer-tabs" role="tablist">
+          <button type="button" class="code-tab-btn active" data-file="home" role="tab" aria-selected="true">📄 index.html (Home)</button>
+          <button type="button" class="code-tab-btn" data-file="login" role="tab" aria-selected="false">📄 login.html (Login)</button>
+          <button type="button" class="code-tab-btn" data-file="css" role="tab" aria-selected="false">🎨 style.css (CSS)</button>
+        </div>
+      </div>
+      <div class="code-viewer-actions">
+        <button type="button" id="viewer-copy-btn" class="code-action-btn" title="Sao chép toàn bộ mã vào clipboard"><span>📋</span> Sao chép mã</button>
+        <a id="viewer-download-btn" class="code-action-btn" href="03-thuc-hanh/chuong-02/bai-01-home-login/starter/index.html" download="index.html" title="Tải file về máy"><span>⬇</span> Tải file</a>
+        <a id="viewer-raw-link" class="code-action-btn" href="03-thuc-hanh/chuong-02/bai-01-home-login/starter/index.html" target="_blank" rel="noopener" title="Mở file trực tiếp trong tab mới"><span>↗</span> Mở file</a>
+      </div>
+    </div>
+    <div class="code-viewer-meta">
+      <div class="code-viewer-filepath-wrap">
+        <span class="meta-label">Đường dẫn:</span> <span id="viewer-filepath" class="code-viewer-filepath">03-thuc-hanh/chuong-02/bai-01-home-login/starter/index.html</span>
+      </div>
+      <div class="code-viewer-tip">💡 Khung code chứa các ghi chú TODO hướng dẫn làm bài — Sao chép vào VS Code để bắt đầu</div>
+    </div>
+    <div class="code-viewer-container">
+      <div id="viewer-line-numbers" class="code-line-numbers" aria-hidden="true"></div>
+      <pre class="code-content-pre"><code id="viewer-code-content" class="code-content-block"></code></pre>
+    </div>
+  </section>
+
+  <!-- 3. INSTRUCTION PANELS & CHECKLIST -->
+  <div class="practice-columns">
+    <div class="practice-body">
+      <!-- PANEL 1: REQUIREMENTS OVERVIEW -->
+      <section class="practice-panel">
+        <span class="eyebrow">01 / TỔNG QUAN YÊU CẦU</span>
+        <h2>Đề bài website EduShop</h2>
+        <p>Xây dựng giao diện Desktop cho website học trực tuyến EduShop gồm 2 trang liên kết với nhau: <strong>Trang chủ (Home)</strong> và <strong>Trang Đăng nhập (Login)</strong>. Không làm Responsive, JavaScript hay xác thực tài khoản thật.</p>
+        <div class="requirement-tags">
+          <span>[A] Header / Logo (Flexbox)</span>
+          <span>[B] Hero Banner (2 Cột)</span>
+          <span>[C] Thanh tìm kiếm</span>
+          <span>[D] Danh mục (Grid 3 Cột)</span>
+          <span>[E] Khóa học (Grid 3 Cột)</span>
+          <span>[F] Giới thiệu (Flexbox)</span>
+          <span>[G] Thông báo</span>
+          <span>[H] Footer (Flexbox)</span>
+          <span>[I-L] Login Form (Căn giữa 440px)</span>
+        </div>
+      </section>
+
+      <!-- PANEL 2: FOUR PRACTICE STAGES -->
+      <section class="practice-panel">
+        <span class="eyebrow">02 / TIẾN TRÌNH THỰC HÀNH</span>
+        <h2>Quy trình thực hiện 4 giai đoạn</h2>
+        <ol class="steps-list">
+          <li><strong>Giai đoạn 1 – Thiết kế Wireframe &amp; Phân rã cấu trúc:</strong> Dùng công cụ Wireframe Studio ở trên để xếp các khối chức năng, xác định thẻ HTML ngữ nghĩa và quan hệ cha–con. Tải ảnh wireframe về máy để nộp bài.</li>
+          <li><strong>Giai đoạn 2 – Dựng trang Home độc lập:</strong> Tạo <code>index.html</code> và <code>home.css</code> trong VS Code. Tự viết đầy đủ Header, Hero, Grid và Footer.</li>
+          <li><strong>Giai đoạn 3 – Dựng trang Login độc lập:</strong> Tạo <code>login.html</code> và <code>login.css</code>. Xử lý bố cục căn giữa toàn màn hình (100vh), hộp Login Card 440px và các trường nhập.</li>
+          <li><strong>Giai đoạn 4 – Phân tích CSS &amp; Tái cấu trúc (Refactoring):</strong> Đặt <code>home.css</code> và <code>login.css</code> cạnh nhau. Nhận diện các quy tắc trùng lặp nền tảng (<code>*</code>, <code>body</code>, <code>.button</code>, <code>.container</code>), chuyển sang <code>style.css</code> dùng chung và kiểm tra lại cả hai trang.</li>
+        </ol>
+      </section>
+
+      <!-- PANEL 3: CSS REFACTORING RULES -->
+      <section class="practice-panel">
+        <span class="eyebrow">03 / QUY TẮC CSS REFACTORING</span>
+        <h2>Tiêu chí phân loại CSS Chung vs Riêng</h2>
+        <p><strong>Nguyên tắc:</strong> CSS giống nhau tình cờ (ví dụ cùng có <code>padding: 40px</code>) không nhất thiết phải gộp. Chỉ gộp khi nó thể hiện <em>cùng một quy tắc nền tảng hoặc cùng một thành phần tái sử dụng</em>.</p>
+        <ul class="steps-list">
+          <li><strong>Lưu vào <code>style.css</code>:</strong> <code>* { box-sizing: border-box; }</code>, kiểu chữ &amp; màu nền <code>body</code>, bố cục <code>.container</code> (1100px), thành phần nút dùng chung <code>.button</code>.</li>
+          <li><strong>Lưu vào <code>home.css</code>:</strong> Bố cục <code>.hero</code>, <code>.hero-content</code>, <code>.search-section</code>, lưới <code>.category-grid</code>, <code>.product-grid</code>, <code>.about-section</code>.</li>
+          <li><strong>Lưu vào <code>login.css</code>:</strong> Bố cục <code>.login-layout</code> (100vh flex căn giữa), <code>.login-card</code> (440px), <code>.login-form</code>, và modifier class <code>.login-button { width: 100%; }</code>.</li>
+          <li><strong>Thứ tự liên kết:</strong> <code>style.css</code> liên kết trước, CSS riêng của trang liên kết sau.</li>
+        </ul>
+      </section>
+
+      <!-- PANEL 4: REFERENCES -->
+      <section class="practice-panel answer-panel">
+        <span class="eyebrow">04 / ĐỐI CHIẾU &amp; THAM KHẢO</span>
+        <h2>Tài liệu học tập &amp; Sản phẩm mẫu</h2>
+        <p>Sau khi tự tay phác thảo wireframe và dựng giao diện, hãy mở code mẫu hoàn chỉnh để đối chiếu các giải pháp thiết kế.</p>
+        <details>
+          <summary>Xem liên kết tài liệu &amp; code mẫu ↓</summary>
+          <div class="answer-links">
+            <a href="lesson.html?id=start">Mở bài lý thuyết: Quy trình thiết kế từ số 0 ↗</a>
+            <a href="lesson.html?id=guide">Mở hướng dẫn chi tiết 16 bước có hình ảnh ↗</a>
+            <a href="lesson.html?id=demo-home">Xem demo hoàn chỉnh: Trang Home ↗</a>
+            <a href="lesson.html?id=demo-login">Xem demo hoàn chỉnh: Trang Login ↗</a>
+            <a href="https://github.com/quanpl86/hocweb2026/tree/main/04-code-mau/chuong-02/home-login" target="_blank" rel="noopener">Đọc mã nguồn mẫu trên GitHub ↗</a>
+          </div>
+        </details>
+      </section>
+    </div>
+
+    <!-- ASIDE CHECKLIST: 10 DESIGN & REFACTORING CRITERIA -->
+    <aside class="practice-aside">
+      <div class="checklist-panel">
+        <span class="eyebrow">/ PHIẾU KIỂM TRA ĐÁNH GIÁ</span>
+        <h2>Tiêu chí bài tập</h2>
+        <p>Đánh dấu từng tiêu chí khi bạn đã hoàn thành.</p>
+        <div class="progress-count" id="task-count" aria-live="polite">0/10 tiêu chí</div>
+        <div class="progress-track"><div class="progress-fill" id="task-progress"></div></div>
+        <form id="practice-checklist">
+          <label><input type="checkbox"> 1. Đã xác định rõ yêu cầu cho cả Home và Login</label>
+          <label><input type="checkbox"> 2. Đã vẽ wireframe các vùng A–H cho Home</label>
+          <label><input type="checkbox"> 3. Đã vẽ wireframe vùng I–L cho Login</label>
+          <label><input type="checkbox"> 4. Phân biệt rõ thẻ ngữ nghĩa, div và container</label>
+          <label><input type="checkbox"> 5. Đã xác định thẻ HTML ngữ nghĩa cho từng vùng</label>
+          <label><input type="checkbox"> 6. Đã vẽ cây cấu trúc cha – con trước khi viết mã</label>
+          <label><input type="checkbox"> 7. Đặt tên class theo vai trò (kebab-case)</label>
+          <label><input type="checkbox"> 8. Xác định đúng phần tử cha cần Flexbox/Grid</label>
+          <label><input type="checkbox"> 9. Viết CSS độc lập cho 2 trang (home.css, login.css)</label>
+          <label><input type="checkbox"> 10. Đã Refactoring tách style.css &amp; kiểm thử</label>
+        </form>
+        <p id="task-completed" class="task-done" hidden>✓ Xuất sắc! Bạn đã hoàn thành toàn bộ 10 tiêu chí theo đúng quy trình chuẩn.</p>
+        <button id="mark-practice" class="btn primary practice-complete" type="button">✓ Đánh dấu đã hoàn thành</button>
+        <p class="storage-note">Tiến độ được tự động lưu trên trình duyệt của bạn. Hãy đảm bảo xuất ảnh Wireframe và nộp source code theo yêu cầu.</p>
+      </div>
+    </aside>
+  </div>
+</div></main>
+<footer class="simple-footer"><div class="container"><a href="index.html">← Trở về giáo trình</a><span>HOC-WEB2026 · Quy trình thiết kế từ số 0 &amp; CSS Refactoring</span></div></footer></body></html>

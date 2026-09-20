@@ -346,5 +346,577 @@
 
     display('home');
   };
-  initHome(); initLesson(); initPractice(); initStarterCodeViewer();
+
+  const initWireframeStudio = () => {
+    const studio = $('#wireframe-studio-section');
+    if (!studio) return;
+
+    let activePage = 'home';
+
+    const CATALOG = {
+      home: [
+        {
+          id: 'header',
+          tag: 'header.site-header',
+          css: 'display: flex; space-between; align-items: center',
+          title: 'Header / Logo',
+          desc: 'Logo bên trái, Menu bên phải',
+          htmlSnippet: `<header class="site-header">\n  <div class="container header-content">\n    <a class="brand" href="index.html">\n      <img src="assets/logo.svg" alt="Logo EduShop"> EduShop\n    </a>\n    <nav class="main-nav">\n      <a href="index.html">Trang chủ</a>\n      <a href="#danh-muc">Danh mục</a>\n      <a href="#khoa-hoc">Khóa học</a>\n      <a href="login.html">Đăng nhập</a>\n    </nav>\n  </div>\n</header>`,
+          render: () => `
+            <div class="wf-inner-header">
+              <div class="wf-logo-box">&lt;/&gt; EduShop</div>
+              <div class="wf-menu-box">
+                <span>Trang chủ</span>
+                <span>Danh mục</span>
+                <span>Khóa học</span>
+                <span style="background:#184a3e; color:#fff;">Đăng nhập ↗</span>
+              </div>
+            </div>`
+        },
+        {
+          id: 'hero',
+          tag: 'section.hero',
+          css: 'display: flex; container; 360px',
+          title: 'Hero / Banner',
+          desc: 'Tiêu đề + CTA (trái) & Ảnh banner (phải)',
+          htmlSnippet: `<section class="hero">\n  <div class="container hero-content">\n    <div class="hero-text">\n      <h1>Khám phá niềm vui học lập trình</h1>\n      <p>Bắt đầu hành trình học HTML và CSS.</p>\n      <a href="#khoa-hoc" class="button">Xem khóa học</a>\n    </div>\n    <img src="assets/banner.svg" class="hero-image" alt="Minh họa học công nghệ">\n  </div>\n</section>`,
+          render: () => `
+            <div class="wf-inner-hero">
+              <div class="wf-hero-text">
+                <div class="wf-hero-h1"></div>
+                <div class="wf-hero-p"></div>
+                <div class="wf-hero-btn"></div>
+              </div>
+              <div class="wf-hero-img-box">🖼️ Banner Image (hero-image)</div>
+            </div>`
+        },
+        {
+          id: 'search',
+          tag: 'section.container.search-section',
+          css: 'width: 1100px; margin: 0 auto; flex',
+          title: 'Thanh tìm kiếm',
+          desc: 'Tiêu đề H2 + Input + Nút Tìm kiếm',
+          htmlSnippet: `<section class="container search-section">\n  <h2>Tìm nội dung bạn quan tâm</h2>\n  <div class="search-box">\n    <input type="search" placeholder="Nhập từ khóa" aria-label="Từ khóa tìm kiếm">\n    <button type="button" class="button">Tìm kiếm</button>\n  </div>\n  <p class="small-note">Chức năng tìm kiếm giao diện mô phỏng.</p>\n</section>`,
+          render: () => `
+            <div class="wf-inner-search">
+              <span style="font-weight:700; color:#175f4c; font-size:13px;">🔍 Tìm nội dung:</span>
+              <div class="wf-search-input">Nhập từ khóa tìm kiếm...</div>
+              <div class="wf-search-btn">Tìm kiếm</div>
+            </div>`
+        },
+        {
+          id: 'category',
+          tag: 'section.container (Category)',
+          css: 'display: grid; repeat(3, 1fr); gap: 22px',
+          title: 'Lưới Danh mục',
+          desc: 'CSS Grid 3 cột (Lập trình, Thiết kế, Dữ liệu)',
+          htmlSnippet: `<section class="container content-section">\n  <h2>Danh mục nổi bật</h2>\n  <p class="section-description">Chọn lĩnh vực bạn muốn theo đuổi.</p>\n  <div class="category-grid">\n    <article class="category-card"><h3>Lập trình Web</h3></article>\n    <article class="category-card"><h3>Thiết kế UI/UX</h3></article>\n    <article class="category-card"><h3>Khoa học Dữ liệu</h3></article>\n  </div>\n</section>`,
+          render: () => `
+            <div class="wf-inner-grid">
+              <div class="wf-grid-card"><div class="wf-card-thumb">📁 Icon 1</div><div class="wf-card-title"></div><div class="wf-card-sub"></div></div>
+              <div class="wf-grid-card"><div class="wf-card-thumb">📁 Icon 2</div><div class="wf-card-title"></div><div class="wf-card-sub"></div></div>
+              <div class="wf-grid-card"><div class="wf-card-thumb">📁 Icon 3</div><div class="wf-card-title"></div><div class="wf-card-sub"></div></div>
+            </div>`
+        },
+        {
+          id: 'courses',
+          tag: 'section.container (Courses)',
+          css: 'display: grid; repeat(3, 1fr); gap: 22px',
+          title: 'Lưới Khóa học',
+          desc: 'CSS Grid 3 cột article.product-card',
+          htmlSnippet: `<section class="container content-section">\n  <h2>Khóa học mới nhất</h2>\n  <p class="section-description">Bắt đầu học ngay hôm nay.</p>\n  <div class="product-grid">\n    <article class="product-card">\n      <img src="assets/course-html.svg" alt="Khóa học HTML">\n      <div class="product-body"><h3>HTML cho người mới</h3><p>Tạo cấu trúc web.</p><a href="#" class="text-link">Xem chi tiết →</a></div>\n    </article>\n    <article class="product-card">\n      <img src="assets/course-css.svg" alt="Khóa học CSS">\n      <div class="product-body"><h3>CSS Layout hiện đại</h3><p>Làm chủ Flexbox & Grid.</p><a href="#" class="text-link">Xem chi tiết →</a></div>\n    </article>\n    <article class="product-card">\n      <img src="assets/course-design.svg" alt="Khóa học Design">\n      <div class="product-body"><h3>Thiết kế giao diện</h3><p>Nguyên lý phối màu & bố cục.</p><a href="#" class="text-link">Xem chi tiết →</a></div>\n    </article>\n  </div>\n</section>`,
+          render: () => `
+            <div class="wf-inner-grid">
+              <div class="wf-grid-card"><div class="wf-card-thumb" style="height:55px;">🖼️ Ảnh Khóa học 1</div><div class="wf-card-title"></div><div class="wf-card-sub"></div></div>
+              <div class="wf-grid-card"><div class="wf-card-thumb" style="height:55px;">🖼️ Ảnh Khóa học 2</div><div class="wf-card-title"></div><div class="wf-card-sub"></div></div>
+              <div class="wf-grid-card"><div class="wf-card-thumb" style="height:55px;">🖼️ Ảnh Khóa học 3</div><div class="wf-card-title"></div><div class="wf-card-sub"></div></div>
+            </div>`
+        },
+        {
+          id: 'about',
+          tag: 'section.about-section',
+          css: 'display: flex; container; background: #e8f5ed',
+          title: 'Giới thiệu EduShop',
+          desc: 'Bài viết giới thiệu và hình ảnh minh họa',
+          htmlSnippet: `<section class="about-section">\n  <div class="container about-content">\n    <div class="about-text">\n      <h2>Về nền tảng EduShop</h2>\n      <p>Sứ mệnh đem lại kiến thức thiết kế web chuẩn cho người bắt đầu.</p>\n    </div>\n    <div class="about-illustration">\n      <img src="assets/banner.svg" alt="Về chúng tôi">\n    </div>\n  </div>\n</section>`,
+          render: () => `
+            <div class="wf-inner-about">
+              <div><div style="font-weight:700; color:#175f4c; font-size:13px; margin-bottom:8px;">Về EduShop</div><div class="wf-about-p"></div><div class="wf-about-p"></div></div>
+              <div class="wf-about-img">🖼️ Minh họa Giới thiệu</div>
+            </div>`
+        },
+        {
+          id: 'notice',
+          tag: 'section.container.notice-section',
+          css: 'display: flex; space-between; align-items: center',
+          title: 'Thông báo & Ưu đãi',
+          desc: 'Nội dung thông báo mới và nút Xem thêm',
+          htmlSnippet: `<section class="container notice-section">\n  <div class="notice-content">\n    <strong>Ưu đãi tháng này:</strong> Giảm 30% cho học viên mới đăng ký.\n  </div>\n  <a href="#" class="button">Xem thêm ↗</a>\n</section>`,
+          render: () => `
+            <div class="wf-inner-notice">
+              <div>📢 <strong>Thông báo:</strong> Giảm 30% cho các khóa học HTML/CSS trong tháng 9.</div>
+              <div class="wf-notice-btn">Xem chi tiết ↗</div>
+            </div>`
+        },
+        {
+          id: 'footer',
+          tag: 'footer.site-footer',
+          css: 'display: flex; space-between; background: #143730',
+          title: 'Chân trang Footer',
+          desc: 'Logo EduShop + Thông tin liên hệ & bản quyền',
+          htmlSnippet: `<footer class="site-footer">\n  <div class="container footer-content">\n    <div class="footer-info">\n      <div class="brand">EduShop</div>\n      <p>© 2026 EduShop. Giáo trình HOC-WEB2026.</p>\n    </div>\n    <div class="footer-links">\n      <p>Hotline: 0123 456 789 · Email: contact@edushop.vn</p>\n    </div>\n  </div>\n</footer>`,
+          render: () => `
+            <div class="wf-inner-footer">
+              <div class="wf-footer-logo">&lt;/&gt; EduShop · © 2026</div>
+              <div>Liên hệ: support@edushop.vn · Hotline: 0988-xxx-xxx</div>
+            </div>`
+        }
+      ],
+      login: [
+        {
+          id: 'login-layout',
+          tag: 'main.login-layout',
+          css: 'display: flex; min-height: 100vh; align-items: center; justify-content: center',
+          title: 'Khung bố cục Login',
+          desc: 'Căn giữa toàn màn hình (100vh flexbox)',
+          htmlSnippet: `<body class="login-page">\n  <main class="login-layout">\n    <!-- Khung đăng nhập card đặt ở đây -->\n  </main>\n</body>`,
+          render: () => `
+            <div style="background:#e8f0fe; border:1px dashed #7facf5; padding:16px; border-radius:6px; text-align:center; color:#184c9c; font-size:12px;">
+              <strong>MAIN.login-layout</strong> (min-height: 100vh; display: flex; align-items: center; justify-content: center)
+            </div>`
+        },
+        {
+          id: 'login-card',
+          tag: 'div.login-card (Hộp 440px)',
+          css: 'width: 440px; padding: 42px; background: white; border-radius: 8px',
+          title: 'Hộp Đăng nhập (Card)',
+          desc: 'Bao gồm Logo, Tiêu đề, Form và Nút bấm',
+          htmlSnippet: `<div class="login-card">\n  <a class="brand login-brand" href="index.html"><img src="assets/logo.svg" alt="EduShop"> EduShop</a>\n  <h1>Đăng nhập</h1>\n  <p class="login-subtitle">Chào mừng bạn quay lại với EduShop!</p>\n  <form class="login-form">\n    <label for="username">Tên đăng nhập hoặc email</label>\n    <input type="text" id="username" placeholder="Nhập tài khoản" required>\n    <label for="password">Mật khẩu</label>\n    <input type="password" id="password" placeholder="Nhập mật khẩu" required>\n    <div class="login-options">\n      <label class="remember-label"><input type="checkbox"> Ghi nhớ tôi</label>\n      <a href="#" class="forgot-link">Quên mật khẩu?</a>\n    </div>\n    <button type="button" class="button login-button">Đăng nhập</button>\n  </form>\n  <p class="login-note">Giao diện thực hành mô phỏng.</p>\n  <a href="index.html" class="back-home">← Trở về trang chủ</a>\n</div>`,
+          render: () => `
+            <div class="wf-login-wrapper">
+              <div class="wf-login-card">
+                <div class="wf-login-title">&lt;/&gt; EduShop<br><span style="font-size:13px; font-weight:normal; color:#5c7899;">Đăng nhập tài khoản</span></div>
+                <div class="wf-login-field">Tài khoản / Email: [ user@example.com ]</div>
+                <div class="wf-login-field">Mật khẩu: [ •••••••••••• ]</div>
+                <div class="wf-login-opts">
+                  <span>☑ Ghi nhớ tôi</span>
+                  <span style="color:#2459d3;">Quên mật khẩu?</span>
+                </div>
+                <div class="wf-login-btn">Đăng nhập (100% width)</div>
+                <div style="text-align:center; margin-top:12px; font-size:11px; color:#3b6bb3;">← Trở về trang chủ</div>
+              </div>
+            </div>`
+        }
+      ]
+    };
+
+    const DEFAULT_PRESETS = {
+      home: ['header', 'hero', 'search', 'category', 'courses', 'about', 'notice', 'footer'],
+      login: ['login-layout', 'login-card']
+    };
+
+    let userBlocks = {
+      home: [...DEFAULT_PRESETS.home],
+      login: [...DEFAULT_PRESETS.login]
+    };
+
+    try {
+      const saved = JSON.parse(localStorage.getItem('hocweb2026.wireframe.v1') || '{}');
+      if (Array.isArray(saved.home) && saved.home.length) userBlocks.home = saved.home;
+      if (Array.isArray(saved.login) && saved.login.length) userBlocks.login = saved.login;
+    } catch (_) {}
+
+    const saveState = () => {
+      try {
+        localStorage.setItem('hocweb2026.wireframe.v1', JSON.stringify(userBlocks));
+      } catch (_) {}
+    };
+
+    const renderPalette = () => {
+      const listEl = $('#wf-component-list', studio);
+      const titleEl = $('#palette-page-title', studio);
+      if (!listEl) return;
+
+      titleEl.textContent = activePage === 'home' ? 'Linh kiện Trang Home' : 'Linh kiện Trang Login';
+      listEl.innerHTML = '';
+
+      const comps = CATALOG[activePage] || [];
+      comps.forEach(comp => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'comp-btn';
+        btn.innerHTML = `<strong>+ ${comp.title}</strong><span>${comp.tag}</span>`;
+        btn.title = comp.desc;
+        btn.addEventListener('click', () => {
+          userBlocks[activePage].push(comp.id);
+          saveState();
+          renderCanvas();
+        });
+        listEl.appendChild(btn);
+      });
+    };
+
+    const renderCanvas = () => {
+      const blocksContainer = $('#wf-layout-blocks', studio);
+      const subTitleEl = $('#wf-board-subtitle', studio);
+      if (!blocksContainer) return;
+
+      subTitleEl.textContent = activePage === 'home'
+        ? 'EduShop · Desktop Home Wireframe (1100px Container)'
+        : 'EduShop · Desktop Login Wireframe (440px Card Modal)';
+
+      const currentIds = userBlocks[activePage] || [];
+      const comps = CATALOG[activePage] || [];
+
+      if (currentIds.length === 0) {
+        blocksContainer.innerHTML = `
+          <div class="wf-empty-hint">
+            <h4>Bàn vẽ hiện đang trống</h4>
+            <p>Hãy bấm vào các linh kiện ở cột bên trái để xếp bố cục, hoặc chọn "Nạp mẫu chuẩn".</p>
+            <button type="button" class="wf-tool-btn primary" id="empty-load-preset">🌟 Nạp mẫu chuẩn ${activePage === 'home' ? 'Home' : 'Login'}</button>
+          </div>`;
+        const loadBtn = $('#empty-load-preset', blocksContainer);
+        if (loadBtn) {
+          loadBtn.addEventListener('click', () => {
+            userBlocks[activePage] = [...DEFAULT_PRESETS[activePage]];
+            saveState();
+            renderCanvas();
+          });
+        }
+        return;
+      }
+
+      blocksContainer.innerHTML = '';
+
+      currentIds.forEach((blockId, index) => {
+        const comp = comps.find(c => c.id === blockId);
+        if (!comp) return;
+
+        const node = document.createElement('div');
+        node.className = 'wf-node';
+        node.dataset.index = index;
+
+        node.innerHTML = `
+          <div class="wf-node-top">
+            <div class="wf-node-tag">
+              <span style="color:#1d7e64;">[${index + 1}]</span> ${comp.tag}
+            </div>
+            <div class="wf-node-specs">
+              <span class="wf-css-pill">${comp.css}</span>
+              <div class="wf-node-tools">
+                <button type="button" class="wf-node-tool-btn up" title="Di chuyển lên" ${index === 0 ? 'disabled' : ''}>▲</button>
+                <button type="button" class="wf-node-tool-btn down" title="Di chuyển xuống" ${index === currentIds.length - 1 ? 'disabled' : ''}>▼</button>
+                <button type="button" class="wf-node-tool-btn del" title="Xóa khối này">✕</button>
+              </div>
+            </div>
+          </div>
+          <div class="wf-node-content">
+            ${comp.render()}
+          </div>`;
+
+        const upBtn = $('.wf-node-tool-btn.up', node);
+        if (upBtn) {
+          upBtn.addEventListener('click', () => {
+            if (index > 0) {
+              const temp = currentIds[index];
+              currentIds[index] = currentIds[index - 1];
+              currentIds[index - 1] = temp;
+              saveState();
+              renderCanvas();
+            }
+          });
+        }
+
+        const downBtn = $('.wf-node-tool-btn.down', node);
+        if (downBtn) {
+          downBtn.addEventListener('click', () => {
+            if (index < currentIds.length - 1) {
+              const temp = currentIds[index];
+              currentIds[index] = currentIds[index + 1];
+              currentIds[index + 1] = temp;
+              saveState();
+              renderCanvas();
+            }
+          });
+        }
+
+        const delBtn = $('.wf-node-tool-btn.del', node);
+        if (delBtn) {
+          delBtn.addEventListener('click', () => {
+            currentIds.splice(index, 1);
+            saveState();
+            renderCanvas();
+          });
+        }
+
+        blocksContainer.appendChild(node);
+      });
+    };
+
+    $$('.wf-tab-btn', studio).forEach(tab => {
+      tab.addEventListener('click', () => {
+        $$('.wf-tab-btn', studio).forEach(t => {
+          const isAct = t === tab;
+          t.classList.toggle('active', isAct);
+          t.setAttribute('aria-selected', String(isAct));
+        });
+        activePage = tab.dataset.page;
+        renderPalette();
+        renderCanvas();
+      });
+    });
+
+    const loadPresetBtn = $('#wf-load-preset-btn', studio);
+    if (loadPresetBtn) {
+      loadPresetBtn.addEventListener('click', () => {
+        userBlocks[activePage] = [...DEFAULT_PRESETS[activePage]];
+        saveState();
+        renderCanvas();
+      });
+    }
+
+    const clearBtn = $('#wf-clear-btn', studio);
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (confirm(`Bạn có chắc muốn xóa toàn bộ khối trên trang ${activePage === 'home' ? 'Home' : 'Login'}?`)) {
+          userBlocks[activePage] = [];
+          saveState();
+          renderCanvas();
+        }
+      });
+    }
+
+    const viewCodeBtn = $('#wf-view-code-btn', studio);
+    const modal = $('#wf-html-modal', studio);
+    const modalClose = $('#wf-modal-close', studio);
+    const modalCodeEl = $('#wf-generated-code', studio);
+    const modalCopyBtn = $('#modal-copy-code-btn', studio);
+
+    const generateHTML = () => {
+      const currentIds = userBlocks[activePage] || [];
+      const comps = CATALOG[activePage] || [];
+      let code = `<!doctype html>\n<html lang="vi">\n<head>\n  <meta charset="UTF-8">\n  <title>EduShop - ${activePage === 'home' ? 'Trang chủ' : 'Đăng nhập'}</title>\n  <link rel="stylesheet" href="css/style.css">\n  <link rel="stylesheet" href="css/${activePage}.css">\n</head>\n<body class="${activePage === 'login' ? 'login-page' : 'page-home'}">\n`;
+
+      if (activePage === 'home') {
+        const headerComp = comps.find(c => c.id === 'header');
+        if (currentIds.includes('header') && headerComp) {
+          code += '  ' + headerComp.htmlSnippet.split('\n').join('\n  ') + '\n\n  <main>\n';
+        } else {
+          code += '  <main>\n';
+        }
+        currentIds.filter(id => id !== 'header' && id !== 'footer').forEach(id => {
+          const c = comps.find(item => item.id === id);
+          if (c) {
+            code += '    ' + c.htmlSnippet.split('\n').join('\n    ') + '\n\n';
+          }
+        });
+        code += '  </main>\n\n';
+        const footerComp = comps.find(c => c.id === 'footer');
+        if (currentIds.includes('footer') && footerComp) {
+          code += '  ' + footerComp.htmlSnippet.split('\n').join('\n  ') + '\n';
+        }
+      } else {
+        const cardComp = comps.find(c => c.id === 'login-card');
+        code += `  <main class="login-layout">\n    ${cardComp ? cardComp.htmlSnippet.split('\n').join('\n    ') : ''}\n  </main>\n`;
+      }
+
+      code += `</body>\n</html>`;
+      return code;
+    };
+
+    if (viewCodeBtn && modal) {
+      viewCodeBtn.addEventListener('click', () => {
+        const fullCode = generateHTML();
+        if (modalCodeEl) modalCodeEl.textContent = fullCode;
+        modal.hidden = false;
+      });
+      if (modalClose) {
+        modalClose.addEventListener('click', () => {
+          modal.hidden = true;
+        });
+      }
+      if (modalCopyBtn) {
+        modalCopyBtn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(modalCodeEl.textContent);
+            modalCopyBtn.textContent = '✓ Đã chép mã!';
+            setTimeout(() => { modalCopyBtn.textContent = '📋 Sao chép mã'; }, 2000);
+          } catch (_) {
+            modalCopyBtn.textContent = '✓ Đã chép!';
+          }
+        });
+      }
+    }
+
+    const exportPngBtn = $('#wf-export-png-btn', studio);
+    if (exportPngBtn) {
+      exportPngBtn.addEventListener('click', () => {
+        const blocksContainer = $('#wf-layout-blocks', studio);
+        if (!blocksContainer) return;
+
+        const w = 1140;
+        const currentIds = userBlocks[activePage] || [];
+        const h = Math.max(700, 120 + currentIds.length * 150);
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#f4f8f5';
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.fillStyle = '#10362e';
+        ctx.font = 'bold 22px Arial, sans-serif';
+        ctx.fillText(`EDUSHOP - BẢN VẼ WIREFRAME (${activePage.toUpperCase()}) · HOC-WEB2026`, 30, 45);
+
+        ctx.strokeStyle = '#249775';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(20, 60, w - 40, h - 80);
+
+        let curY = 80;
+        const comps = CATALOG[activePage] || [];
+
+        currentIds.forEach((id, idx) => {
+          const comp = comps.find(c => c.id === id);
+          if (!comp) return;
+
+          const blockH = (id === 'hero' || id === 'login-card') ? 160 : (id === 'category' || id === 'courses' ? 120 : 75);
+
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(40, curY, w - 80, blockH);
+          ctx.strokeStyle = '#327063';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([6, 4]);
+          ctx.strokeRect(40, curY, w - 80, blockH);
+          ctx.setLineDash([]);
+
+          ctx.fillStyle = '#114a3c';
+          ctx.font = 'bold 15px Arial, sans-serif';
+          ctx.fillText(`[${idx + 1}] ${comp.title} (${comp.tag})`, 55, curY + 28);
+
+          ctx.fillStyle = '#658a82';
+          ctx.font = 'italic 12px monospace';
+          ctx.fillText(`CSS: ${comp.css}`, 55, curY + 48);
+
+          curY += blockH + 16;
+        });
+
+        const link = document.createElement('a');
+        link.download = `wireframe-edushop-${activePage}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+
+    const toggleSketchBtn = $('#wf-toggle-sketch-btn', studio);
+    const sketchToolbar = $('#wf-sketch-toolbar', studio);
+    const sketchCanvas = $('#wf-sketch-canvas', studio);
+    const canvasContainer = $('#wf-canvas-container', studio);
+
+    let isSketching = false;
+    let drawing = false;
+    let sketchCtx = null;
+    let toolMode = 'pen';
+
+    if (sketchCanvas && canvasContainer) {
+      sketchCtx = sketchCanvas.getContext('2d');
+
+      const resizeCanvas = () => {
+        sketchCanvas.width = canvasContainer.clientWidth;
+        sketchCanvas.height = canvasContainer.clientHeight;
+      };
+      window.addEventListener('resize', resizeCanvas);
+      setTimeout(resizeCanvas, 300);
+
+      if (toggleSketchBtn && sketchToolbar) {
+        toggleSketchBtn.addEventListener('click', () => {
+          isSketching = !isSketching;
+          sketchToolbar.hidden = !isSketching;
+          sketchCanvas.classList.toggle('active', isSketching);
+          toggleSketchBtn.classList.toggle('active', isSketching);
+          toggleSketchBtn.innerHTML = isSketching ? '<span>✕</span> Tắt vẽ tay' : '<span>✏️</span> Bút vẽ tay';
+          resizeCanvas();
+        });
+      }
+
+      const modePen = $('#sketch-mode-pen', studio);
+      const modeEraser = $('#sketch-mode-eraser', studio);
+      const clearSketchBtn = $('#sketch-clear-canvas', studio);
+      const colorInput = $('#sketch-color', studio);
+      const sizeSelect = $('#sketch-size', studio);
+
+      if (modePen && modeEraser) {
+        modePen.addEventListener('click', () => {
+          toolMode = 'pen';
+          modePen.classList.add('active');
+          modeEraser.classList.remove('active');
+        });
+        modeEraser.addEventListener('click', () => {
+          toolMode = 'eraser';
+          modeEraser.classList.add('active');
+          modePen.classList.remove('active');
+        });
+      }
+
+      if (clearSketchBtn) {
+        clearSketchBtn.addEventListener('click', () => {
+          sketchCtx.clearRect(0, 0, sketchCanvas.width, sketchCanvas.height);
+        });
+      }
+
+      const getPos = (e) => {
+        const rect = sketchCanvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+          x: clientX - rect.left,
+          y: clientY - rect.top
+        };
+      };
+
+      const startDraw = (e) => {
+        if (!isSketching) return;
+        drawing = true;
+        const pos = getPos(e);
+        sketchCtx.beginPath();
+        sketchCtx.moveTo(pos.x, pos.y);
+      };
+
+      const moveDraw = (e) => {
+        if (!drawing || !isSketching) return;
+        e.preventDefault();
+        const pos = getPos(e);
+        const size = parseInt(sizeSelect ? sizeSelect.value : '4', 10);
+
+        if (toolMode === 'eraser') {
+          sketchCtx.clearRect(pos.x - size * 2, pos.y - size * 2, size * 4, size * 4);
+        } else {
+          sketchCtx.strokeStyle = colorInput ? colorInput.value : '#249775';
+          sketchCtx.lineWidth = size;
+          sketchCtx.lineCap = 'round';
+          sketchCtx.lineJoin = 'round';
+          sketchCtx.lineTo(pos.x, pos.y);
+          sketchCtx.stroke();
+        }
+      };
+
+      const endDraw = () => {
+        drawing = false;
+      };
+
+      sketchCanvas.addEventListener('mousedown', startDraw);
+      sketchCanvas.addEventListener('mousemove', moveDraw);
+      sketchCanvas.addEventListener('mouseup', endDraw);
+      sketchCanvas.addEventListener('mouseleave', endDraw);
+
+      sketchCanvas.addEventListener('touchstart', startDraw, { passive: false });
+      sketchCanvas.addEventListener('touchmove', moveDraw, { passive: false });
+      sketchCanvas.addEventListener('touchend', endDraw);
+    }
+
+    renderPalette();
+    renderCanvas();
+  };
+
+  initHome(); initLesson(); initPractice(); initStarterCodeViewer(); initWireframeStudio();
 })();

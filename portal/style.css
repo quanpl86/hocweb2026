@@ -46,3 +46,129 @@ body.focus-mode{overflow:hidden}body.focus-mode .site-header{display:none!import
 .tok-val{color:#8eeac5}
 .tok-doctype{color:#7fa498;font-weight:600}
 
+/* Wireframe Studio Styles */
+.wireframe-studio-wrapper{margin:36px 0 24px;background:#0d2328;border-radius:14px;border:1px solid #1f474f;box-shadow:0 18px 50px rgba(10,36,44,.25);overflow:hidden}
+.wf-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:#091b1f;border-bottom:1px solid #183e45;flex-wrap:wrap;gap:14px}
+.wf-header-info{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.wf-title-group{display:flex;flex-direction:column;gap:2px}
+.wf-badge{font-size:9px;font-weight:800;letter-spacing:1.5px;color:#68d9a9;text-transform:uppercase}
+.wf-title{font-size:16px;color:#fff;margin:0;font-family:'Space Grotesk',sans-serif}
+.wf-page-tabs{display:flex;gap:6px;margin-left:8px}
+.wf-tab-btn{background:#112d33;color:#8ba5a0;border:1px solid #1d434a;border-radius:7px;padding:6px 14px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:all .15s ease}
+.wf-tab-btn:hover{color:#fff;background:#183d45}
+.wf-tab-btn.active{background:#1a4d4a;color:#68d9a9;border-color:#2a706b;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.wf-header-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wf-tool-btn{background:#133339;color:#c0ddd5;border:1px solid #204b53;border-radius:7px;padding:6px 13px;font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:all .15s ease}
+.wf-tool-btn:hover{background:#1d4c55;color:#fff;border-color:#68d9a9}
+.wf-tool-btn.primary{background:#236e57;color:#fff;border-color:#329a7b}
+.wf-tool-btn.primary:hover{background:#2a856a}
+.wf-tool-btn.active{background:#ffc584;color:#183239;border-color:#ffc584;font-weight:800}
+
+/* Sketch Toolbar */
+.wf-sketch-toolbar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:#0f2c33;border-bottom:1px solid #1c4b54;font-size:12px;color:#b2d4cc;flex-wrap:wrap;gap:12px}
+.sketch-tools-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tool-label{font-weight:700;color:#68d9a9}
+.sketch-color-picker,.sketch-size-picker{display:inline-flex;align-items:center;gap:6px;font-size:11px;cursor:pointer}
+.sketch-color-picker input{cursor:pointer;border:0;background:transparent;width:24px;height:24px;padding:0}
+.sketch-size-picker select{background:#14373e;color:#fff;border:1px solid #23525c;border-radius:4px;padding:2px 6px;font-size:11px}
+.sketch-btn{background:#14373e;color:#c0ddd5;border:1px solid #23525c;border-radius:5px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer}
+.sketch-btn:hover,.sketch-btn.active{background:#25655b;color:#fff;border-color:#68d9a9}
+.sketch-tip{font-size:11px;color:#7ea59d}
+
+/* Workspace layout */
+.wf-workspace{display:grid;grid-template-columns:290px minmax(0,1fr);background:#08171b;min-height:560px}
+.wf-palette{padding:18px;background:#0c2025;border-right:1px solid #163840;display:flex;flex-direction:column;gap:14px}
+.palette-heading{display:flex;flex-direction:column;gap:2px}
+.palette-heading span{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#e3f5ee}
+.palette-heading small{font-size:11px;color:#789d95}
+.component-list{display:flex;flex-direction:column;gap:8px;overflow-y:auto;max-height:480px;padding-right:4px}
+.comp-btn{background:#122f36;border:1px solid #1f4751;color:#c6ded7;border-radius:8px;padding:10px 12px;text-align:left;font-size:12px;font-weight:600;display:flex;flex-direction:column;gap:3px;cursor:pointer;transition:all .15s ease}
+.comp-btn:hover{background:#1a444e;color:#fff;border-color:#53b895;transform:translateX(3px)}
+.comp-btn strong{color:#e8faf3;font-size:12px}
+.comp-btn span{font-size:10px;color:#76a197;font-family:monospace}
+.palette-hint{margin-top:auto;padding:10px;background:#08191d;border-radius:6px;border:1px solid #14373e;font-size:11px;color:#679087;line-height:1.5}
+
+/* Canvas Area */
+.wf-canvas-area{padding:20px;display:flex;flex-direction:column;overflow-x:auto}
+.wf-board-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;color:#85aba2;font-size:12px;flex-wrap:wrap;gap:8px}
+.wf-board-title{font-family:'Space Grotesk',sans-serif;font-weight:700;color:#c4e8de}
+.wf-board-tags{display:flex;gap:6px}
+.tag-badge{background:#12323a;color:#68d9a9;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;border:1px solid #1e4b54}
+.wf-canvas-container{position:relative;background:#f3f7f4;border-radius:10px;border:2px solid #234f59;min-height:500px;box-shadow:0 8px 30px rgba(0,0,0,.3);overflow:hidden;padding:16px}
+.wf-sketch-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:10;pointer-events:none}
+.wf-sketch-canvas.active{pointer-events:auto;cursor:crosshair}
+
+/* Layout blocks inside canvas */
+.wf-layout-blocks{display:flex;flex-direction:column;gap:14px;position:relative;z-index:1}
+.wf-empty-hint{padding:50px 20px;text-align:center;color:#637e78;border:2px dashed #b2cac2;border-radius:10px;background:#e9f0ec}
+.wf-empty-hint h4{margin:0 0 6px;color:#204b43;font-size:16px}
+.wf-empty-hint p{margin:0 0 14px;font-size:12px}
+
+/* Individual wireframe block item */
+.wf-node{background:#ffffff;border:2px solid #2c5950;border-radius:8px;padding:12px 14px;position:relative;color:#183630;transition:box-shadow .15s ease}
+.wf-node:hover{box-shadow:0 6px 18px rgba(16,46,53,.12)}
+.wf-node-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;border-bottom:1px dashed #cbdad2;padding-bottom:6px}
+.wf-node-tag{display:inline-flex;align-items:center;gap:6px;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:12px;color:#175f4c}
+.wf-node-specs{display:inline-flex;align-items:center;gap:6px}
+.wf-css-pill{font-family:monospace;font-size:10px;background:#e8f4ee;color:#186851;padding:2px 6px;border-radius:4px;border:1px solid #c2e2d3}
+.wf-node-tools{display:flex;align-items:center;gap:4px}
+.wf-node-tool-btn{background:#eef4f1;border:1px solid #cbdad2;color:#3b5c54;border-radius:4px;width:24px;height:24px;font-size:11px;display:grid;place-items:center;cursor:pointer;padding:0}
+.wf-node-tool-btn:hover{background:#d5e9df;color:#0b382d}
+.wf-node-tool-btn.del:hover{background:#fee2e2;color:#dc2626;border-color:#fca5a5}
+
+/* Wireframe Visual Mockups inside nodes */
+.wf-inner-header{display:flex;align-items:center;justify-content:space-between;background:#f5faf7;border:1px dashed #9bc4b4;border-radius:6px;padding:12px 16px}
+.wf-logo-box{background:#184a3e;color:#fff;padding:8px 14px;border-radius:6px;font-weight:800;font-size:13px;font-family:'Space Grotesk'}
+.wf-menu-box{display:flex;gap:12px;color:#356056;font-size:12px;font-weight:700;align-items:center}
+.wf-menu-box span{background:#e3eee8;padding:6px 10px;border-radius:4px}
+
+.wf-inner-hero{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:center;background:#e8f5ed;border:1px dashed #78ba9f;border-radius:6px;padding:22px 20px}
+.wf-hero-text{display:flex;flex-direction:column;gap:8px}
+.wf-hero-h1{height:28px;width:80%;background:#b6dfce;border-radius:4px}
+.wf-hero-p{height:14px;width:95%;background:#cce8dc;border-radius:3px}
+.wf-hero-btn{height:30px;width:120px;background:#18493d;border-radius:5px;margin-top:6px}
+.wf-hero-img-box{height:110px;background:#d2ebd9;border:1px dashed #6bb999;border-radius:6px;display:grid;place-items:center;color:#2c7459;font-weight:700;font-size:12px}
+
+.wf-inner-search{background:#f8faf8;border:1px dashed #a0c2b6;border-radius:6px;padding:14px 20px;display:flex;align-items:center;gap:12px}
+.wf-search-input{flex:1;height:34px;background:#fff;border:1px solid #c2dbd0;border-radius:6px;display:flex;align-items:center;padding:0 12px;color:#879f97;font-size:12px}
+.wf-search-btn{height:34px;padding:0 16px;background:#205e4e;color:#fff;border-radius:6px;display:grid;place-items:center;font-size:12px;font-weight:700}
+
+.wf-inner-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.wf-grid-card{background:#f5faf7;border:1px dashed #8dc5b1;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:6px;min-height:75px}
+.wf-card-thumb{height:45px;background:#d7eee2;border-radius:4px;display:grid;place-items:center;font-size:10px;color:#357a62}
+.wf-card-title{height:14px;width:75%;background:#b2decb;border-radius:3px}
+.wf-card-sub{height:10px;width:55%;background:#cee8dc;border-radius:2px}
+
+.wf-inner-about{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:#f6fbf8;border:1px dashed #90c7b3;border-radius:6px;padding:16px}
+.wf-about-p{height:12px;width:90%;background:#c8e8db;border-radius:3px;margin-bottom:6px}
+.wf-about-img{height:75px;background:#d8efe4;border:1px dashed #7ebf9f;border-radius:6px;display:grid;place-items:center;font-size:11px;color:#286b53}
+
+.wf-inner-notice{display:flex;align-items:center;justify-content:space-between;background:#fbf8ec;border:1px dashed #d9c285;border-radius:6px;padding:12px 18px;color:#7c631e;font-size:12px;font-weight:600}
+.wf-notice-btn{background:#7a6220;color:#fff;padding:6px 12px;border-radius:4px;font-size:11px}
+
+.wf-inner-footer{display:flex;align-items:center;justify-content:space-between;background:#143730;color:#d3eee3;border-radius:6px;padding:16px 20px;font-size:11px}
+.wf-footer-logo{font-size:15px;font-weight:800;font-family:'Space Grotesk'}
+
+/* Login mockup inside wireframe */
+.wf-login-wrapper{display:flex;align-items:center;justify-content:center;padding:30px 10px;background:#eef4fd;border:1px dashed #a4c2f4;border-radius:6px}
+.wf-login-card{width:min(100%,400px);background:#fff;border:2px solid #2556a3;border-radius:8px;padding:24px;box-shadow:0 8px 24px rgba(37,86,163,.1)}
+.wf-login-title{text-align:center;font-weight:800;font-size:16px;color:#183f82;margin-bottom:14px}
+.wf-login-field{background:#f7f9fc;border:1px solid #c7d6eb;border-radius:5px;height:32px;margin-bottom:10px;padding:0 10px;display:flex;align-items:center;font-size:11px;color:#758ca9}
+.wf-login-opts{display:flex;justify-content:space-between;font-size:11px;color:#496a94;margin-bottom:12px}
+.wf-login-btn{background:#2459d3;color:#fff;text-align:center;padding:10px;border-radius:6px;font-weight:700;font-size:12px}
+
+/* Modal for generated HTML */
+.wf-modal{position:fixed;inset:0;background:rgba(8,23,27,.75);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px}
+.wf-modal[hidden]{display:none}
+.wf-modal-dialog{background:#0c2227;border:1px solid #224d55;border-radius:14px;width:min(100%,820px);max-height:85vh;display:flex;flex-direction:column;box-shadow:0 25px 60px rgba(0,0,0,.5);overflow:hidden}
+.wf-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;background:#08191d;border-bottom:1px solid #1a4149}
+.wf-modal-header h3{margin:0;font-size:16px;color:#68d9a9;font-family:'Space Grotesk'}
+.modal-close-btn{background:transparent;border:0;color:#8faaa3;font-size:18px;cursor:pointer;padding:4px}
+.modal-close-btn:hover{color:#fff}
+.wf-modal-body{padding:20px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.modal-desc{margin:0;font-size:12px;color:#a4c6be}
+.modal-code-wrap{position:relative;background:#071417;border:1px solid #16363d;border-radius:8px;padding:16px;max-height:420px;overflow-y:auto}
+.modal-code-wrap .code-action-btn{position:absolute;top:12px;right:12px}
+.modal-code-block{display:block;color:#daf0e8;font-family:'Consolas',monospace;font-size:12px;line-height:1.6;white-space:pre}
+
+

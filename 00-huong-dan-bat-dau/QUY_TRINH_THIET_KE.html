@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quy trình thiết kế giao diện từ số 0 & Tái cấu trúc CSS | HOC-WEB2026</title>
+  <link rel="stylesheet" href="../portal/style.css">
+  <style>
+    :root {
+      --primary: #10362e;
+      --accent: #249775;
+      --accent-light: #e8f7f0;
+      --dark-card: #0c2227;
+      --border: #dce7e1;
+    }
+    body {
+      background: #f4f7f4;
+      color: #1a333a;
+      font-family: 'DM Sans', Arial, sans-serif;
+      line-height: 1.75;
+      margin: 0;
+      padding: 0;
+    }
+    .doc-container {
+      max-width: 1060px;
+      margin: 32px auto 60px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 48px 60px;
+      box-shadow: 0 12px 45px rgba(16, 46, 53, 0.07);
+      border: 1px solid var(--border);
+    }
+    .doc-header {
+      border-bottom: 2px solid #eef3f0;
+      padding-bottom: 28px;
+      margin-bottom: 36px;
+    }
+    .doc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: #e1f5ec;
+      color: #17664f;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .doc-header h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(28px, 3.4vw, 42px);
+      line-height: 1.2;
+      color: #0c282d;
+      margin: 0 0 14px;
+    }
+    .doc-intro {
+      font-size: 16px;
+      color: #4a6360;
+      line-height: 1.8;
+      background: #f8faf8;
+      border-left: 4px solid var(--accent);
+      padding: 16px 22px;
+      border-radius: 0 10px 10px 0;
+      margin: 20px 0;
+    }
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      color: #0f353a;
+      margin: 48px 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e5ede7;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    h2 .section-tag {
+      background: #184e3c;
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      color: #1b4b45;
+      margin: 28px 0 12px;
+    }
+    p, li {
+      color: #314b4a;
+      font-size: 15px;
+    }
+    /* Flow Steps */
+    .flow-steps {
+      display: grid;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .flow-step-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      background: #f9fbf9;
+      border: 1px solid #e2ece5;
+      padding: 16px 20px;
+      border-radius: 12px;
+      transition: transform .15s ease;
+    }
+    .flow-step-item:hover {
+      transform: translateX(4px);
+      border-color: #72caa5;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #249775;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-weight: 700;
+      color: #0c2b29;
+      margin-bottom: 2px;
+      font-size: 15px;
+    }
+    .step-desc {
+      font-size: 13px;
+      color: #55706c;
+      margin: 0;
+    }
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 24px 0 32px;
+      border-radius: 10px;
+      border: 1px solid #dce8e0;
+      box-shadow: 0 4px 16px rgba(0,0,0,.02);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      text-align: left;
+    }
+    th {
+      background: #18463c;
+      color: #ffffff;
+      padding: 13px 16px;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .5px;
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #e8f0eb;
+      color: #26433e;
+      vertical-align: top;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    tr:nth-child(even) {
+      background: #fbfdfc;
+    }
+    /* Wireframe Spec Box */
+    .wireframe-spec {
+      background: #0d2329;
+      color: #d1ebe2;
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin: 28px 0;
+      border: 1px solid #204b54;
+      font-family: monospace;
+    }
+    .wf-block {
+      background: #14353d;
+      border: 1px dashed #3f7b88;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .wf-block strong {
+      color: #6ee7b7;
+    }
+    .wf-block span {
+      font-size: 12px;
+      color: #9cbdb6;
+    }
+    .wf-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .wf-card {
+      background: #163c46;
+      border: 1px dashed #4b8f9e;
+      border-radius: 6px;
+      padding: 14px;
+      text-align: center;
+      color: #f1f7f5;
+    }
+    /* Trees and Code */
+    .tree-block {
+      background: #0a1c20;
+      color: #d8ede5;
+      border-radius: 12px;
+      padding: 20px 24px;
+      font-family: 'Consolas', 'SF Mono', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: auto;
+      border: 1px solid #1a4149;
+      margin: 20px 0;
+      white-space: pre;
+    }
+    code {
+      font-family: 'Consolas', 'SF Mono', monospace;
+      background: #eaf3ed;
+      color: #175440;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    .callout {
+      background: #fdfaf2;
+      border-left: 4px solid #e6a23c;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 22px 0;
+    }
+    .callout strong {
+      color: #8c5b0d;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .badge-common {
+      background: #d1fae5;
+      color: #065f46;
+      padding: 3px 9px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+    .badge-home {
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 3px 9px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+    .badge-login {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 3px 9px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+    .checklist-table td:first-child {
+      font-weight: 700;
+      color: #249775;
+      width: 40px;
+      text-align: center;
+    }
+    @media(max-width: 768px) {
+      .doc-container {
+        padding: 24px 20px;
+        margin: 12px;
+      }
+      .wf-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="doc-container">
+  <header class="doc-header">
+    <div class="doc-badge">GIÁO TRÌNH HOC-WEB2026 · CHƯƠNG 02 · NHẬP MÔN THIẾT KẾ</div>
+    <h1>Quy trình thiết kế giao diện từ số 0 &amp; Tái cấu trúc CSS</h1>
+    <div class="doc-intro">
+      <strong>Mục tiêu cốt lõi:</strong> Thay vì đưa ngay mã nguồn rồi yêu cầu gõ lại theo mẫu, giáo trình dạy học viên cách <em>tự chuyển đổi một yêu cầu thiết kế thành cấu trúc HTML/CSS hoàn chỉnh</em>. Bài học được xây dựng theo phương pháp giải quyết vấn đề: từ phân tích đề bài, vẽ wireframe, phân rã cây cha–con đến viết CSS độc lập và tái cấu trúc hệ thống dùng chung.
+    </div>
+  </header>
+
+  <!-- PHẦN 1: QUY TRÌNH 7 BƯỚC -->
+  <section>
+    <h2><span class="section-tag">QUY TRÌNH</span> 7 Bước thiết kế giao diện từ số 0</h2>
+    <p>Trước khi mở trình soạn thảo mã để gõ bất kỳ dòng HTML nào, một lập trình viên Front-end chuyên nghiệp luôn tuân theo 7 bước kiến trúc sau:</p>
+    <div class="flow-steps">
+      <div class="flow-step-item">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Đọc đề bài và xác định yêu cầu sản phẩm</div>
+          <p class="step-desc">Xác định mục tiêu website, số lượng trang, các chức năng hiển thị cần có và phạm vi kỹ thuật (Desktop, HTML5, CSS3, chưa backend).</p>
+        </div>
+      </div>
+      <div class="flow-step-item">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Phân tích các vùng chức năng của giao diện</div>
+          <p class="step-desc">Chuyển văn bản đề bài thành danh mục các khu vực cụ thể (Header, Banner, Danh mục, Khóa học, Footer, Form đăng nhập...).</p>
+        </div>
+      </div>
+      <div class="flow-step-item">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Vẽ wireframe xác định vị trí và kích thước tương đối</div>
+          <p class="step-desc">Phác thảo bố cục tổng thể: trang có những vùng nào, vùng nào lồng trong vùng nào, sắp xếp theo hàng ngang, hàng dọc hay lưới.</p>
+        </div>
+      </div>
+      <div class="flow-step-item">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Gán thẻ HTML phù hợp cho từng vùng và giải thích lý do</div>
+          <p class="step-desc">Lựa chọn thẻ ngữ nghĩa theo chuẩn HTML5 (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;form&gt;</code>, <code>&lt;footer&gt;</code>) thay vì lạm dụng <code>&lt;div&gt;</code>.</p>
+        </div>
+      </div>
+      <div class="flow-step-item">
+        <div class="step-num">5</div>
+        <div>
+          <div class="step-title">Phân rã từng vùng thành các thành phần cha – con</div>
+          <p class="step-desc">Bóc tách từng khối lớn thành các phần tử nhỏ hơn bên trong (Component Tree). Xác định rõ quan hệ lồng nhau để viết HTML chính xác.</p>
+        </div>
+      </div>
+      <div class="flow-step-item">
+        <div class="step-num">6</div>
+        <div>
+          <div class="step-title">Đặt tên class có hệ thống, xác định Flexbox / Grid và viết CSS</div>
+          <p class="step-desc">Đặt tên class theo vai trò chức năng (tránh đặt theo màu/vị trí). Quyết định dùng Flexbox (1 chiều) hay Grid (2 chiều/lưới cột) trên phần tử cha.</p>
+        </div>
+      </div>
+      <div class="flow-step-item">
+        <div class="step-num">7</div>
+        <div>
+          <div class="step-title">Lắp ghép giao diện, chạy thử và đối chiếu đề bài</div>
+          <p class="step-desc">Mở trình duyệt kiểm tra kết quả hiển thị, rà soát lại theo phiếu kiểm tra (Checklist) trước khi nộp bài.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHẦN A: ĐỀ BÀI VÀ PHÂN TÍCH -->
+  <section>
+    <h2><span class="section-tag">PHẦN A</span> Đề bài mẫu: Dự án EduShop</h2>
+    <p><strong>Bối cảnh:</strong> Bạn là lập trình viên Front-end được giao xây dựng giao diện cho website học trực tuyến có tên <strong>EduShop</strong> gồm 2 trang:</p>
+    <ul>
+      <li><strong>01. Trang chủ (Home):</strong> Giới thiệu website, thanh tìm kiếm, danh mục ngành học, danh sách khóa học nổi bật, giới thiệu và thông tin liên hệ.</li>
+      <li><strong>02. Trang Đăng nhập (Login):</strong> Giao diện hộp đăng nhập căn giữa màn hình với các trường tài khoản, mật khẩu, ghi nhớ, quên mật khẩu và nút đăng nhập.</li>
+    </ul>
+
+    <h3>Bảng phân tích vùng chức năng</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Yêu cầu chức năng</th>
+            <th>Trang</th>
+            <th>Thành phần cần có</th>
+            <th>Ký hiệu Wireframe</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Hiển thị logo và menu điều hướng</td><td>Home</td><td>Header &amp; Navigation</td><td><strong>Vùng A</strong></td></tr>
+          <tr><td>Giới thiệu khóa học nổi bật</td><td>Home</td><td>Hero / Banner</td><td><strong>Vùng B</strong></td></tr>
+          <tr><td>Ô tìm kiếm nội dung quan tâm</td><td>Home</td><td>Search Box</td><td><strong>Vùng C</strong></td></tr>
+          <tr><td>Danh mục khóa học theo chủ đề</td><td>Home</td><td>Category Grid (3 cột)</td><td><strong>Vùng D</strong></td></tr>
+          <tr><td>Danh sách các khóa học tiêu biểu</td><td>Home</td><td>Course Cards Grid (3 cột)</td><td><strong>Vùng E</strong></td></tr>
+          <tr><td>Giới thiệu về website và giảng viên</td><td>Home</td><td>About Section</td><td><strong>Vùng F</strong></td></tr>
+          <tr><td>Thông báo mới và chương trình ưu đãi</td><td>Home</td><td>Notice Section</td><td><strong>Vùng G</strong></td></tr>
+          <tr><td>Thông tin bản quyền và liên hệ</td><td>Home</td><td>Site Footer</td><td><strong>Vùng H</strong></td></tr>
+          <tr><td>Toàn bộ khung căn giữa màn hình Login</td><td>Login</td><td>Login Layout &amp; Card (440px)</td><td><strong>Vùng I, J, K</strong></td></tr>
+          <tr><td>Biểu mẫu nhập tài khoản, mật khẩu</td><td>Login</td><td>Login Form &amp; Controls</td><td><strong>Vùng L</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PHẦN B: TẠO WIREFRAME -->
+  <section>
+    <h2><span class="section-tag">PHẦN B</span> Bản vẽ Wireframe chuẩn</h2>
+    <p>Wireframe là bản phác thảo kiến trúc trực quan trả lời 3 câu hỏi:</p>
+    <ol>
+      <li>Trang gồm những vùng nào?</li>
+      <li>Vùng nào nằm lồng trong vùng nào?</li>
+      <li>Các thành phần con xếp ngang (Flexbox), xếp dọc hay theo lưới (Grid)?</li>
+    </ol>
+
+    <h3>1. Sơ đồ Wireframe Home (EduShop Desktop)</h3>
+    <div class="wireframe-spec">
+      <div style="font-size:11px; color:#68d9a9; margin-bottom:12px;">WIREFRAME 01 · HOME DESKTOP (Chiều rộng nội dung: 1100px)</div>
+      
+      <div class="wf-block">
+        <div><strong>[A] SITE HEADER</strong> (Toàn chiều ngang nền)</div>
+        <div><span>LOGO (Trái) &lt;--- space-between ---&gt; MENU + LOGIN (Phải)</span></div>
+      </div>
+
+      <div class="wf-block">
+        <div><strong>[B] HERO / BANNER</strong> (Nền full-width)</div>
+        <div><span>Container 1100px: Tiêu đề H1 + Nút CTA (Trái) | Ảnh Banner (Phải)</span></div>
+      </div>
+
+      <div class="wf-block">
+        <div><strong>[C] SEARCH SECTION</strong> (Container 1100px)</div>
+        <div><span>Tiêu đề H2 + Ô input tìm kiếm + Nút [Tìm kiếm]</span></div>
+      </div>
+
+      <div class="wf-block" style="background:transparent; border:none; padding:4px 0 2px;">
+        <strong style="color:#a7f3d0;">[D] CATEGORY GRID</strong> (Lưới 3 cột - CSS Grid)
+      </div>
+      <div class="wf-grid">
+        <div class="wf-card">Danh mục 1<br><small>Lập trình Web</small></div>
+        <div class="wf-card">Danh mục 2<br><small>Thiết kế UI/UX</small></div>
+        <div class="wf-card">Danh mục 3<br><small>Khoa học dữ liệu</small></div>
+      </div>
+
+      <div class="wf-block" style="background:transparent; border:none; padding:4px 0 2px;">
+        <strong style="color:#a7f3d0;">[E] COURSES GRID</strong> (Lưới 3 cột - CSS Grid)
+      </div>
+      <div class="wf-grid">
+        <div class="wf-card">Khóa học 1<br><small>HTML/CSS Cơ bản</small></div>
+        <div class="wf-card">Khóa học 2<br><small>Flexbox &amp; Grid</small></div>
+        <div class="wf-card">Khóa học 3<br><small>Dựng giao diện Web</small></div>
+      </div>
+
+      <div class="wf-block">
+        <div><strong>[F] ABOUT SECTION</strong> (Nền full-width)</div>
+        <div><span>Container 1100px: Nhóm bài viết giới thiệu + Hình ảnh minh họa</span></div>
+      </div>
+
+      <div class="wf-block">
+        <div><strong>[G] NOTICE SECTION</strong> (Container 1100px)</div>
+        <div><span>Nội dung thông báo mới + Nút liên kết Xem chi tiết</span></div>
+      </div>
+
+      <div class="wf-block">
+        <div><strong>[H] SITE FOOTER</strong> (Nền full-width)</div>
+        <div><span>Container 1100px: Logo EduShop + Thông tin liên hệ &amp; Bản quyền</span></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Quy tắc Container:</strong> Các khu vực như <code>Header</code>, <code>Hero</code>, <code>About</code>, <code>Footer</code> cần nền trải rộng toàn màn hình (100% viewport), nên ta đặt <code>.container</code> bên trong. Các khu vực như <code>Search</code>, <code>Category</code>, <code>Notice</code> không cần nền tràn viền nên có thể gắn trực tiếp <code>class="container"</code> lên phần tử <code>&lt;section&gt;</code>.
+    </div>
+
+    <h3>2. Sơ đồ Wireframe Login</h3>
+    <div class="wireframe-spec" style="max-width:540px; margin-inline:auto;">
+      <div style="font-size:11px; color:#fcd34d; margin-bottom:12px; text-align:center;">WIREFRAME 02 · LOGIN PAGE (Căn giữa viewport)</div>
+      <div class="wf-block" style="text-align:center; display:block;">
+        <div style="color:#94b5aa; font-size:11px; margin-bottom:8px;">[I] BODY.login-page (Nền xanh nhạt #eaf0fc)</div>
+        <div style="border: 2px dashed #6ee7b7; border-radius: 8px; padding: 18px; background: #08171b;">
+          <div style="font-size:11px; color:#68d9a9; margin-bottom:8px;">[J] MAIN.login-layout (Căn giữa Flexbox 100vh)</div>
+          <div style="background: white; color: #15323a; border-radius: 8px; padding: 20px;">
+            <div style="font-weight: 800; font-size: 16px; margin-bottom: 4px;">[K] DIV.login-card (Rộng 440px)</div>
+            <div style="font-size: 12px; color: #5a7571; margin-bottom: 14px;">[K1] Logo EduShop · [K2] Đăng nhập tài khoản</div>
+            
+            <div style="background: #f1f6f3; border: 1px solid #c7ded4; border-radius: 6px; padding: 12px; text-align: left; font-size: 12px; color: #234740;">
+              <div><strong>[L] FORM.login-form</strong></div>
+              <div style="margin: 6px 0;">[L1] Label + Input Email/Username</div>
+              <div style="margin: 6px 0;">[L2] Label + Input Password</div>
+              <div style="margin: 6px 0; display:flex; justify-content:space-between;">
+                <span>[L3] [✓] Ghi nhớ tôi</span>
+                <span>Quên mật khẩu?</span>
+              </div>
+              <div style="background: #2459d3; color: white; text-align: center; padding: 8px; border-radius: 5px; font-weight: bold; margin-top: 8px;">
+                [L4] BUTTON.login-button (100% width)
+              </div>
+            </div>
+            <div style="margin-top: 12px; font-size: 12px; color: #206d54;">
+              [L5] ← Trở về trang chủ
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHẦN C & D: PHÂN BỔ THẺ VÀ CÂY CẤU TRÚC -->
+  <section>
+    <h2><span class="section-tag">PHẦN C &amp; D</span> Gán thẻ ngữ nghĩa &amp; Cây cấu trúc (DOM Tree)</h2>
+    <p><strong>Vì sao không dùng <code>&lt;div&gt;</code> cho tất cả?</strong> <code>&lt;div&gt;</code> chỉ là hộp chứa vô nghĩa. Khi dùng thẻ ngữ nghĩa (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code>), trình duyệt, công cụ tìm kiếm (SEO) và người đọc code đều hiểu ngay vai trò của từng vùng.</p>
+
+    <h3>Cây cấu trúc hoàn chỉnh trang Home</h3>
+    <div class="tree-block">BODY
+├── HEADER.site-header
+│   └── DIV.container.header-content
+│       ├── A.brand (Logo + Tên EduShop)
+│       └── NAV.main-nav (Trang chủ, Danh mục, Khóa học, Đăng nhập)
+│
+├── MAIN
+│   ├── SECTION.hero
+│   │   └── DIV.container.hero-content
+│   │       ├── DIV.hero-text (Tiêu đề H1, Đoạn văn P, Nút A.button)
+│   │       └── IMG.hero-image (Banner minh họa)
+│   │
+│   ├── SECTION.container.search-section
+│   │   ├── H2 (Tìm nội dung quan tâm)
+│   │   ├── DIV.search-box (INPUT tìm kiếm + BUTTON.button)
+│   │   └── P.small-note (Ghi chú chức năng)
+│   │
+│   ├── SECTION.container.content-section
+│   │   ├── H2 (Danh mục khóa học)
+│   │   └── DIV.category-grid (CSS Grid 3 cột)
+│   │       └── ARTICLE.category-card × 3
+│   │
+│   ├── SECTION.container.content-section
+│   │   ├── H2 (Khóa học nổi bật)
+│   │   └── DIV.product-grid (CSS Grid 3 cột)
+│   │       └── ARTICLE.product-card × 3 (IMG + DIV.product-body)
+│   │
+│   ├── SECTION.about-section
+│   │   └── DIV.container.about-content
+│   │       ├── DIV.about-text (Nội dung giới thiệu)
+│   │       └── DIV.about-illustration (Hình minh họa)
+│   │
+│   └── SECTION.container.notice-section
+│       ├── DIV.notice-content (Thông báo ưu đãi)
+│       └── A.button (Xem thêm)
+│
+└── FOOTER.site-footer
+    └── DIV.container.footer-content
+        ├── DIV (Thông tin website & bản quyền)
+        └── DIV (Thông tin liên hệ, hotline, email)</div>
+  </section>
+
+  <!-- PHẦN E & F: TIẾP CẬN CSS VÀ REFACTORING -->
+  <section>
+    <h2><span class="section-tag">CSS REFACTORING</span> Phương pháp tiếp cận CSS theo quá trình giải quyết vấn đề</h2>
+    <div class="doc-intro">
+      <strong>Quy trình thực hiện:</strong> Cho học viên viết CSS độc lập cho từng trang trước (<code>home.css</code> và <code>login.css</code>). Sau khi cả hai trang hiển thị đúng, yêu cầu đặt 2 file cạnh nhau để <em>phát hiện quy tắc trùng lặp</em>, từ đó tái cấu trúc (Refactor) tách ra <code>style.css</code> dùng chung.
+    </div>
+
+    <h3>1. Bảng phân loại quy tắc CSS: Chung vs Riêng</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Quy tắc CSS</th>
+            <th style="text-align:center;">Có ở Home?</th>
+            <th style="text-align:center;">Có ở Login?</th>
+            <th>Phân loại kết luận</th>
+            <th>Lý do thiết kế</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>* { box-sizing: border-box; }</code></td>
+            <td style="text-align:center;">✓</td>
+            <td style="text-align:center;">✓</td>
+            <td><span class="badge-common">style.css</span></td>
+            <td>Quy tắc nền tảng: toàn bộ dự án phải tính kích thước thống nhất.</td>
+          </tr>
+          <tr>
+            <td><code>body { font-family, margin, color }</code></td>
+            <td style="text-align:center;">✓</td>
+            <td style="text-align:center;">✓</td>
+            <td><span class="badge-common">style.css</span></td>
+            <td>Typography nền tảng: kiểu chữ và màu chữ chuẩn của thương hiệu.</td>
+          </tr>
+          <tr>
+            <td><code>.container { width: 1100px; margin: 0 auto; }</code></td>
+            <td style="text-align:center;">✓</td>
+            <td style="text-align:center;">—</td>
+            <td><span class="badge-common">style.css</span></td>
+            <td>Bố cục dùng chung: tuy ban đầu chỉ Home dùng, nhưng là layout utility dùng cho các trang con về sau.</td>
+          </tr>
+          <tr>
+            <td><code>.button { padding, background, border-radius... }</code></td>
+            <td style="text-align:center;">✓</td>
+            <td style="text-align:center;">✓</td>
+            <td><span class="badge-common">style.css</span></td>
+            <td>Thành phần dùng chung: nút bấm có hình dáng cơ bản giống nhau trên toàn hệ thống.</td>
+          </tr>
+          <tr>
+            <td><code>.hero, .hero-content, .hero-text</code></td>
+            <td style="text-align:center;">✓</td>
+            <td style="text-align:center;">—</td>
+            <td><span class="badge-home">home.css</span></td>
+            <td>Chỉ thuộc riêng trang chủ.</td>
+          </tr>
+          <tr>
+            <td><code>.product-grid, .category-grid</code></td>
+            <td style="text-align:center;">✓</td>
+            <td style="text-align:center;">—</td>
+            <td><span class="badge-home">home.css</span></td>
+            <td>Bố cục lưới danh mục &amp; sản phẩm riêng của Home.</td>
+          </tr>
+          <tr>
+            <td><code>.login-layout, .login-card</code></td>
+            <td style="text-align:center;">—</td>
+            <td style="text-align:center;">✓</td>
+            <td><span class="badge-login">login.css</span></td>
+            <td>Bố cục căn giữa màn hình và hộp đăng nhập riêng của Login.</td>
+          </tr>
+          <tr>
+            <td><code>.login-button { width: 100%; }</code></td>
+            <td style="text-align:center;">—</td>
+            <td style="text-align:center;">✓</td>
+            <td><span class="badge-login">login.css</span></td>
+            <td>Modifier class: mở rộng chiều rộng của <code>.button</code> dành riêng cho form đăng nhập.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>Nguyên tắc vàng:</strong> CSS giống nhau ngẫu nhiên (ví dụ <code>.hero</code> và <code>.login-card</code> tình cờ cùng có <code>padding: 40px</code>) <em>không có nghĩa là gộp chung class</em>! Chỉ gộp khi chúng cùng thể hiện một quy tắc thiết kế hoặc một component tái sử dụng (như nút <code>.button</code>).
+    </div>
+
+    <h3>2. Thứ tự liên kết CSS chuẩn sau khi tách</h3>
+    <p>Nguyên tắc: <strong>CSS dùng chung liên kết trước, CSS riêng liên kết sau.</strong></p>
+    <div class="tree-block">&lt;!-- Trong index.html --&gt;
+&lt;link rel="stylesheet" href="css/style.css"&gt; &lt;!-- Chung: Reset, body, container, button --&gt;
+&lt;link rel="stylesheet" href="css/home.css"&gt;  &lt;!-- Riêng: Hero, Search, Grid, About, Footer --&gt;
+
+&lt;!-- Trong login.html --&gt;
+&lt;link rel="stylesheet" href="css/style.css"&gt; &lt;!-- Chung: Reset, body, button --&gt;
+&lt;link rel="stylesheet" href="css/login.css"&gt; &lt;!-- Riêng: Login layout, card, form, login-button --&gt;</div>
+  </section>
+
+  <!-- PHẦN G: PHIẾU KIỂM TRA ĐÁNH GIÁ -->
+  <section>
+    <h2><span class="section-tag">CHECKLIST</span> Phiếu kiểm tra thiết kế trước khi code</h2>
+    <div class="table-wrap">
+      <table class="checklist-table">
+        <tbody>
+          <tr><td>01</td><td>Đã xác định rõ danh mục yêu cầu cho cả 2 trang Home và Login.</td></tr>
+          <tr><td>02</td><td>Đã phác thảo đầy đủ Wireframe các vùng A–H cho Home trên giấy hoặc công cụ vẽ.</td></tr>
+          <tr><td>03</td><td>Đã tạo Wireframe vùng I–L cho Login với hộp đăng nhập căn giữa.</td></tr>
+          <tr><td>04</td><td>Đã phân biệt bản chất giữa thẻ ngữ nghĩa (<code>&lt;section&gt;</code>), <code>&lt;div&gt;</code> và class <code>.container</code>.</td></tr>
+          <tr><td>05</td><td>Đã giải thích được lý do chọn từng loại thẻ HTML cho từng khu vực.</td></tr>
+          <tr><td>06</td><td>Đã vẽ cây cấu trúc phân rã cha – con của Header, Hero, Grid và Form.</td></tr>
+          <tr><td>07</td><td>Đã đặt tên class theo vai trò chức năng (tiếng Anh, kebab-case), không đặt theo màu/vị trí.</td></tr>
+          <tr><td>08</td><td>Đã xác định chính xác phần tử cha nào cần áp dụng Flexbox, phần tử cha nào cần CSS Grid.</td></tr>
+          <tr><td>09</td><td>Đã viết CSS độc lập cho từng trang để kiểm tra hiển thị hoàn chỉnh.</td></tr>
+          <tr><td>10</td><td>Đã thực hiện Refactoring: so sánh, tách <code>style.css</code> dùng chung, xóa trùng lặp và kiểm tra hồi quy giao diện.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

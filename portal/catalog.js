@@ -1,11 +1,11 @@
 /* Danh mục bài học. Thêm bài mới tại đây; URL chỉ dùng đường dẫn nội bộ. */
 window.HOCWEB_CATALOG = [
   {
-    id: 'start', chapter: '00', stage: 'BẮT ĐẦU', title: 'Chuẩn bị hành trang',
-    description: 'Hiểu HTML, CSS, VS Code và cách sử dụng giáo trình trước khi viết dòng mã đầu tiên.',
-    duration: '10 phút', level: 'Nhập môn', type: 'guide', icon: 'compass',
-    path: '02-bai-hoc/chuong-02-layout/bai-01-home-login/HUONG_DAN_CHI_TIET.html',
-    focus: 'Bước 01–03', thumb: '02-bai-hoc/chuong-02-layout/bai-01-home-login/images/buoc-02.png'
+    id: 'start', chapter: '00', stage: 'BẮT ĐẦU', title: 'Quy trình thiết kế & CSS Refactor',
+    description: 'Học cách chuyển đổi đề bài thành Wireframe, phân rã cây cha–con và tiếp cận CSS từ riêng biệt đến tái cấu trúc.',
+    duration: '25 phút', level: 'Nhập môn', type: 'guide', icon: 'compass',
+    path: '00-huong-dan-bat-dau/QUY_TRINH_THIET_KE.html',
+    focus: 'Wireframe + HTML + CSS Refactor', thumb: '02-bai-hoc/chuong-02-layout/bai-01-home-login/images/05-so-do-home.png'
   },
   {
     id: 'concepts', chapter: '01', stage: 'KIẾN THỨC NỀN', title: 'DIV · Box Model · Flexbox · Grid',
