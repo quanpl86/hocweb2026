@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>EduShop - Trang chủ</title>
+  <!-- HTML: link tới file CSS nằm cùng thư mục -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- BƯỚC 1: HEADER là phần đầu trang; Flexbox ở CSS sắp hai div/logo và nav cùng hàng -->
+  <header class="site-header">
+    <div class="logo">EDU<span>SHOP</span></div>
+    <nav class="navigation" aria-label="Menu chính">
+      <a href="index.html">Trang chủ</a>
+      <a href="#danh-muc">Danh mục</a>
+      <a href="#noi-bat">Khóa học</a>
+      <a href="login.html">Đăng nhập</a>
+    </nav>
+  </header>
+  <main>
+    <!-- BƯỚC 2: HERO có khoảng padding rộng để nội dung không sát mép -->
+    <section class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">Học tập sáng tạo</p>
+        <h1>Học công nghệ theo cách của bạn</h1>
+        <p>Khám phá khóa học lập trình, robotics và sáng tạo nội dung.</p>
+        <a class="primary-link" href="#noi-bat">Xem khóa học</a>
+      </div>
+      <div class="hero-visual" aria-label="Hình minh họa trang trí">HTML<br>+</div>
+    </section>
+    <!-- BƯỚC 3: FLEX cho input và nút cùng một hàng. Không có xử lý tìm kiếm -->
+    <section class="search-panel">
+      <h2>Tìm khóa học</h2>
+      <div class="search-row">
+        <input type="search" placeholder="Nhập tên khóa học..." aria-label="Tên khóa học">
+        <button type="button">Tìm kiếm</button>
+      </div>
+    </section>
+    <!-- BƯỚC 4: GRID cho 3 cột danh mục -->
+    <section class="section" id="danh-muc">
+      <h2>Danh mục học tập</h2>
+      <div class="category-grid">
+        <div class="category">💻<h3>Lập trình</h3></div>
+        <div class="category">🤖<h3>Robotics</h3></div>
+        <div class="category">🎨<h3>Thiết kế</h3></div>
+      </div>
+    </section>
+    <!-- BƯỚC 5: GRID chia sản phẩm, Box Model làm đẹp từng card -->
+    <section class="section" id="noi-bat">
+      <h2>Khóa học nổi bật</h2>
+      <div class="product-grid">
+        <article class="product-card">
+          <div class="product-image blue">&lt;/&gt;</div>
+          <h3>HTML &amp; CSS căn bản</h3><p>Tự xây dựng giao diện đầu tiên.</p><span class="price">Khóa học 01</span>
+        </article>
+        <article class="product-card">
+          <div class="product-image mint">{ }</div>
+          <h3>Python cho người mới</h3><p>Luyện tư duy lập trình với ví dụ.</p><span class="price">Khóa học 02</span>
+        </article>
+        <article class="product-card">
+          <div class="product-image peach">⚙</div>
+          <h3>Robotics sáng tạo</h3><p>Tìm hiểu cách điều khiển robot.</p><span class="price">Khóa học 03</span>
+        </article>
+      </div>
+    </section>
+    <!-- BƯỚC 6: Giới thiệu và thông báo -->
+    <section class="about section"><h2>Về EduShop</h2><p>EduShop là website minh họa cho bài tập dựng layout tĩnh bằng HTML và CSS.</p></section>
+    <section class="announcement section"><h2>📢 Thông báo</h2><p>Khám phá chương trình học dành cho người mới bắt đầu!</p></section>
+  </main>
+  <!-- BƯỚC 7: FOOTER -->
+  <footer class="site-footer"><strong>EDUSHOP</strong><p>Liên hệ: contact@example.com · © 2026 EduShop</p></footer>
+</body>
+</html>

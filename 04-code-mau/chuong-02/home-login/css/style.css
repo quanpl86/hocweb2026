@@ -1,0 +1,20 @@
+/* style.css: quy tắc chung của cả hai trang */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; color: #18304a; background: #ffffff; line-height: 1.5; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; }
+button, input { font: inherit; }
+.container { width: 1100px; margin: 0 auto; }
+.button { display: inline-block; padding: 12px 22px; border: 0; border-radius: 8px; background: #2459d3; color: white; font-weight: bold; cursor: pointer; }
+.button:hover { background: #163fa5; }
+.site-header { background: white; border-bottom: 1px solid #e3e9f0; }
+.header-content { height: 82px; display: flex; align-items: center; justify-content: space-between; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-size: 24px; font-weight: bold; color: #173f8b; }
+.brand img { width: 40px; height: 40px; }
+.main-nav { display: flex; align-items: center; gap: 26px; font-weight: bold; font-size: 14px; }
+.main-nav a:hover, .text-link:hover { color: #2459d3; }
+.main-nav .nav-login { background: #eaf0ff; color: #2459d3; padding: 11px 17px; border-radius: 7px; }
+.site-footer { margin-top: 58px; padding: 34px 0; background: #102846; color: white; }
+.footer-content { display: flex; justify-content: space-between; }
+.footer-content h2, .footer-content h3 { margin-top: 0; }
+.footer-content p { color: #cbd8e9; }

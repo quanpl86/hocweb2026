@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>EduShop - Trang chủ</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <a class="brand" href="index.html"><img src="assets/logo.svg" alt="Logo EduShop"> EduShop</a>
+      <nav class="main-nav" aria-label="Điều hướng chính">
+        <a href="index.html">Trang chủ</a>
+        <a href="#danh-muc">Danh mục</a>
+        <a href="#san-pham">Khóa học</a>
+        <a href="#gioi-thieu">Giới thiệu</a>
+        <a class="nav-login" href="login.html">Đăng nhập</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <p class="eyebrow">HỌC CÔNG NGHỆ TỪ BƯỚC ĐẦU</p>
+          <h1>Khám phá niềm vui học lập trình</h1>
+          <p>Khóa học mẫu dành cho người mới. Đây là nội dung minh họa bố cục website tĩnh.</p>
+          <a class="button button-white" href="#san-pham">Xem khóa học</a>
+        </div>
+        <img class="hero-image" src="assets/banner.svg" alt="Hình minh họa học công nghệ">
+      </div>
+    </section>
+
+    <section class="container search-section" aria-label="Khu vực tìm kiếm">
+      <h2>Tìm nội dung bạn quan tâm</h2>
+      <div class="search-box">
+        <input type="search" placeholder="Ví dụ: HTML, CSS, Python..." aria-label="Từ khóa tìm kiếm">
+        <button type="button" class="button">Tìm kiếm</button>
+      </div>
+      <p class="small-note">Ô tìm kiếm chỉ minh họa giao diện; chưa xử lý tìm kiếm.</p>
+    </section>
+
+    <section class="container content-section" id="danh-muc">
+      <h2>Danh mục nổi bật</h2>
+      <p class="section-description">Chọn chủ đề mà bạn yêu thích.</p>
+      <div class="category-grid">
+        <article class="category-card"><span class="category-icon">&lt;/&gt;</span><h3>Lập trình Web</h3><p>HTML và CSS cơ bản</p></article>
+        <article class="category-card"><span class="category-icon">{ }</span><h3>Lập trình Game</h3><p>Ý tưởng và trò chơi</p></article>
+        <article class="category-card"><span class="category-icon">◎</span><h3>Thiết kế số</h3><p>Sáng tạo sản phẩm</p></article>
+      </div>
+    </section>
+
+    <section class="container content-section" id="san-pham">
+      <h2>Khóa học nổi bật</h2>
+      <p class="section-description">Mỗi thẻ gồm hình ảnh, tiêu đề, mô tả và nút xem.</p>
+      <div class="product-grid">
+        <article class="product-card">
+          <img src="assets/course-html.svg" alt="Minh họa khóa học HTML">
+          <div class="product-body"><h3>HTML cho người mới</h3><p>Học cách tạo cấu trúc một trang web.</p><a class="text-link" href="#san-pham">Xem chi tiết →</a></div>
+        </article>
+        <article class="product-card">
+          <img src="assets/course-css.svg" alt="Minh họa khóa học CSS">
+          <div class="product-body"><h3>CSS và bố cục</h3><p>Trang trí và sắp xếp các thành phần.</p><a class="text-link" href="#san-pham">Xem chi tiết →</a></div>
+        </article>
+        <article class="product-card">
+          <img src="assets/course-design.svg" alt="Minh họa khóa học thiết kế">
+          <div class="product-body"><h3>Thiết kế giao diện</h3><p>Luyện tập với màu sắc và bố cục.</p><a class="text-link" href="#san-pham">Xem chi tiết →</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="about-section" id="gioi-thieu">
+      <div class="container about-content">
+        <div><p class="eyebrow dark-eyebrow">GIỚI THIỆU</p><h2>Học từng bước, tự làm được website</h2><p>EduShop là website học tập giả định được tạo riêng cho bài tập HTML và CSS. Bạn có thể thay nội dung này bằng chủ đề nhóm đã chọn.</p></div>
+        <div class="about-illustration">HTML <span>+</span> CSS</div>
+      </div>
+    </section>
+
+    <section class="container notice-section">
+      <div><p class="eyebrow dark-eyebrow">THÔNG BÁO</p><h2>Tuần lễ khám phá khóa học mới</h2><p>Thông tin khuyến mãi hoặc thông báo mẫu; không có xử lý dữ liệu.</p></div>
+      <a class="button" href="#san-pham">Khám phá ngay</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content"><div><h2>EduShop</h2><p>Website mẫu cho bài tập HTML &amp; CSS.</p></div><div><h3>Liên hệ</h3><p>contact@example.com</p><p>© 2026 EduShop</p></div></div>
+  </footer>
+</body>
+</html>
