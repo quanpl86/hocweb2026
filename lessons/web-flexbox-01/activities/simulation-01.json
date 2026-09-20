@@ -1,0 +1,29 @@
+{
+  "id": "simulation-01",
+  "type": "simulation",
+  "title": "Mô phỏng trục và căn chỉnh Flexbox",
+  "instruction": "Kéo các thanh trượt và nút bấm để trực quan hóa cách các thuộc tính Flexbox ảnh hưởng đến vị trí các hộp.",
+  "controls": [
+    {
+      "property": "justify-content",
+      "type": "select",
+      "options": ["flex-start", "center", "flex-end", "space-between", "space-around", "space-evenly"],
+      "default": "space-between"
+    },
+    {
+      "property": "align-items",
+      "type": "select",
+      "options": ["stretch", "center", "flex-start", "flex-end"],
+      "default": "center"
+    },
+    {
+      "property": "gap",
+      "type": "range",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    }
+  ]
+}

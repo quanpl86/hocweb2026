@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson Authoring Studio | HOC-WEB2026</title>
+  <link rel="stylesheet" href="portal/style.css">
+  <link rel="stylesheet" href="studio/studio.css">
+  <!-- Markdown & Sanitizer -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+  <!-- JSZip for in-browser ZIP import/export -->
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <!-- Schema & Business Logic Validator -->
+  <script src="schemas/validator.js"></script>
+</head>
+<body class="studio-body">
+  <header class="studio-header">
+    <div class="studio-header-left">
+      <a class="brand-link" href="index.html">
+        <span class="brand-badge">&lt;/&gt;</span>
+        <span class="brand-title">LESSON <strong>AUTHORING STUDIO</strong></span>
+      </a>
+      <span class="status-pill draft" id="studio-status-pill">DRAFT</span>
+      <span class="current-lesson-label" id="studio-lesson-title-label">Khám phá CSS Flexbox</span>
+    </div>
+    <div class="studio-header-actions">
+      <input type="file" id="import-file-input" accept=".json,.zip" hidden>
+      <button class="btn outline btn-sm" id="btn-import-package">📂 Import (JSON / ZIP)</button>
+      <button class="btn outline btn-sm" id="btn-export-json">💾 Xuất JSON</button>
+      <button class="btn primary btn-sm" id="btn-export-zip">📦 Xuất gói bài học (.ZIP)</button>
+      <a class="btn outline btn-sm" id="btn-open-player" href="player.html" target="_blank">▶ Chạy thử Player ↗</a>
+      <a class="btn outline btn-sm" href="index.html">← Về giáo trình</a>
+    </div>
+  </header>
+
+  <main class="studio-layout">
+    <!-- Left Navigation Bar -->
+    <nav class="studio-sidebar" aria-label="Các phần biên tập">
+      <button class="studio-nav-item active" data-tab="meta">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-text">Thông tin & Media</span>
+      </button>
+      <button class="studio-nav-item" data-tab="timeline">
+        <span class="nav-icon">⏱️</span>
+        <span class="nav-text">Timeline & Checkpoints</span>
+        <span class="badge" id="badge-checkpoints-count">4</span>
+      </button>
+      <button class="studio-nav-item" data-tab="markdown">
+        <span class="nav-icon">📝</span>
+        <span class="nav-text">Soạn thảo Markdown</span>
+      </button>
+      <button class="studio-nav-item" data-tab="questions">
+        <span class="nav-icon">❓</span>
+        <span class="nav-text">Ngân hàng câu hỏi</span>
+      </button>
+      <button class="studio-nav-item" data-tab="coding">
+        <span class="nav-icon">💻</span>
+        <span class="nav-text">Thực hành & Test Unit</span>
+      </button>
+      <button class="studio-nav-item" data-tab="validate">
+        <span class="nav-icon">🔍</span>
+        <span class="nav-text">Thẩm định & Xuất bản</span>
+        <span class="badge status-ok" id="badge-validate-status">OK</span>
+      </button>
+    </nav>
+
+    <!-- Main Workspace Area -->
+    <div class="studio-main-workspace">
+      <!-- 1. Metadata Tab -->
+      <section class="studio-pane active" id="pane-meta">
+        <div class="pane-header">
+          <h2>Thông tin chung & Cấu hình Media</h2>
+          <p>Thiết lập định danh bài học, liên kết video Motion Canvas và các chương bài giảng.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="meta-id">ID Bài học (Duy nhất, không dấu):</label>
+            <input type="text" id="meta-id" value="WEB-FLEXBOX-01">
+          </div>
+          <div class="form-group">
+            <label for="meta-version">Schema Version:</label>
+            <input type="text" id="meta-version" value="1.0.0" readonly>
+          </div>
+          <div class="form-group full-width">
+            <label for="meta-title">Tên bài học (Tiêu đề hiển thị):</label>
+            <input type="text" id="meta-title" value="Khám phá CSS Flexbox qua giao diện Home & Login">
+          </div>
+          <div class="form-group full-width">
+            <label for="meta-desc">Mô tả tóm tắt:</label>
+            <textarea id="meta-desc" rows="2">Bài học tương tác kết hợp hoạt họa giải thích Box Model, Flexbox và thử thách code thực hành.</textarea>
+          </div>
+          <div class="form-group">
+            <label for="meta-duration">Tổng thời lượng video (giây):</label>
+            <input type="number" id="meta-duration" value="480">
+          </div>
+          <div class="form-group">
+            <label for="meta-status">Trạng thái xuất bản:</label>
+            <select id="meta-status">
+              <option value="draft">Draft (Bản nháp)</option>
+              <option value="in_review">In Review (Đang thẩm định)</option>
+              <option value="approved">Approved (Đã duyệt)</option>
+              <option value="published">Published (Đã xuất bản)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="meta-video">Đường dẫn Video (MP4/WebM):</label>
+            <input type="text" id="meta-video" value="assets/video/lesson.mp4">
+          </div>
+          <div class="form-group">
+            <label for="meta-poster">Ảnh Poster đại diện:</label>
+            <input type="text" id="meta-poster" value="assets/images/flexbox.svg">
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+        <div class="sub-header-row">
+          <h3>Các chương trong video (Chapters)</h3>
+          <button class="btn outline btn-xs" id="btn-add-chapter">+ Thêm chương</button>
+        </div>
+        <div id="chapters-list-slot"></div>
+      </section>
+
+      <!-- 2. Timeline Tab -->
+      <section class="studio-pane" id="pane-timeline">
+        <div class="pane-header">
+          <h2>Điều phối Timeline & Checkpoint tương tác</h2>
+          <p>Thiết lập chính xác từng giây video sẽ tạm dừng để mở câu hỏi kiểm tra, bài thực hành hoặc thông báo tài liệu.</p>
+        </div>
+
+        <div class="timeline-visual-bar">
+          <div class="timeline-ticks" id="timeline-ticks-bar"></div>
+        </div>
+
+        <div class="sub-header-row" style="margin-top: 24px;">
+          <h3>Danh sách các mốc Checkpoint</h3>
+          <button class="btn primary btn-xs" id="btn-add-checkpoint">+ Thêm Checkpoint</button>
+        </div>
+        <div id="timeline-list-slot"></div>
+      </section>
+
+      <!-- 3. Markdown Editor Tab -->
+      <section class="studio-pane" id="pane-markdown">
+        <div class="pane-header">
+          <h2>Soạn thảo nội dung lý thuyết (Markdown)</h2>
+          <p>Kiến trúc Hybrid Content: Nội dung giảng dạy được lưu độc lập dạng file Markdown, hỗ trợ xem trước thời gian thực.</p>
+        </div>
+        <div class="markdown-file-selector">
+          <label>Chọn file tài liệu:</label>
+          <select id="md-file-select">
+            <option value="content/introduction.md">content/introduction.md (Giới thiệu)</option>
+            <option value="content/flexbox-theory.md">content/flexbox-theory.md (Lý thuyết)</option>
+            <option value="content/summary.md">content/summary.md (Tổng kết)</option>
+          </select>
+        </div>
+        <div class="markdown-split-editor">
+          <div class="md-editor-col">
+            <div class="col-title">Trình soạn thảo Markdown:</div>
+            <textarea id="md-source-text" class="studio-textarea" spellcheck="false"></textarea>
+          </div>
+          <div class="md-preview-col">
+            <div class="col-title">Xem trước thời gian thực (Live Preview):</div>
+            <div id="md-live-render" class="markdown-view"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Questions Tab -->
+      <section class="studio-pane" id="pane-questions">
+        <div class="pane-header">
+          <h2>Biên tập câu hỏi trắc nghiệm (Questions)</h2>
+          <p>Cấu hình câu hỏi, các lựa chọn, đáp án đúng và liên kết giải thích chi tiết.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Mã câu hỏi (ID):</label>
+            <input type="text" id="q-id" value="q01">
+          </div>
+          <div class="form-group">
+            <label>Loại câu hỏi:</label>
+            <select id="q-type">
+              <option value="single-choice">Chọn 1 đáp án đúng (Single Choice)</option>
+              <option value="multiple-choice">Chọn nhiều đáp án (Multiple Choice)</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label>Nội dung đề bài (Markdown):</label>
+            <textarea id="q-content-md" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="sub-header-row" style="margin-top: 20px;">
+          <h3>Các lựa chọn đáp án</h3>
+          <button class="btn outline btn-xs" id="btn-add-option">+ Thêm lựa chọn</button>
+        </div>
+        <div id="q-options-slot" class="options-edit-grid"></div>
+
+        <div class="section-divider"></div>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Lời giải thích khi học sinh trả lời đúng (explanation.md):</label>
+            <textarea id="q-expl-md" rows="3"></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label>Gợi ý khi học sinh gặp khó khăn (hint.md):</label>
+            <textarea id="q-hint-md" rows="2"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Coding & Unit Tests Tab -->
+      <section class="studio-pane" id="pane-coding">
+        <div class="pane-header">
+          <h2>Cấu hình bài thực hành lập trình & Bộ kiểm thử</h2>
+          <p>Thiết lập file mã khởi động và tiêu chí kiểm thử `getComputedStyle()` tự động.</p>
+        </div>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Yêu cầu đề bài:</label>
+            <input type="text" id="code-instruction" value="Hãy viết CSS cho class .navbar để dàn trang thanh điều hướng Flexbox.">
+          </div>
+          <div class="form-group">
+            <label>Mã khởi động HTML (starter/index.html):</label>
+            <textarea id="code-starter-html" class="studio-textarea" rows="6"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Mã khởi động CSS (starter/style.css):</label>
+            <textarea id="code-starter-css" class="studio-textarea" rows="6"></textarea>
+          </div>
+        </div>
+
+        <div class="sub-header-row" style="margin-top: 20px;">
+          <h3>Bộ tiêu chí kiểm thử tự động (DOM & CSS Unit Tests)</h3>
+          <button class="btn outline btn-xs" id="btn-add-test">+ Thêm bài test</button>
+        </div>
+        <div id="testsuite-slot" class="testsuite-edit-grid"></div>
+      </section>
+
+      <!-- 6. Validation & Pre-publish Checklist Tab -->
+      <section class="studio-pane" id="pane-validate">
+        <div class="pane-header">
+          <h2>Thẩm định chất lượng & Pre-publish Checklist</h2>
+          <p>Bộ kiểm tra tự động 8 tiêu chuẩn đảm bảo bài học không lỗi trước khi xuất bản lên Netlify / GitHub.</p>
+        </div>
+
+        <div class="validation-summary-card" id="validation-summary-card">
+          <div class="summary-top">
+            <div class="summary-score" id="validate-score">8/8</div>
+            <div>
+              <strong id="validate-headline">Sẵn sàng xuất bản!</strong>
+              <p id="validate-sub">Dữ liệu bài học vượt qua tất cả các kiểm tra cấu trúc schema và logic ngữ nghĩa.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="checklist-grid" id="checklist-grid">
+          <div class="check-item passed" id="chk-1">
+            <span class="chk-icon">✓</span>
+            <div><strong>1. Schema Validation</strong><p>Cấu trúc `lesson.json` tuân thủ Interactive Lesson Schema v1.0.</p></div>
+          </div>
+          <div class="check-item passed" id="chk-2">
+            <span class="chk-icon">✓</span>
+            <div><strong>2. ID Hoạt động duy nhất</strong><p>Không có ID hoạt động nào bị trùng lặp trong bài học.</p></div>
+          </div>
+          <div class="check-item passed" id="chk-3">
+            <span class="chk-icon">✓</span>
+            <div><strong>3. Ánh xạ mốc Timeline hợp lệ</strong><p>Mỗi checkpoint đều liên kết đúng tới một Activity hoặc Resource có thật.</p></div>
+          </div>
+          <div class="check-item passed" id="chk-4">
+            <span class="chk-icon">✓</span>
+            <div><strong>4. Giới hạn thời lượng video</strong><p>Tất cả mốc giây đều nằm trong tổng thời lượng bài học.</p></div>
+          </div>
+          <div class="check-item passed" id="chk-5">
+            <span class="chk-icon">✓</span>
+            <div><strong>5. Đáp án câu hỏi kiểm tra chuẩn xác</strong><p>Có ít nhất 1 đáp án đúng và nằm trong danh sách các lựa chọn.</p></div>
+          </div>
+          <div class="check-item passed" id="chk-6">
+            <span class="chk-icon">✓</span>
+            <div><strong>6. File tài nguyên tồn tại</strong><p>Tất cả file Markdown, HTML, CSS được tham chiếu đầy đủ trong bộ nhớ.</p></div>
+          </div>
+          <div class="check-item passed" id="chk-7">
+            <span class="chk-icon">✓</span>
+            <div><strong>7. Bộ Unit Tests khả thi</strong><p>Có ít nhất 1 test assertion CSS và cú pháp hợp lệ.</p></div>
+          </div>
+          <div class="check-item passed" id="chk-8">
+            <span class="chk-icon">✓</span>
+            <div><strong>8. Cấu hình bảo mật Sandbox</strong><p>Iframe cách ly đúng chuẩn, không thực thi script tùy tiện.</p></div>
+          </div>
+        </div>
+
+        <div style="margin-top: 28px; display: flex; gap: 14px;">
+          <button class="btn primary" id="btn-publish-now">📦 Đóng gói & Xuất bản (.ZIP)</button>
+          <a class="btn outline" href="player.html" target="_blank">▶ Mở chế độ xem của học sinh ↗</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="studio/studio.js"></script>
+</body>
+</html>

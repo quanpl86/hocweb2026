@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Question Schema v1.0",
+  "description": "Schema cho câu hỏi tương tác Hybrid Content (JSON + Markdown)",
+  "type": "object",
+  "required": ["id", "type", "content", "options", "answer", "feedback"],
+  "properties": {
+    "id": { "type": "string" },
+    "type": { "type": "string", "enum": ["single-choice", "multiple-choice", "fill-in"] },
+    "content": { "type": "string", "description": "Đường dẫn tới file Markdown chứa đề bài" },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "text"],
+        "properties": {
+          "id": { "type": "string" },
+          "text": { "type": "string" }
+        }
+      }
+    },
+    "answer": {
+      "type": "object",
+      "required": ["correctOptionIds"],
+      "properties": {
+        "correctOptionIds": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "feedback": {
+      "type": "object",
+      "required": ["explanation"],
+      "properties": {
+        "explanation": { "type": "string", "description": "Đường dẫn tới file Markdown giải thích chi tiết" },
+        "hint": { "type": "string", "description": "Đường dẫn tới file Markdown gợi ý" }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "maxAttempts": { "type": "number", "default": 3 },
+        "pauseVideo": { "type": "boolean", "default": true }
+      }
+    }
+  }
+}

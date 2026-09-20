@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Interactive Lesson Schema v1.0",
+  "description": "Schema điều phối bài học tương tác Hybrid Content (JSON + Markdown + Assets) cho HOC-WEB2026",
+  "type": "object",
+  "required": ["schemaVersion", "id", "title", "media", "activities", "timeline"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "enum": ["1.0.0"]
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "in_review", "approved", "published"],
+      "default": "draft"
+    },
+    "media": {
+      "type": "object",
+      "required": ["video"],
+      "properties": {
+        "video": { "type": "string" },
+        "poster": { "type": "string" },
+        "subtitles": { "type": "string" }
+      }
+    },
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "start"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "start": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "path"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "path": { "type": "string" }
+        }
+      }
+    },
+    "activities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "config"],
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string", "enum": ["quiz", "coding", "simulation", "resource", "iframe"] },
+          "config": { "type": "string" }
+        }
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "time", "action", "target"],
+        "properties": {
+          "id": { "type": "string" },
+          "time": { "type": "number", "minimum": 0 },
+          "action": { "type": "string", "enum": ["openActivity", "showResource", "pauseVideo", "notification"] },
+          "target": { "type": "string" },
+          "pauseVideo": { "type": "boolean", "default": true }
+        }
+      }
+    }
+  }
+}

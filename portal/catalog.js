@@ -22,6 +22,13 @@ window.HOCWEB_CATALOG = [
     focus: '16 bước · có ảnh', thumb: '02-bai-hoc/chuong-02-layout/bai-01-home-login/images/05-so-do-home.png'
   },
   {
+    id: 'interactive-flexbox', chapter: '02b', stage: 'VIDEO TƯƠNG TÁC', title: 'Video tương tác: Flexbox Studio & Player',
+    description: 'Học qua video Motion Canvas tự động dừng ở Checkpoints, làm Quiz, viết code và chạy Unit Test trực tiếp.',
+    duration: '20 phút', level: 'Tương tác cao', type: 'video-interactive', icon: 'monitor',
+    path: 'player.html', focus: 'Video + Quiz + Coding + Tests',
+    thumb: 'lessons/web-flexbox-01/assets/images/flexbox.svg'
+  },
+  {
     id: 'practice', chapter: '03', stage: 'TỰ THỰC HÀNH', title: 'Thử thách: tự dựng hai trang',
     description: 'Đọc đề, lấy mã khởi động, hoàn thành các yêu cầu Home và Login rồi đánh dấu checklist.',
     duration: '60 phút', level: 'Bài tập', type: 'practice', icon: 'check',

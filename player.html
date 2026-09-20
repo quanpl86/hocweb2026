@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Video Player | HOC-WEB2026</title>
+  <link rel="stylesheet" href="portal/style.css">
+  <link rel="stylesheet" href="player/player.css">
+  <!-- Thư viện an toàn Markdown & Sanitizer -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+  <!-- Schema Validator -->
+  <script src="schemas/validator.js"></script>
+</head>
+<body class="player-body">
+  <header class="player-header">
+    <div class="header-left">
+      <a class="brand-link" href="index.html">
+        <span class="brand-badge">&lt;/&gt;</span>
+        <span class="brand-title">HOC<strong>WEB</strong> <small>INTERACTIVE PLAYER</small></span>
+      </a>
+      <div class="header-sep"></div>
+      <div class="lesson-meta-bar">
+        <span class="lesson-badge" id="player-lesson-id">WEB-FLEXBOX-01</span>
+        <h1 class="lesson-header-title" id="player-lesson-title">Đang tải bài học...</h1>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="player-progress-badge">
+        <span>Tiến độ:</span>
+        <strong id="player-progress-text">0/3 Checkpoints</strong>
+      </div>
+      <a class="btn outline btn-sm" href="studio.html" title="Mở trong Lesson Authoring Studio">🛠️ Biên tập (Studio)</a>
+      <button class="btn outline btn-sm" id="player-fullscreen-btn" title="Chế độ toàn màn hình">⛶ Mở rộng</button>
+      <a class="btn outline btn-sm" href="index.html">← Về giáo trình</a>
+    </div>
+  </header>
+
+  <main class="player-container">
+    <!-- Video Player Area -->
+    <div class="video-stage">
+      <div class="video-wrapper" id="video-wrapper">
+        <video id="main-video" poster="lessons/web-flexbox-01/assets/images/flexbox.svg" preload="metadata">
+          <source src="lessons/web-flexbox-01/assets/video/lesson.mp4" type="video/mp4">
+        </video>
+        <!-- Canvas Video Mockup nếu không có video MP4 thật -->
+        <canvas id="video-canvas-mock" width="1280" height="720"></canvas>
+
+        <!-- Big Play Button Overlay -->
+        <button class="video-overlay-play" id="overlay-play-btn" aria-label="Phát video">
+          <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </button>
+
+        <!-- Notification Toast during playback (e.g., Resource suggestion) -->
+        <div class="video-toast" id="video-toast" hidden>
+          <span class="toast-icon">💡</span>
+          <div class="toast-body">
+            <strong id="toast-title">Tài liệu tham khảo</strong>
+            <p id="toast-desc">Có tài liệu đọc bổ trợ cho phần này.</p>
+          </div>
+          <button class="btn primary btn-xs" id="toast-action-btn">Xem ngay</button>
+          <button class="toast-close" id="toast-close-btn">&times;</button>
+        </div>
+      </div>
+
+      <!-- Custom Video Controls Bar with Checkpoints -->
+      <div class="video-controls">
+        <div class="timeline-bar-container" id="timeline-container">
+          <div class="timeline-buffer" id="timeline-buffer"></div>
+          <div class="timeline-played" id="timeline-played"></div>
+          <div class="timeline-checkpoints-layer" id="checkpoints-layer"></div>
+          <div class="timeline-scrubber" id="timeline-scrubber"></div>
+        </div>
+
+        <div class="controls-row">
+          <div class="controls-left">
+            <button class="ctrl-btn" id="ctrl-play" title="Phát/Tạm dừng (Space)">▶</button>
+            <div class="time-display">
+              <span id="time-current">00:00</span> / <span id="time-duration">08:00</span>
+            </div>
+            <div class="chapter-picker">
+              <select id="chapter-select" aria-label="Chọn chương">
+                <option>01. Giới thiệu Flexbox</option>
+              </select>
+            </div>
+          </div>
+          <div class="controls-right">
+            <button class="ctrl-btn" id="ctrl-restart" title="Xem lại từ đầu">↺</button>
+            <button class="ctrl-btn" id="ctrl-speed" title="Tốc độ phát">1.0x</button>
+            <button class="ctrl-btn" id="ctrl-volume" title="Âm lượng">🔊</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Sidebar / Activity Panel -->
+    <aside class="activity-stage" id="activity-stage">
+      <div class="activity-header">
+        <div class="activity-tab-group">
+          <button class="tab-btn active" id="tab-activity">🎯 Hoạt động tương tác</button>
+          <button class="tab-btn" id="tab-content">📖 Lý thuyết & Tài liệu</button>
+          <button class="tab-btn" id="tab-checkpoints">⏱️ Mốc bài học</button>
+        </div>
+      </div>
+
+      <div class="activity-content-box" id="activity-content-box">
+        <!-- Default State: Idle / Waiting for next checkpoint -->
+        <div class="activity-pane active" id="pane-activity">
+          <div class="idle-state" id="activity-idle">
+            <div class="idle-icon">▶️</div>
+            <h3>Video đang phát</h3>
+            <p>Hệ thống sẽ tự động dừng và kích hoạt câu hỏi kiểm tra hoặc bài tập thực hành tại các mốc checkpoint.</p>
+            <div class="next-checkpoint-banner" id="next-cp-banner">
+              <span>Checkpoint tiếp theo:</span>
+              <strong id="next-cp-info">01:00 — Câu hỏi trắc nghiệm</strong>
+            </div>
+          </div>
+
+          <!-- Active Activity Container (Quiz, Coding, Simulation) -->
+          <div class="active-activity-container" id="active-activity-wrap" hidden>
+            <div class="active-activity-topbar">
+              <span class="act-type-tag" id="act-type-badge">QUIZ</span>
+              <span class="act-time-tag" id="act-time-badge">01:00</span>
+              <button class="btn outline btn-xs ml-auto" id="act-skip-btn" title="Bỏ qua và tiếp tục video">Tiếp tục video ▶</button>
+            </div>
+            <div class="activity-body-scroll" id="activity-body-scroll">
+              <!-- Rendered Activity Component will appear here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Markdown Content Pane -->
+        <div class="activity-pane" id="pane-content">
+          <div class="markdown-view" id="markdown-doc-container">
+            <p>Đang tải tài liệu bài học...</p>
+          </div>
+        </div>
+
+        <!-- Checkpoints List Pane -->
+        <div class="activity-pane" id="pane-checkpoints">
+          <div class="checkpoints-list" id="checkpoints-list">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="player/player.js"></script>
+</body>
+</html>

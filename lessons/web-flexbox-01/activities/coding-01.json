@@ -1,0 +1,15 @@
+{
+  "id": "coding-01",
+  "type": "coding",
+  "title": "Thực hành: Dàn trang thanh điều hướng (Navbar)",
+  "instruction": "Hãy viết CSS cho class `.navbar` để các liên kết nằm trên cùng một hàng ngang và phân bổ đều sang hai bên bằng `justify-content: space-between`.",
+  "starterFiles": {
+    "html": "starter/index.html",
+    "css": "starter/style.css"
+  },
+  "testSuite": "tests/flexbox.test.json",
+  "settings": {
+    "pauseVideo": true,
+    "allowReset": true
+  }
+}

@@ -1,0 +1,40 @@
+/* Bài tập Flexbox: Dàn trang thanh Navbar */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+  padding: 20px;
+  background: #f0f4f3;
+}
+
+/* YÊU CẦU: Hãy kích hoạt Flexbox cho .navbar */
+.navbar {
+  background: #ffffff;
+  padding: 16px 24px;
+  border-radius: 10px;
+  border: 1px solid #d5e5db;
+  /* VIẾT CODE CỦA BẠN DƯỚI ĐÂY: */
+  
+}
+
+.brand {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1a4d3e;
+}
+
+.nav-links {
+  display: flex;
+  gap: 16px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #3b5a4d;
+  font-size: 14px;
+  font-weight: 500;
+}

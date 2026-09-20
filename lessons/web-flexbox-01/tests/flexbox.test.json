@@ -1,0 +1,29 @@
+{
+  "suite": "Kiểm thử bố cục Navbar Flexbox",
+  "tests": [
+    {
+      "id": "t1",
+      "title": "Phần tử .navbar phải kích hoạt Flexbox",
+      "selector": ".navbar",
+      "property": "display",
+      "expected": "flex",
+      "message": "Class .navbar cần có thuộc tính display: flex;"
+    },
+    {
+      "id": "t2",
+      "title": "Phần tử .navbar phải dồn khoảng cách đều sang hai bên",
+      "selector": ".navbar",
+      "property": "justifyContent",
+      "expected": "space-between",
+      "message": "Class .navbar cần có justify-content: space-between; để logo ở bên trái và menu ở bên phải."
+    },
+    {
+      "id": "t3",
+      "title": "Phần tử .navbar phải căn giữa theo chiều dọc",
+      "selector": ".navbar",
+      "property": "alignItems",
+      "expected": "center",
+      "message": "Class .navbar cần có align-items: center; để logo và các link cân đối theo chiều đứng."
+    }
+  ]
+}
