@@ -70,6 +70,49 @@
       </div>
     </div>
 
+    <!-- BƯỚC 1: XEM & PHÂN TÍCH BẢN VẼ WIREFRAME MẪU TRỰC TIẾP -->
+    <div class="practice-panel" style="margin-bottom:24px;">
+      <span class="eyebrow">BƯỚC 1 / QUAN SÁT BẢN VẼ MẪU CHUẨN</span>
+      <h3>🖼️ Bản vẽ Wireframe mẫu chuẩn EduShop (Home &amp; Login)</h3>
+      <p>Trước khi bắt đầu dựng khung, hãy quan sát kỹ bản thiết kế mẫu để nắm rõ vị trí các vùng, phân bổ lưới cột và kích thước chiều rộng:</p>
+
+      <div class="wf-ref-gallery-tabs" role="tablist">
+        <button type="button" class="wf-ref-tab-btn active" id="tab-ref-home" role="tab" aria-selected="true">
+          🏠 1. Bản vẽ Wireframe Trang chủ (Home - 8 Vùng A–H)
+        </button>
+        <button type="button" class="wf-ref-tab-btn" id="tab-ref-login" role="tab" aria-selected="false">
+          🔑 2. Bản vẽ Wireframe Trang Đăng nhập (Login - Căn giữa 440px)
+        </button>
+      </div>
+
+      <!-- View Home Reference -->
+      <div id="view-ref-home" class="wf-ref-view">
+        <div class="ref-img-card">
+          <img src="portal/wireframes/home-reference.png" alt="Bản vẽ Wireframe thiết kế chuẩn trang chủ EduShop (8 vùng chức năng)">
+          <div class="ref-img-caption">
+            <strong>Hình 1 · Bản vẽ Wireframe Trang chủ EduShop (Home):</strong><br>
+            • Chiều rộng khung nội dung: <strong>1100px</strong> (căn giữa <code>margin: 0 auto</code>).<br>
+            • <strong>8 Khu vực chính:</strong> (1) Site Header [Logo + Menu], (2) Hero Banner 2 cột, (3) Search Box, (4) Category Grid (3 cột), (5) Course Grid (3 cột), (6) About Section, (7) Notice Box, (8) Site Footer.<br>
+            • <em>Mẹo:</em> Các khối tràn ngang viền màn hình (Header, Hero, About, Footer) cần đặt <code>&lt;div class="container"&gt;</code> bên trong.
+          </div>
+        </div>
+      </div>
+
+      <!-- View Login Reference -->
+      <div id="view-ref-login" class="wf-ref-view" hidden>
+        <div class="ref-img-card">
+          <img src="portal/wireframes/login-reference.png" alt="Bản vẽ Wireframe thiết kế chuẩn trang đăng nhập EduShop (Khung căn giữa 440px)">
+          <div class="ref-img-caption">
+            <strong>Hình 2 · Bản vẽ Wireframe Trang Đăng nhập EduShop (Login):</strong><br>
+            • Toàn bộ màn hình: nền xanh nhạt <code>body.login-page</code>, căn giữa bằng Flexbox <code>main.login-layout (min-height: 100vh)</code>.<br>
+            • <strong>Khung đăng nhập:</strong> <code>div.login-card</code> cố định chiều rộng <strong>440px</strong>, bo góc, nền trắng.<br>
+            • <strong>Cấu trúc Form:</strong> (1) Logo EduShop + Tiêu đề H1, (2) Input Email/User, (3) Input Mật khẩu, (4) Checkbox Ghi nhớ tôi + Liên kết Quên mật khẩu, (5) Nút Đăng nhập 100% width, (6) Liên kết trở về trang chủ.
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <!-- P02 VISUAL TUTORIAL: HỌC SINH THỰC SỰ VẼ PHẦN HEADER NHƯ THẾ NÀO? -->
     <div class="wf-tutorial-card">
       <h4><span>💡</span> Ví dụ mẫu: Học sinh thực sự vẽ phần Header như thế nào?</h4>

@@ -667,17 +667,17 @@
     };
 
     let editingIndex = null;
-    const inspectorModal = $('#wf-inspector-modal', studio);
-    const inspectorForm = $('#wf-inspector-form', studio);
-    const inspTitle = $('#insp-block-title', studio);
-    const inspTag = $('#insp-block-tag', studio);
-    const inspClass = $('#insp-block-class', studio);
-    const inspParent = $('#insp-block-parent', studio);
-    const inspCss = $('#insp-block-css', studio);
-    const inspInsight = $('#insp-block-insight', studio);
-    const inspDuplicateBtn = $('#insp-duplicate-btn', studio);
-    const inspDeleteBtn = $('#insp-delete-btn', studio);
-    const inspectorClose = $('#wf-inspector-close', studio);
+    const inspectorModal = $('#wf-inspector-modal');
+    const inspectorForm = $('#wf-inspector-form');
+    const inspTitle = $('#insp-block-title');
+    const inspTag = $('#insp-block-tag');
+    const inspClass = $('#insp-block-class');
+    const inspParent = $('#insp-block-parent');
+    const inspCss = $('#insp-block-css');
+    const inspInsight = $('#insp-block-insight');
+    const inspDuplicateBtn = $('#insp-duplicate-btn');
+    const inspDeleteBtn = $('#insp-delete-btn');
+    const inspectorClose = $('#wf-inspector-close');
 
     const openInspector = (index) => {
       const block = (userBlocks[activePage] || [])[index];
@@ -951,11 +951,11 @@
 
     // Reference Modal Logic
     const viewRefBtn = $('#wf-view-reference-btn', studio);
-    const refModal = $('#wf-reference-modal', studio);
-    const refModalClose = $('#wf-ref-modal-close', studio);
-    const refImage = $('#wf-ref-image', studio);
-    const refTitle = $('#wf-ref-modal-title', studio);
-    const refDesc = $('#wf-ref-modal-desc', studio);
+    const refModal = $('#wf-reference-modal');
+    const refModalClose = $('#wf-ref-modal-close');
+    const refImage = $('#wf-ref-image');
+    const refTitle = $('#wf-ref-modal-title');
+    const refDesc = $('#wf-ref-modal-desc');
 
     if (viewRefBtn && refModal) {
       viewRefBtn.addEventListener('click', () => {
@@ -964,7 +964,7 @@
           if (refDesc) refDesc.textContent = 'Quan sát bố cục 8 khu vực A–H của trang Home: Header, Hero banner 2 cột, Lưới danh mục & sản phẩm 3 cột, Giới thiệu, Thông báo và Footer.';
           if (refImage) refImage.src = 'portal/wireframes/home-reference.png';
         } else {
-          if (refTitle) refTitle.textContent = '🖼️ Bản vẽ Wireframe chuẩn EduShop Login (Khung căn giữa)';
+          if (refTitle) refTitle.textContent = '🖼️ Bản vẽ Wireframe chuẩn EduShop Login (Khung căn giữa 440px)';
           if (refDesc) refDesc.textContent = 'Quan sát cấu trúc Login Card 440px căn giữa toàn màn hình (100vh): Logo, tiêu đề, các trường nhập liệu, hàng tùy chọn và nút đăng nhập 100% width.';
           if (refImage) refImage.src = 'portal/wireframes/login-reference.png';
         }
@@ -976,6 +976,32 @@
           refModal.hidden = true;
         });
       }
+    }
+
+    // On-page Reference Gallery Tabs (Home vs Login)
+    const tabRefHome = $('#tab-ref-home');
+    const tabRefLogin = $('#tab-ref-login');
+    const viewRefHome = $('#view-ref-home');
+    const viewRefLogin = $('#view-ref-login');
+
+    if (tabRefHome && tabRefLogin && viewRefHome && viewRefLogin) {
+      tabRefHome.addEventListener('click', () => {
+        tabRefHome.classList.add('active');
+        tabRefHome.setAttribute('aria-selected', 'true');
+        tabRefLogin.classList.remove('active');
+        tabRefLogin.setAttribute('aria-selected', 'false');
+        viewRefHome.hidden = false;
+        viewRefLogin.hidden = true;
+      });
+
+      tabRefLogin.addEventListener('click', () => {
+        tabRefLogin.classList.add('active');
+        tabRefLogin.setAttribute('aria-selected', 'true');
+        tabRefHome.classList.remove('active');
+        tabRefHome.setAttribute('aria-selected', 'false');
+        viewRefLogin.hidden = false;
+        viewRefHome.hidden = true;
+      });
     }
 
     // Export & Import JSON (compatible with ilp-wireframes-v1)
@@ -1097,10 +1123,10 @@
     }
 
     const viewCodeBtn = $('#wf-view-code-btn', studio);
-    const modal = $('#wf-html-modal', studio);
-    const modalClose = $('#wf-modal-close', studio);
-    const modalCodeEl = $('#wf-generated-code', studio);
-    const modalCopyBtn = $('#modal-copy-code-btn', studio);
+    const modal = $('#wf-html-modal');
+    const modalClose = $('#wf-modal-close');
+    const modalCodeEl = $('#wf-generated-code');
+    const modalCopyBtn = $('#modal-copy-code-btn');
 
     const generateHTML = () => {
       const currentBlocks = userBlocks[activePage] || [];

@@ -245,5 +245,14 @@ body.focus-mode{overflow:hidden}body.focus-mode .site-header{display:none!import
 /* Node Parent Badge */
 .wf-parent-badge{background:#113833;color:#86efac;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;border:1px solid #1d6152;font-family:monospace}
 
+/* Reference Image Gallery */
+.wf-ref-gallery-tabs{display:flex;gap:10px;margin:18px 0;flex-wrap:wrap}
+.wf-ref-tab-btn{background:#fff;border:1.5px solid #c9ded3;color:#184a3e;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;transition:all .15s ease}
+.wf-ref-tab-btn:hover{background:#f0fbf5;border-color:#249775}
+.wf-ref-tab-btn.active{background:#103c32;color:#fff;border-color:#103c32;box-shadow:0 3px 10px rgba(16,60,50,.2)}
+.ref-img-card{background:#f9fbf9;border:1px solid #cce0d5;border-radius:12px;padding:18px;box-shadow:0 6px 20px rgba(0,0,0,.04);text-align:center}
+.ref-img-card img{width:100%;max-width:1000px;height:auto;border-radius:8px;border:1px solid #b8d4c6;box-shadow:0 8px 25px rgba(0,0,0,.08);display:inline-block}
+.ref-img-caption{margin-top:14px;font-size:13px;color:#395f56;line-height:1.6;background:#fff;padding:12px 18px;border-radius:8px;border:1px solid #e1ede6;text-align:left}
+
 
 
