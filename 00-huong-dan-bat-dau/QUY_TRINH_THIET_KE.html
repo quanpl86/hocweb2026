@@ -300,66 +300,68 @@
     </div>
   </header>
 
-  <!-- PHẦN 1: QUY TRÌNH 7 BƯỚC -->
+  <!-- TỔNG QUAN 7 BƯỚC QUY TRÌNH LESSON START -->
   <section>
-    <h2><span class="section-tag">QUY TRÌNH</span> 7 Bước thiết kế giao diện từ số 0</h2>
-    <p>Trước khi mở trình soạn thảo mã để gõ bất kỳ dòng HTML nào, một lập trình viên Front-end chuyên nghiệp luôn tuân theo 7 bước kiến trúc sau:</p>
-    <div class="flow-steps">
-      <div class="flow-step-item">
-        <div class="step-num">1</div>
-        <div>
-          <div class="step-title">Đọc đề bài và xác định yêu cầu sản phẩm</div>
-          <p class="step-desc">Xác định mục tiêu website, số lượng trang, các chức năng hiển thị cần có và phạm vi kỹ thuật (Desktop, HTML5, CSS3, chưa backend).</p>
-        </div>
-      </div>
-      <div class="flow-step-item">
-        <div class="step-num">2</div>
-        <div>
-          <div class="step-title">Phân tích các vùng chức năng của giao diện</div>
-          <p class="step-desc">Chuyển văn bản đề bài thành danh mục các khu vực cụ thể (Header, Banner, Danh mục, Khóa học, Footer, Form đăng nhập...).</p>
-        </div>
-      </div>
-      <div class="flow-step-item">
-        <div class="step-num">3</div>
-        <div>
-          <div class="step-title">Vẽ wireframe xác định vị trí và kích thước tương đối</div>
-          <p class="step-desc">Phác thảo bố cục tổng thể: trang có những vùng nào, vùng nào lồng trong vùng nào, sắp xếp theo hàng ngang, hàng dọc hay lưới.</p>
-        </div>
-      </div>
-      <div class="flow-step-item">
-        <div class="step-num">4</div>
-        <div>
-          <div class="step-title">Gán thẻ HTML phù hợp cho từng vùng và giải thích lý do</div>
-          <p class="step-desc">Lựa chọn thẻ ngữ nghĩa theo chuẩn HTML5 (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;form&gt;</code>, <code>&lt;footer&gt;</code>) thay vì lạm dụng <code>&lt;div&gt;</code>.</p>
-        </div>
-      </div>
-      <div class="flow-step-item">
-        <div class="step-num">5</div>
-        <div>
-          <div class="step-title">Phân rã từng vùng thành các thành phần cha – con</div>
-          <p class="step-desc">Bóc tách từng khối lớn thành các phần tử nhỏ hơn bên trong (Component Tree). Xác định rõ quan hệ lồng nhau để viết HTML chính xác.</p>
-        </div>
-      </div>
-      <div class="flow-step-item">
-        <div class="step-num">6</div>
-        <div>
-          <div class="step-title">Đặt tên class có hệ thống, xác định Flexbox / Grid và viết CSS</div>
-          <p class="step-desc">Đặt tên class theo vai trò chức năng (tránh đặt theo màu/vị trí). Quyết định dùng Flexbox (1 chiều) hay Grid (2 chiều/lưới cột) trên phần tử cha.</p>
-        </div>
-      </div>
-      <div class="flow-step-item">
-        <div class="step-num">7</div>
-        <div>
-          <div class="step-title">Lắp ghép giao diện, chạy thử và đối chiếu đề bài</div>
-          <p class="step-desc">Mở trình duyệt kiểm tra kết quả hiển thị, rà soát lại theo phiếu kiểm tra (Checklist) trước khi nộp bài.</p>
-        </div>
-      </div>
+    <h2><span class="section-tag">LỘ TRÌNH</span> 7 Bước tư duy thiết kế: Từ đề bài đến Website hoàn chỉnh</h2>
+    <p>Bài mở đầu (Lesson Start) không chỉ giới thiệu công cụ, mà là <strong>bài dẫn nhập về tư duy thiết kế giao diện</strong>. Học viên hiểu rõ toàn bộ quy trình trước khi bắt đầu viết dòng code đầu tiên:</p>
+    
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 10%; text-align: center;">Bước</th>
+            <th style="width: 32%;">Chủ đề</th>
+            <th>Nội dung trọng tâm &amp; Vai trò sư phạm</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: center; font-weight: 800; color: #249775;">01</td>
+            <td><strong>Tìm hiểu đề bài</strong></td>
+            <td>Đề bài EduShop (Home &amp; Login), xác định yêu cầu sản phẩm và giới hạn kỹ thuật (HTML5, CSS3 desktop, chưa backend).</td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-weight: 800; color: #249775;">02</td>
+            <td><strong>Phân tích layout</strong></td>
+            <td>Chia giao diện thành các vùng chức năng (Header, Hero, Search, Category, Course, About, Notice, Footer, Login Form).</td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-weight: 800; color: #249775;">03</td>
+            <td><strong>Đọc wireframe</strong></td>
+            <td>Hiểu kích thước, vị trí, hàng, cột và vùng chứa; đối chiếu với bản vẽ Wireframe chuẩn 1100px.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-weight: 800; color: #249775;">04</td>
+            <td><strong>HTML Semantic</strong></td>
+            <td>Phân biệt bản chất <code>section</code>, <code>div</code>, <code>container</code>, <code>article</code>, <code>nav</code>, <code>form</code>; lý do chọn từng thẻ.</td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-weight: 800; color: #249775;">05</td>
+            <td><strong>Cấu trúc cha – con</strong></td>
+            <td>Phân rã Header, Hero, Product Card và Login Card thành cây cấu trúc thành phần (DOM Tree).</td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-weight: 800; color: #249775;">06</td>
+            <td><strong>Class và CSS Layout</strong></td>
+            <td>Quy tắc đặt tên class theo vai trò, Box Model, Flexbox (1 chiều) và Grid (2 chiều).</td>
+          </tr>
+          <tr>
+            <td style="text-align: center; font-weight: 800; color: #249775;">07</td>
+            <td><strong>Quy trình lập trình và kiểm thử</strong></td>
+            <td>Quy trình dựng hai trang độc lập, phát hiện trùng lặp để tái cấu trúc <code>style.css</code> và kiểm thử hồi quy.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>💡 Lưu ý sư phạm quan trọng:</strong> Lesson Start chỉ giới thiệu đủ kiến thức để học viên hiểu bức tranh tổng thể và quy trình. Các khái niệm chuyên sâu như Flexbox, Grid và CSS Cascade sẽ được thực hành và giải thích sâu hơn ngay tại bước thực hành cần sử dụng (Practice Chặng A &amp; B). Học viên <em>không phải học toàn bộ CSS trước khi được vẽ giao diện</em>!
     </div>
   </section>
 
-  <!-- PHẦN A: ĐỀ BÀI VÀ PHÂN TÍCH -->
+  <!-- PHẦN 01 & 02: TÌM HIỂU ĐỀ BÀI VÀ PHÂN TÍCH LAYOUT -->
   <section>
-    <h2><span class="section-tag">PHẦN A</span> Đề bài mẫu: Dự án EduShop</h2>
+    <h2><span class="section-tag">01 &amp; 02</span> Tìm hiểu đề bài &amp; Phân tích vùng chức năng</h2>
     <p><strong>Bối cảnh:</strong> Bạn là lập trình viên Front-end được giao xây dựng giao diện cho website học trực tuyến có tên <strong>EduShop</strong> gồm 2 trang:</p>
     <ul>
       <li><strong>01. Trang chủ (Home):</strong> Giới thiệu website, thanh tìm kiếm, danh mục ngành học, danh sách khóa học nổi bật, giới thiệu và thông tin liên hệ.</li>
@@ -393,9 +395,9 @@
     </div>
   </section>
 
-  <!-- PHẦN B: TẠO WIREFRAME -->
+  <!-- PHẦN 03: ĐỌC WIREFRAME -->
   <section>
-    <h2><span class="section-tag">PHẦN B</span> Bản vẽ Wireframe chuẩn</h2>
+    <h2><span class="section-tag">03</span> Đọc và phân tích bản vẽ Wireframe chuẩn</h2>
     <p>Wireframe là bản phác thảo kiến trúc trực quan trả lời 3 câu hỏi:</p>
     <ol>
       <li>Trang gồm những vùng nào?</li>
@@ -502,9 +504,9 @@
     </div>
   </section>
 
-  <!-- PHẦN C & D: PHÂN BỔ THẺ VÀ CÂY CẤU TRÚC -->
+  <!-- PHẦN 04 & 05: HTML SEMANTIC VÀ CÂU TRÚC CHA - CON -->
   <section>
-    <h2><span class="section-tag">PHẦN C &amp; D</span> Gán thẻ ngữ nghĩa &amp; Cây cấu trúc (DOM Tree)</h2>
+    <h2><span class="section-tag">04 &amp; 05</span> HTML Semantic &amp; Phân rã cấu trúc cha – con</h2>
     <p><strong>Vì sao không dùng <code>&lt;div&gt;</code> cho tất cả?</strong> <code>&lt;div&gt;</code> chỉ là hộp chứa vô nghĩa. Khi dùng thẻ ngữ nghĩa (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code>), trình duyệt, công cụ tìm kiếm (SEO) và người đọc code đều hiểu ngay vai trò của từng vùng.</p>
 
     <h3>Cây cấu trúc hoàn chỉnh trang Home</h3>
@@ -550,9 +552,9 @@
         └── DIV (Thông tin liên hệ, hotline, email)</div>
   </section>
 
-  <!-- PHẦN E & F: TIẾP CẬN CSS VÀ REFACTORING -->
+  <!-- PHẦN 06 & 07: CLASS, CSS LAYOUT VÀ REFACTORING -->
   <section>
-    <h2><span class="section-tag">CSS REFACTORING</span> Phương pháp tiếp cận CSS theo quá trình giải quyết vấn đề</h2>
+    <h2><span class="section-tag">06 &amp; 07</span> Class, CSS Layout &amp; Quy trình lập trình, Refactoring</h2>
     <div class="doc-intro">
       <strong>Quy trình thực hiện:</strong> Cho học viên viết CSS độc lập cho từng trang trước (<code>home.css</code> và <code>login.css</code>). Sau khi cả hai trang hiển thị đúng, yêu cầu đặt 2 file cạnh nhau để <em>phát hiện quy tắc trùng lặp</em>, từ đó tái cấu trúc (Refactor) tách ra <code>style.css</code> dùng chung.
     </div>

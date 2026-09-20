@@ -61,22 +61,24 @@
 
     <section class="overview-section" id="lo-trinh" aria-labelledby="journey-heading">
       <div class="container">
-        <div class="section-heading overview-heading"><div><span class="eyebrow">/ LỘ TRÌNH HỌC TẬP</span><h2 id="journey-heading">Học đúng thứ tự.<br><em>Thấy rõ tiến bộ.</em></h2></div><p>Từ lý thuyết cơ bản đến một website có giao diện hoàn chỉnh. Mỗi chặng có tài liệu thật để bạn mở và thực hành ngay.</p></div>
+        <div class="section-heading overview-heading"><div><span class="eyebrow">/ LỘ TRÌNH HỌC TẬP</span><h2 id="journey-heading">Quy trình thiết kế trước, code sau.<br><em>Từ đề bài đến website hoàn chỉnh.</em></h2></div><p>Thay vì đưa ngay mã nguồn rồi yêu cầu gõ theo, giáo trình dẫn dắt bạn qua 4 chặng: Thiết kế Wireframe → Lập trình độc lập → Tái cấu trúc CSS → Kiểm thử hồi quy.</p></div>
         <div class="journey-row">
-          <div class="journey-item"><span class="journey-index">01</span><span class="journey-glyph">◇</span><h3>Hiểu kiến thức</h3><p>HTML, DIV, Box Model, Flexbox và CSS Grid.</p></div>
+          <div class="journey-item"><span class="journey-index">A</span><span class="journey-glyph">◇</span><h3>01. Thiết kế</h3><p>Đọc đề, vẽ Wireframe Home/Login, gán thẻ và dựng cây DOM.</p></div>
           <div class="journey-arrow" aria-hidden="true">⟶</div>
-          <div class="journey-item"><span class="journey-index">02</span><span class="journey-glyph">▤</span><h3>Xem và làm theo</h3><p>16 bước hướng dẫn, hình minh họa và mô phỏng.</p></div>
+          <div class="journey-item"><span class="journey-index">B</span><span class="journey-glyph">▤</span><h3>02. Lập trình</h3><p>Dựng từng trang với HTML và CSS riêng biệt (home.css, login.css).</p></div>
           <div class="journey-arrow" aria-hidden="true">⟶</div>
-          <div class="journey-item"><span class="journey-index">03</span><span class="journey-glyph">⌘</span><h3>Tự thực hành</h3><p>Tạo Home và Login, đối chiếu với code mẫu.</p></div>
+          <div class="journey-item"><span class="journey-index">C</span><span class="journey-glyph">▦</span><h3>03. Refactoring</h3><p>So sánh hai file, phát hiện trùng lặp, tách style.css dùng chung.</p></div>
+          <div class="journey-arrow" aria-hidden="true">⟶</div>
+          <div class="journey-item"><span class="journey-index">D</span><span class="journey-glyph">✓</span><h3>04. Kiểm thử</h3><p>Đối chiếu đề bài, kiểm thử hồi quy và hoàn thiện sản phẩm.</p></div>
         </div>
       </div>
     </section>
 
     <section class="library-section" id="thu-vien" aria-labelledby="library-heading">
       <div class="container">
-        <div class="section-heading library-heading"><div><span class="eyebrow">/ THƯ VIỆN CỦA BẠN</span><h2 id="library-heading">Chọn một bài.<br><em>Bắt đầu khám phá.</em></h2></div><div class="progress-card"><div class="progress-card-top"><span>TIẾN ĐỘ HỌC TẬP</span><strong class="js-progress-percent">0%</strong></div><div class="progress-track"><div class="progress-fill js-progress-bar"></div></div><div class="progress-card-foot"><span>Đã hoàn thành <b class="js-progress-count">0/7</b> nội dung</span><span aria-hidden="true">↗</span></div></div></div>
+        <div class="section-heading library-heading"><div><span class="eyebrow">/ THƯ VIỆN CỦA BẠN</span><h2 id="library-heading">Chọn một bài.<br><em>Bắt đầu khám phá.</em></h2></div><div class="progress-card"><div class="progress-card-top"><span>TIẾN ĐỘ HỌC TẬP</span><strong class="js-progress-percent">0%</strong></div><div class="progress-track"><div class="progress-fill js-progress-bar"></div></div><div class="progress-card-foot"><span>Đã hoàn thành <b class="js-progress-count">0/11</b> nội dung</span><span aria-hidden="true">↗</span></div></div></div>
         <div class="library-controls"><label class="search-box" for="course-search"><span aria-hidden="true">⌕</span><input id="course-search" type="search" placeholder="Tìm bài học, khái niệm, thực hành..." autocomplete="off"><span class="shortcut-hint">TÌM KIẾM</span></label><div class="filter-controls" role="group" aria-label="Lọc loại nội dung"><button type="button" class="filter-chip active" data-filter="all" aria-pressed="true">Tất cả</button><button type="button" class="filter-chip" data-filter="guide" aria-pressed="false">Bài giảng</button><button type="button" class="filter-chip" data-filter="interactive" aria-pressed="false">Mô phỏng</button><button type="button" class="filter-chip" data-filter="practice" aria-pressed="false">Bài tập</button><button type="button" class="filter-chip" data-filter="demo" aria-pressed="false">Code mẫu</button></div></div>
-        <div class="library-subline"><p>Khám phá toàn bộ giáo trình hiện có</p><span id="result-count" aria-live="polite">7 nội dung</span></div>
+        <div class="library-subline"><p>Khám phá toàn bộ 11 nội dung giáo trình theo chuẩn Flow mới</p><span id="result-count" aria-live="polite">11 nội dung</span></div>
         <div id="courses-grid" class="courses-grid"></div>
         <div class="empty-state" id="empty-state" hidden><span>⌕</span><h3>Không tìm thấy nội dung</h3><p>Thử đổi từ khóa hoặc chọn bộ lọc khác.</p></div>
       </div>

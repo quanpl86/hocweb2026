@@ -14,7 +14,12 @@
     try { localStorage.setItem(key, JSON.stringify(ids)); } catch (_) { /* Chế độ riêng tư có thể chặn lưu trữ. */ }
   };
   const icon = name => ({compass:'✧',layers:'▦',book:'▤',check:'✓',monitor:'▣',lock:'◈',code:'⌘'})[name] || '○';
-  const destination = course => course.type === 'practice' ? 'practice.html' : (course.type === 'video-interactive' ? 'player.html' : `lesson.html?id=${encodeURIComponent(course.id)}`);
+  const destination = course => {
+    if (course.path && (course.path.startsWith('practice.html') || course.path.startsWith('player.html'))) {
+      return course.path;
+    }
+    return course.type === 'practice' ? 'practice.html' : (course.type === 'video-interactive' ? 'player.html' : `lesson.html?id=${encodeURIComponent(course.id)}`);
+  };
   const progress = () => {
     const n = complete().length, total = courses.length;
     $$('.js-progress-count').forEach(node => node.textContent = `${n}/${total}`);
