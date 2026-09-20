@@ -222,4 +222,26 @@ body.focus-mode{overflow:hidden}body.focus-mode .site-header{display:none!import
 .stage-section-badge{background:#11382f;color:#6ee7b7;font-size:12px;font-weight:800;padding:4px 12px;border-radius:6px;letter-spacing:1px}
 .stage-section-header h2{margin:0;font-size:22px;color:#0f3830;font-family:'Space Grotesk',sans-serif}
 
+/* Learning Modes Selector */
+.wf-mode-selector-bar{display:flex;align-items:center;gap:10px;background:#061b20;border-bottom:1px solid #1a4249;padding:10px 16px;flex-wrap:wrap}
+.wf-mode-label{font-size:11px;font-weight:800;color:#6ee7b7;text-transform:uppercase;letter-spacing:1px}
+.wf-mode-btns{display:flex;gap:6px;flex-wrap:wrap}
+.wf-mode-btn{background:#0e292e;border:1px solid #1c4b54;color:#a3cfc6;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s ease}
+.wf-mode-btn:hover{background:#153d45;color:#fff;border-color:#29796a}
+.wf-mode-btn.active{background:#249775;color:#fff;border-color:#32bc93;box-shadow:0 2px 8px rgba(36,151,117,.3)}
+.wf-mode-desc{font-size:12px;color:#85aba3;margin-left:auto;font-style:italic}
+
+/* Tutorial Walkthrough Box */
+.wf-tutorial-card{background:#f8faf8;border:1px solid #cfe2d7;border-radius:12px;padding:24px 26px;margin:20px 0 28px;box-shadow:0 4px 16px rgba(0,0,0,.03)}
+.wf-tutorial-card h4{margin:0 0 10px;color:#103c34;font-size:18px;font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;gap:8px}
+.wf-step-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:16px 0}
+.wf-step-item{background:#fff;border:1px solid #dbe8e0;border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.wf-step-tag{align-self:flex-start;background:#e1f5ec;color:#16654f;font-size:10px;font-weight:800;padding:2px 8px;border-radius:100px;text-transform:uppercase}
+.wf-step-item strong{color:#0e362e;font-size:14px}
+.wf-step-item p{margin:0;font-size:13px;color:#557870;line-height:1.5}
+
+/* Node Parent Badge */
+.wf-parent-badge{background:#113833;color:#86efac;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;border:1px solid #1d6152;font-family:monospace}
+
+
 

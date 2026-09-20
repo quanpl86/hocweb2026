@@ -547,18 +547,28 @@
 
     const DEFAULT_PRESETS = {
       home: [
-        { id: 'header', title: 'Site Header', tag: 'header', className: 'site-header', css: 'display: flex; justify-content: space-between;' },
-        { id: 'hero', title: 'Hero / Banner', tag: 'section', className: 'hero', css: 'display: flex; gap: 30px;' },
-        { id: 'search', title: 'Search Section', tag: 'section', className: 'container search-section', css: 'display: flex; justify-content: center;' },
-        { id: 'category', title: 'Category Grid (3 Cột)', tag: 'section', className: 'container content-section', css: 'display: grid; grid-template-columns: repeat(3, 1fr);' },
-        { id: 'courses', title: 'Course Cards (Grid 3 Cột)', tag: 'section', className: 'container content-section', css: 'display: grid; grid-template-columns: repeat(3, 1fr);' },
-        { id: 'about', title: 'About Section', tag: 'section', className: 'about-section', css: 'display: flex; align-items: center;' },
-        { id: 'notice', title: 'Notice / Promotion', tag: 'section', className: 'container notice-section', css: 'display: flex; justify-content: space-between;' },
-        { id: 'footer', title: 'Site Footer', tag: 'footer', className: 'site-footer', css: 'display: flex; justify-content: space-between;' }
+        { id: 'header', title: 'Site Header', tag: 'header', className: 'site-header', css: 'display: flex; justify-content: space-between;', parent: 'Trang' },
+        { id: 'hero', title: 'Hero / Banner', tag: 'section', className: 'hero', css: 'display: flex; gap: 30px;', parent: 'Trang' },
+        { id: 'search', title: 'Search Section', tag: 'section', className: 'container search-section', css: 'display: flex; justify-content: center;', parent: 'Trang' },
+        { id: 'category', title: 'Category Grid (3 Cột)', tag: 'section', className: 'container content-section', css: 'display: grid; grid-template-columns: repeat(3, 1fr);', parent: 'Trang' },
+        { id: 'courses', title: 'Course Cards (Grid 3 Cột)', tag: 'section', className: 'container content-section', css: 'display: grid; grid-template-columns: repeat(3, 1fr);', parent: 'Trang' },
+        { id: 'about', title: 'About Section', tag: 'section', className: 'about-section', css: 'display: flex; align-items: center;', parent: 'Trang' },
+        { id: 'notice', title: 'Notice / Promotion', tag: 'section', className: 'container notice-section', css: 'display: flex; justify-content: space-between;', parent: 'Trang' },
+        { id: 'footer', title: 'Site Footer', tag: 'footer', className: 'site-footer', css: 'display: flex; justify-content: space-between;', parent: 'Trang' }
       ],
       login: [
-        { id: 'login-layout', title: 'Login Layout (Full viewport)', tag: 'main', className: 'login-layout', css: 'min-height: 100vh; display: flex; align-items: center; justify-content: center;' },
-        { id: 'login-card', title: 'Login Card & Form (440px)', tag: 'div', className: 'login-card', css: 'width: 440px; display: flex; flex-direction: column;' }
+        { id: 'login-layout', title: 'Login Layout (Full viewport)', tag: 'main', className: 'login-layout', css: 'min-height: 100vh; display: flex; align-items: center; justify-content: center;', parent: 'Trang' },
+        { id: 'login-card', title: 'Login Card & Form (440px)', tag: 'div', className: 'login-card', css: 'width: 440px; display: flex; flex-direction: column;', parent: 'LoginLayout' }
+      ]
+    };
+
+    const SEMI_PRESETS = {
+      home: [
+        { id: 'header', title: 'Site Header', tag: 'header', className: 'site-header', css: 'display: flex; justify-content: space-between;', parent: 'Trang' },
+        { id: 'footer', title: 'Site Footer', tag: 'footer', className: 'site-footer', css: 'display: flex; justify-content: space-between;', parent: 'Trang' }
+      ],
+      login: [
+        { id: 'login-layout', title: 'Login Layout (Full viewport)', tag: 'main', className: 'login-layout', css: 'min-height: 100vh; display: flex; align-items: center; justify-content: center;', parent: 'Trang' }
       ]
     };
 
@@ -573,10 +583,14 @@
             title: compFound ? compFound.title : item,
             tag: compFound ? compFound.tag : 'div',
             className: item,
-            css: compFound ? compFound.css : ''
+            css: compFound ? compFound.css : '',
+            parent: 'Trang'
           };
         }
-        return { ...item };
+        return {
+          ...item,
+          parent: item.parent || 'Trang'
+        };
       });
     };
 
@@ -642,7 +656,8 @@
             title: comp.title,
             tag: comp.tag,
             className: comp.id,
-            css: comp.css
+            css: comp.css,
+            parent: comp.id === 'login-card' ? 'LoginLayout' : 'Trang'
           });
           saveState();
           renderCanvas();
@@ -657,6 +672,7 @@
     const inspTitle = $('#insp-block-title', studio);
     const inspTag = $('#insp-block-tag', studio);
     const inspClass = $('#insp-block-class', studio);
+    const inspParent = $('#insp-block-parent', studio);
     const inspCss = $('#insp-block-css', studio);
     const inspInsight = $('#insp-block-insight', studio);
     const inspDuplicateBtn = $('#insp-duplicate-btn', studio);
@@ -671,6 +687,7 @@
       if (inspTitle) inspTitle.value = block.title || '';
       if (inspTag) inspTag.value = (block.tag || 'div').toLowerCase();
       if (inspClass) inspClass.value = block.className || '';
+      if (inspParent) inspParent.value = block.parent || 'Trang';
       if (inspCss) inspCss.value = block.css || '';
       updateInsightText();
 
@@ -702,6 +719,7 @@
           currentBlocks[editingIndex].title = inspTitle.value;
           currentBlocks[editingIndex].tag = inspTag.value;
           currentBlocks[editingIndex].className = inspClass.value;
+          if (inspParent) currentBlocks[editingIndex].parent = inspParent.value;
           currentBlocks[editingIndex].css = inspCss.value;
           saveState();
           renderCanvas();
@@ -754,10 +772,15 @@
 
       if (currentBlocks.length === 0) {
         blocksContainer.innerHTML = `
-          <div class="wf-empty-hint">
-            <h4>Bàn vẽ hiện đang trống</h4>
-            <p>Hãy bấm vào các linh kiện ở cột bên trái để xếp bố cục, hoặc chọn "Nạp mẫu chuẩn".</p>
-            <button type="button" class="wf-tool-btn primary" id="empty-load-preset">🌟 Nạp mẫu chuẩn ${activePage === 'home' ? 'Home' : 'Login'}</button>
+          <div class="wf-empty-hint" style="padding:48px 24px; text-align:center;">
+            <h4>📄 Bàn vẽ hiện đang là Trang trắng</h4>
+            <p style="max-width:560px; margin:8px auto; color:#5c7e77; font-size:14px;">
+              Bạn đang ở chế độ vẽ từ trang trắng. Hãy quan sát wireframe mẫu, sau đó nhấp vào các linh kiện ở cột bên trái theo thứ tự: <strong>Header → Hero → Search → Category → Courses → Footer</strong>.
+            </p>
+            <div style="display:flex; justify-content:center; gap:10px; margin-top:16px;">
+              <button type="button" class="wf-tool-btn primary" id="empty-load-preset">🌟 Nạp mẫu chuẩn ${activePage === 'home' ? 'Home' : 'Login'}</button>
+              <button type="button" class="wf-tool-btn" id="empty-view-ref">🖼️ Xem ảnh mẫu</button>
+            </div>
           </div>`;
         const loadBtn = $('#empty-load-preset', blocksContainer);
         if (loadBtn) {
@@ -766,6 +789,10 @@
             saveState();
             renderCanvas();
           });
+        }
+        const refBtn = $('#empty-view-ref', blocksContainer);
+        if (refBtn && viewRefBtn) {
+          refBtn.addEventListener('click', () => viewRefBtn.click());
         }
         renderRequirements();
         return;
@@ -786,6 +813,7 @@
               <span style="color:#1d7e64; font-weight:bold;">[${index + 1}]</span> 
               <strong>${block.title || comp.title}</strong> 
               <span style="font-size:12px; color:#51756e;">(&lt;${block.tag || comp.tag}&gt;)</span>
+              <span class="wf-parent-badge">Cha: ${block.parent || 'Trang'}</span>
             </div>
             <div class="wf-node-specs">
               <span class="wf-css-pill">${block.css || comp.css}</span>
@@ -859,6 +887,58 @@
         renderCanvas();
       });
     });
+
+    // 3 Learning Modes Handlers
+    const mode1Btn = $('#wf-mode-1-btn', studio);
+    const mode2Btn = $('#wf-mode-2-btn', studio);
+    const mode3Btn = $('#wf-mode-3-btn', studio);
+    const modeDescText = $('#wf-mode-desc-text', studio);
+
+    const setMode = (mode) => {
+      [mode1Btn, mode2Btn, mode3Btn].forEach(b => {
+        if (!b) return;
+        const isM = b.dataset.mode === mode;
+        b.classList.toggle('active', isM);
+      });
+      if (mode === 'guided') {
+        if (modeDescText) modeDescText.textContent = 'Mức 1: Hiển thị hướng dẫn mẫu và khung bố cục đầy đủ để khám phá.';
+        userBlocks[activePage] = normalizeBlocks(DEFAULT_PRESETS[activePage], activePage);
+        saveState();
+        renderCanvas();
+      } else if (mode === 'semi') {
+        if (modeDescText) modeDescText.textContent = 'Mức 2: Khung sườn cơ bản có sẵn. Bạn cần kéo thêm các khối còn thiếu từ thư viện.';
+        userBlocks[activePage] = normalizeBlocks(SEMI_PRESETS[activePage], activePage);
+        saveState();
+        renderCanvas();
+      } else if (mode === 'blank') {
+        if (modeDescText) modeDescText.textContent = 'Mức 3: Bàn vẽ trắng hoàn toàn. Hãy tự phân tích đề và tự dựng các khối từ đầu.';
+        userBlocks[activePage] = [];
+        saveState();
+        renderCanvas();
+      }
+    };
+
+    if (mode1Btn) mode1Btn.addEventListener('click', () => setMode('guided'));
+    if (mode2Btn) mode2Btn.addEventListener('click', () => setMode('semi'));
+    if (mode3Btn) {
+      mode3Btn.addEventListener('click', () => {
+        if (confirm('Chuyển sang Mức 3 (Trang trắng hoàn toàn)? Bản vẽ hiện tại sẽ được làm mới để bạn tự thiết kế độc lập.')) {
+          setMode('blank');
+        }
+      });
+    }
+
+    // Blank canvas button
+    const blankBtn = $('#wf-blank-btn', studio);
+    if (blankBtn) {
+      blankBtn.addEventListener('click', () => {
+        if (confirm(`Bạn có muốn chuyển sang trang trắng để tự tay lắp ghép trang ${activePage === 'home' ? 'Home' : 'Login'} từ đầu?`)) {
+          userBlocks[activePage] = [];
+          saveState();
+          renderCanvas();
+        }
+      });
+    }
 
     const loadPresetBtn = $('#wf-load-preset-btn', studio);
     if (loadPresetBtn) {
@@ -979,7 +1059,7 @@
 
           svg += `  <g id="block-${idx}">\n`;
           svg += `    <rect x="${blockX}" y="${curY}" width="${blockW}" height="${blockH}" fill="#ffffff" stroke="#249775" stroke-width="1.5" stroke-dasharray="6,4" rx="6"/>\n`;
-          svg += `    <text x="${blockX + 16}" y="${curY + 26}" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#114a3c">[${idx + 1}] ${b.title || b.id} &lt;${b.tag || 'div'}&gt;</text>\n`;
+          svg += `    <text x="${blockX + 16}" y="${curY + 26}" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#114a3c">[${idx + 1}] ${b.title || b.id} &lt;${b.tag || 'div'}&gt; (Cha: ${b.parent || 'Trang'})</text>\n`;
           if (b.className) {
             svg += `    <text x="${blockX + 16}" y="${curY + 46}" font-family="monospace" font-size="12" fill="#527870">class: .${b.className}</text>\n`;
           }
@@ -1122,7 +1202,7 @@
 
           ctx.fillStyle = '#114a3c';
           ctx.font = 'bold 15px Arial, sans-serif';
-          ctx.fillText(`[${idx + 1}] ${b.title || comp.title} (<${b.tag || comp.tag}>)`, 55, curY + 28);
+          ctx.fillText(`[${idx + 1}] ${b.title || comp.title} (<${b.tag || comp.tag}>) - Cha: ${b.parent || 'Trang'}`, 55, curY + 28);
 
           ctx.fillStyle = '#658a82';
           ctx.font = 'italic 12px monospace';
@@ -1136,112 +1216,6 @@
         link.href = canvas.toDataURL('image/png');
         link.click();
       });
-    }
-
-    const toggleSketchBtn = $('#wf-toggle-sketch-btn', studio);
-    const sketchToolbar = $('#wf-sketch-toolbar', studio);
-    const sketchCanvas = $('#wf-sketch-canvas', studio);
-    const canvasContainer = $('#wf-canvas-container', studio);
-
-    let isSketching = false;
-    let drawing = false;
-    let sketchCtx = null;
-    let toolMode = 'pen';
-
-    if (sketchCanvas && canvasContainer) {
-      sketchCtx = sketchCanvas.getContext('2d');
-
-      const resizeCanvas = () => {
-        sketchCanvas.width = canvasContainer.clientWidth;
-        sketchCanvas.height = canvasContainer.clientHeight;
-      };
-      window.addEventListener('resize', resizeCanvas);
-      setTimeout(resizeCanvas, 300);
-
-      if (toggleSketchBtn && sketchToolbar) {
-        toggleSketchBtn.addEventListener('click', () => {
-          isSketching = !isSketching;
-          sketchToolbar.hidden = !isSketching;
-          sketchCanvas.classList.toggle('active', isSketching);
-          toggleSketchBtn.classList.toggle('active', isSketching);
-          toggleSketchBtn.innerHTML = isSketching ? '<span>✕</span> Tắt vẽ tay' : '<span>✏️</span> Bút vẽ tay';
-          resizeCanvas();
-        });
-      }
-
-      const modePen = $('#sketch-mode-pen', studio);
-      const modeEraser = $('#sketch-mode-eraser', studio);
-      const clearSketchBtn = $('#sketch-clear-canvas', studio);
-      const colorInput = $('#sketch-color', studio);
-      const sizeSelect = $('#sketch-size', studio);
-
-      if (modePen && modeEraser) {
-        modePen.addEventListener('click', () => {
-          toolMode = 'pen';
-          modePen.classList.add('active');
-          modeEraser.classList.remove('active');
-        });
-        modeEraser.addEventListener('click', () => {
-          toolMode = 'eraser';
-          modeEraser.classList.add('active');
-          modePen.classList.remove('active');
-        });
-      }
-
-      if (clearSketchBtn) {
-        clearSketchBtn.addEventListener('click', () => {
-          sketchCtx.clearRect(0, 0, sketchCanvas.width, sketchCanvas.height);
-        });
-      }
-
-      const getPos = (e) => {
-        const rect = sketchCanvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        return {
-          x: clientX - rect.left,
-          y: clientY - rect.top
-        };
-      };
-
-      const startDraw = (e) => {
-        if (!isSketching) return;
-        drawing = true;
-        const pos = getPos(e);
-        sketchCtx.beginPath();
-        sketchCtx.moveTo(pos.x, pos.y);
-      };
-
-      const moveDraw = (e) => {
-        if (!drawing || !isSketching) return;
-        e.preventDefault();
-        const pos = getPos(e);
-        const size = parseInt(sizeSelect ? sizeSelect.value : '4', 10);
-
-        if (toolMode === 'eraser') {
-          sketchCtx.clearRect(pos.x - size * 2, pos.y - size * 2, size * 4, size * 4);
-        } else {
-          sketchCtx.strokeStyle = colorInput ? colorInput.value : '#249775';
-          sketchCtx.lineWidth = size;
-          sketchCtx.lineCap = 'round';
-          sketchCtx.lineJoin = 'round';
-          sketchCtx.lineTo(pos.x, pos.y);
-          sketchCtx.stroke();
-        }
-      };
-
-      const endDraw = () => {
-        drawing = false;
-      };
-
-      sketchCanvas.addEventListener('mousedown', startDraw);
-      sketchCanvas.addEventListener('mousemove', moveDraw);
-      sketchCanvas.addEventListener('mouseup', endDraw);
-      sketchCanvas.addEventListener('mouseleave', endDraw);
-
-      sketchCanvas.addEventListener('touchstart', startDraw, { passive: false });
-      sketchCanvas.addEventListener('touchmove', moveDraw, { passive: false });
-      sketchCanvas.addEventListener('touchend', endDraw);
     }
 
     renderPalette();

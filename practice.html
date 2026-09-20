@@ -40,7 +40,7 @@
       <h2 id="stage-a-heading">P01–P05: Đọc đề, Phác thảo Wireframe &amp; Phân tích Cấu trúc</h2>
     </div>
 
-    <!-- P01: Requirements Overview -->
+    <!-- P01: Requirements Overview & Pedagogical Methodology -->
     <div class="practice-panel" style="margin-bottom:24px;">
       <span class="eyebrow">P01 / ĐỌC ĐỀ &amp; XÁC ĐỊNH YÊU CẦU</span>
       <h3>Yêu cầu sản phẩm website EduShop (Desktop 1100px)</h3>
@@ -56,10 +56,118 @@
         <span>[H] Footer (Flexbox)</span>
         <span>[I-L] Login Form (Căn giữa 440px)</span>
       </div>
+
+      <!-- METHODOLOGY FLOW BANNER -->
+      <div style="background:#eef7f2; border:1px solid #c2e2d1; border-radius:10px; padding:16px 20px; margin-top:20px;">
+        <div style="font-size:12px; font-weight:800; color:#17664f; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">🎯 Phương pháp thực hành thiết kế:</div>
+        <p style="margin:0; font-size:15px; font-weight:700; color:#0e362e;">
+          Xem mẫu → Phân tích bố cục → Vẽ từ trang trắng → Gán HTML/Class/Parent → Đối chiếu → Chỉnh sửa
+        </p>
+        <p style="margin:6px 0 0; font-size:13px; color:#476b63;">
+          <em>Lưu ý sư phạm:</em> Học sinh <strong>không vẽ tự do bằng bút như Paint</strong>. Bạn sẽ sử dụng các component có sẵn trong thư viện để lắp ghép thành khung wireframe hoàn chỉnh, tương tự như xây dựng bố cục bằng các khối lego kiến trúc.
+        </p>
+      </div>
+    </div>
+
+    <!-- P02 VISUAL TUTORIAL: HỌC SINH THỰC SỰ VẼ PHẦN HEADER NHƯ THẾ NÀO? -->
+    <div class="wf-tutorial-card">
+      <h4><span>💡</span> Ví dụ mẫu: Học sinh thực sự vẽ phần Header như thế nào?</h4>
+      <p style="margin:0 0 14px; font-size:14px; color:#4a6e65;">Trước khi vẽ toàn bộ trang, hãy cùng tìm hiểu 5 bước chuẩn để lắp ráp khu vực Header:</p>
+      
+      <div class="wf-step-grid">
+        <div class="wf-step-item">
+          <span class="wf-step-tag">Bước 1</span>
+          <strong>Quan sát wireframe mẫu</strong>
+          <p>Mẫu Header gồm Header bao ngoài, Container ở trong chứa Logo (trái) và Menu/Login (phải). Trả lời: <em>Nhóm nào nằm ngoài cùng? Logo và menu xếp ngang hay dọc?</em></p>
+        </div>
+        <div class="wf-step-item">
+          <span class="wf-step-tag">Bước 2</span>
+          <strong>Chọn component Header</strong>
+          <p>Từ thư viện component, nhấp <code>+ Header / Logo</code> để đưa khối Header vào Canvas ở đầu trang và định hình độ rộng toàn màn hình.</p>
+        </div>
+        <div class="wf-step-item">
+          <span class="wf-step-tag">Bước 3</span>
+          <strong>Thêm Container</strong>
+          <p>Đưa khối Container vào bên trong Header để giới hạn nội dung 1100px và tự căn giữa hai bên bằng <code>margin: 0 auto</code>.</p>
+        </div>
+        <div class="wf-step-item">
+          <span class="wf-step-tag">Bước 4</span>
+          <strong>Thêm Logo &amp; Navigation</strong>
+          <p>Đặt Logo ở bên trái, Navigation ở bên phải. Khối cha dùng Flexbox với <code>justify-content: space-between</code> để đẩy hai nhóm về hai đầu.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;">
+        <strong style="color:#0f3b33; font-size:13px; text-transform:uppercase; letter-spacing:.5px;">Bước 5: Gán thẻ HTML, Class và thiết lập Parent (Phần tử cha) qua Inspector:</strong>
+        <div class="table-wrap" style="margin:8px 0 0;">
+          <table>
+            <thead>
+              <tr>
+                <th>Đối tượng</th>
+                <th>Thẻ HTML (Semantic)</th>
+                <th>Class CSS</th>
+                <th>Phần tử cha (Parent)</th>
+                <th>Lý do thiết kế</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Header</strong></td>
+                <td><code>header</code></td>
+                <td><code>site-header</code></td>
+                <td><strong>Trang (Root)</strong></td>
+                <td>Thẻ ngữ nghĩa đầu trang, đổ nền tràn viền màn hình</td>
+              </tr>
+              <tr>
+                <td><strong>Container</strong></td>
+                <td><code>div</code></td>
+                <td><code>container header-content</code></td>
+                <td><strong>Header</strong></td>
+                <td>Khối gom nội dung giới hạn 1100px căn giữa, kích hoạt Flexbox</td>
+              </tr>
+              <tr>
+                <td><strong>Logo</strong></td>
+                <td><code>a</code></td>
+                <td><code>brand</code></td>
+                <td><strong>Container</strong></td>
+                <td>Liên kết về trang chủ chứa logo và tên thương hiệu EduShop</td>
+              </tr>
+              <tr>
+                <td><strong>Menu</strong></td>
+                <td><code>nav</code></td>
+                <td><code>main-nav</code></td>
+                <td><strong>Container</strong></td>
+                <td>Thẻ ngữ nghĩa gom các liên kết điều hướng chính</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:12px; color:#62857e; margin:6px 0 0;">
+          ⚠️ <strong>Lưu ý cốt lõi:</strong> Việc đặt các khối nằm bên trong nhau trên bản vẽ và thiết lập <strong>Parent</strong> là hai thao tác cần được kiểm tra riêng. Không nên mặc định rằng chỉ cần kéo một hình chữ nhật đè lên hình khác là cây HTML đã được tạo đúng.
+        </p>
+      </div>
     </div>
 
     <!-- P02 - P05: Wireframe Studio -->
     <div id="wireframe-studio-section" class="wireframe-studio-wrapper" aria-label="Bàn vẽ Wireframe tương tác">
+      
+      <!-- Learning Modes Bar -->
+      <div class="wf-mode-selector-bar">
+        <span class="wf-mode-label">⚡ Chọn mức thực hành:</span>
+        <div class="wf-mode-btns">
+          <button type="button" class="wf-mode-btn active" id="wf-mode-1-btn" data-mode="guided">
+            🟢 Mức 1: Có hướng dẫn (Lần đầu sử dụng)
+          </button>
+          <button type="button" class="wf-mode-btn" id="wf-mode-2-btn" data-mode="semi">
+            🟡 Mức 2: Hoàn thiện bản vẽ (Khung cơ bản)
+          </button>
+          <button type="button" class="wf-mode-btn" id="wf-mode-3-btn" data-mode="blank">
+            🔴 Mức 3: Tự thiết kế (Trang trắng độc lập)
+          </button>
+        </div>
+        <span class="wf-mode-desc" id="wf-mode-desc-text">Mức 1: Hiển thị hướng dẫn mẫu và khung bố cục đầy đủ để khám phá.</span>
+      </div>
+
       <div class="wf-header">
         <div class="wf-header-info">
           <div class="code-viewer-dots" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -73,14 +181,14 @@
           </div>
         </div>
         <div class="wf-header-actions">
+          <button type="button" id="wf-blank-btn" class="wf-tool-btn" title="Chuyển sang trang trắng để tự tay lắp ghép từ đầu">
+            <span>📄</span> Trang trắng
+          </button>
           <button type="button" id="wf-load-preset-btn" class="wf-tool-btn primary" title="Tải mẫu bố cục chuẩn theo đề bài EduShop">
             <span>🌟</span> Nạp mẫu chuẩn
           </button>
           <button type="button" id="wf-view-reference-btn" class="wf-tool-btn" title="Xem bản vẽ wireframe thiết kế chuẩn của EduShop">
             <span>🖼️</span> Xem ảnh mẫu
-          </button>
-          <button type="button" id="wf-toggle-sketch-btn" class="wf-tool-btn" title="Bật/tắt chế độ vẽ phác thảo tay lên canvas">
-            <span>✏️</span> Bút vẽ tay
           </button>
           <button type="button" id="wf-clear-btn" class="wf-tool-btn" title="Xóa bàn vẽ để tự xếp từ đầu">
             <span>🧹</span> Xóa làm mới
@@ -114,28 +222,6 @@
         <div id="wf-req-badges" class="req-badges"></div>
       </div>
 
-      <!-- Drawing toolbar -->
-      <div id="wf-sketch-toolbar" class="wf-sketch-toolbar" hidden>
-        <div class="sketch-tools-left">
-          <span class="tool-label">✏️ Chế độ vẽ tự do:</span>
-          <label class="sketch-color-picker"><input type="color" id="sketch-color" value="#249775"> Màu nét</label>
-          <label class="sketch-size-picker">
-            Cỡ nét:
-            <select id="sketch-size">
-              <option value="2">Mảnh (2px)</option>
-              <option value="4" selected>Vừa (4px)</option>
-              <option value="8">Đậm (8px)</option>
-            </select>
-          </label>
-          <button type="button" id="sketch-mode-pen" class="sketch-btn active">Bút vẽ</button>
-          <button type="button" id="sketch-mode-eraser" class="sketch-btn">Tẩy xóa</button>
-          <button type="button" id="sketch-clear-canvas" class="sketch-btn">Xóa nét vẽ</button>
-        </div>
-        <div class="sketch-tools-right">
-          <span class="sketch-tip">💡 Dùng chuột hoặc bút cảm ứng vẽ ghi chú, khoanh vùng trực tiếp lên khung wireframe</span>
-        </div>
-      </div>
-
       <!-- Main Studio Workspace -->
       <div class="wf-workspace">
         <aside class="wf-palette">
@@ -145,7 +231,7 @@
           </div>
           <div id="wf-component-list" class="component-list"></div>
           <div class="palette-hint">
-            💡 Nhấp vào biểu tượng <strong>[✎]</strong> trên mỗi khối để mở bảng <em>Inspector</em> (P04) tùy chỉnh thẻ HTML, class và nhận gợi ý sư phạm.
+            💡 Nhấp vào biểu tượng <strong>[✎]</strong> trên mỗi khối để mở bảng <em>Inspector</em> (P04) tùy chỉnh thẻ HTML, class, Parent và nhận gợi ý sư phạm.
           </div>
         </aside>
 
@@ -159,10 +245,49 @@
             </div>
           </div>
           <div class="wf-canvas-container" id="wf-canvas-container">
-            <canvas id="wf-sketch-canvas" class="wf-sketch-canvas"></canvas>
             <div id="wf-layout-blocks" class="wf-layout-blocks"></div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- GUIDELINES: THỨ TỰ DỰNG WIREFRAME HOME & LOGIN -->
+    <div class="practice-panel" style="margin-top:24px;">
+      <span class="eyebrow">QUY TRÌNH THỰC HIỆN / DỰNG TỪNG TRANG</span>
+      <h3>Thứ tự dựng Wireframe toàn bộ Home &amp; Login (Vùng lớn trước, nhỏ sau)</h3>
+      <div class="wf-step-grid">
+        <div class="wf-step-item">
+          <strong>Trang chủ (Home) — 8 Vùng:</strong>
+          <ol style="margin:6px 0 0 16px; padding:0; font-size:13px; color:#3e635b; line-height:1.6;">
+            <li><strong>HEADER:</strong> Logo + Menu điều hướng (Flexbox)</li>
+            <li><strong>HERO:</strong> Tiêu đề, CTA + Ảnh banner 2 cột</li>
+            <li><strong>SEARCH:</strong> Tiêu đề + Ô tìm kiếm + Nút [Tìm kiếm]</li>
+            <li><strong>CATEGORY:</strong> 3 Thẻ danh mục (CSS Grid)</li>
+            <li><strong>COURSES:</strong> 3 Thẻ khóa học (Dựng 1 card rồi dùng <em>Duplicate</em>)</li>
+            <li><strong>ABOUT:</strong> Giới thiệu nền tảng + Hình minh họa</li>
+            <li><strong>NOTICE:</strong> Thông báo ưu đãi + Nút xem chi tiết</li>
+            <li><strong>FOOTER:</strong> Thông tin bản quyền &amp; Liên hệ</li>
+          </ol>
+        </div>
+        <div class="wf-step-item">
+          <strong>Trang Đăng nhập (Login) — 3 Bước căn giữa:</strong>
+          <ol style="margin:6px 0 0 16px; padding:0; font-size:13px; color:#3e635b; line-height:1.6;">
+            <li><strong>Bước 1 · Login Layout:</strong> <code>main.login-layout</code> căn giữa toàn màn hình (100vh flexbox).</li>
+            <li><strong>Bước 2 · Login Card:</strong> Hộp thẻ <code>div.login-card</code> cố định 440px ở chính giữa.</li>
+            <li><strong>Bước 3 · Login Form:</strong> Logo EduShop → Tiêu đề H1 → Biểu mẫu <code>form.login-form</code> (Email/User, Password, Ghi nhớ, Quên mk, Nút đăng nhập 100% width).</li>
+          </ol>
+        </div>
+      </div>
+      
+      <!-- SẢN PHẨM HOÀN THÀNH CẦN NỘP -->
+      <div style="background:#f4fbf7; border-left:4px solid #249775; padding:14px 18px; border-radius:0 8px 8px 0; margin-top:16px;">
+        <strong style="color:#0f3d32;">📦 Sản phẩm hoàn thành cần nộp sau Chặng A:</strong>
+        <ul style="margin:6px 0 0 18px; padding:0; font-size:13px; color:#355c54; line-height:1.6;">
+          <li>Bản vẽ wireframe Home (PNG hoặc SVG)</li>
+          <li>Bản vẽ wireframe Login (PNG hoặc SVG)</li>
+          <li>Cây cấu trúc HTML, thẻ ngữ nghĩa, class và quan hệ cha–con (Parent)</li>
+          <li>File dữ liệu <code>wireframes-edushop.json</code> xuất từ Wireframe Studio.</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -431,13 +556,34 @@
             <input type="text" id="insp-block-class" placeholder="ví dụ: container hero-content">
           </label>
         </div>
-        <label class="insp-field">
-          <span>Chỉ dẫn CSS / Bố cục:</span>
-          <input type="text" id="insp-block-css" placeholder="ví dụ: display: flex; justify-content: space-between;">
-        </label>
+        <div class="insp-row">
+          <label class="insp-field">
+            <span>Phần tử cha (Parent):</span>
+            <select id="insp-block-parent">
+              <option value="Trang">Trang (Root / Body)</option>
+              <option value="Header">Header (header.site-header)</option>
+              <option value="Container">Container (div.container)</option>
+              <option value="Hero">Hero (section.hero)</option>
+              <option value="CategoryGrid">Category Grid (div.category-grid)</option>
+              <option value="ProductGrid">Product Grid (div.product-grid)</option>
+              <option value="AboutContent">About Content (div.about-content)</option>
+              <option value="LoginLayout">Login Layout (main.login-layout)</option>
+              <option value="LoginCard">Login Card (div.login-card)</option>
+              <option value="LoginForm">Login Form (form.login-form)</option>
+              <option value="Footer">Footer (footer.site-footer)</option>
+            </select>
+          </label>
+          <label class="insp-field">
+            <span>Chỉ dẫn CSS / Bố cục:</span>
+            <input type="text" id="insp-block-css" placeholder="ví dụ: display: flex; justify-content: space-between;">
+          </label>
+        </div>
         <div class="insp-insight-box">
           <div class="insight-label">💡 Lời khuyên sư phạm:</div>
           <p id="insp-block-insight" class="insight-text"></p>
+        </div>
+        <div style="font-size:11px; color:#85aba3; line-height:1.4; background:#071b1f; padding:8px 12px; border-radius:6px; border:1px dashed #1e4a52;">
+          ⚠️ <strong>Nhắc nhở:</strong> Xếp khối trên bàn vẽ và thiết lập <em>Parent</em> là hai thao tác riêng biệt để xây dựng đúng cây DOM HTML.
         </div>
         <div class="insp-actions">
           <button type="button" id="insp-duplicate-btn" class="btn secondary">⎘ Nhân bản khối</button>
